@@ -1,0 +1,56 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "taro/react",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "arrow-spacing": 2,
+    "camelcase": 2,
+    "comma-dangle": [2, "never"],
+    "comma-style": [2, "last"],
+    "curly": [2, "multi-line"],
+    "react/jsx-filename-extension": [0],
+    "quotes": [2, "single"],
+    "semi": ["2", "never"], // 强制不使用分号结尾
+    "no-empty-function": 1,
+    "react-native/no-inline-styles": 0,
+    "react/forbid-prop-types": 0,
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "prefer-promise-reject-2s": 0,
+    "react/no-array-index-key": 2,
+    "react/no-unused-state": 2,
+    "react/jsx-no-comment-textnodes": 1,
+    "react/jsx-no-duplicate-props": 2,
+    "react/jsx-no-target-blank": [1, {"enforceDynamicLinks": "always"}],
+    "react/jsx-no-undef": 2,
+    "react/jsx-props-no-multi-spaces": 1,
+    "react/jsx-tag-spacing": 1,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-wrap-multilines": 2,
+    "react-hooks/rules-of-hooks": 2
+  }
+}

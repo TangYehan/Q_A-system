@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7124787",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e502",
+      "unicode_decimal": 58626
+    },
+    {
+      "icon_id": "8123906",
+      "name": "举报",
+      "font_class": "jubao",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "9292181",
+      "name": "收 藏",
+      "font_class": "shoucang",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "10069449",
+      "name": "留言",
+      "font_class": "message",
+      "unicode": "e571",
+      "unicode_decimal": 58737
+    },
+    {
+      "icon_id": "14323297",
+      "name": "桃心",
+      "font_class": "taoxin",
+      "unicode": "e7ca",
+      "unicode_decimal": 59338
+    },
+    {
+      "icon_id": "14442915",
+      "name": "分 享",
+      "font_class": "fenxiang",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "16790781",
+      "name": "锤子",
+      "font_class": "chuizi",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}
