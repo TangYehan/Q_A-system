@@ -1,0 +1,121 @@
+.rank_page {
+  font-size: $fontSize;
+
+  .my_rank_msg {
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: center;
+    background-color: $grayBackground;
+
+    .my_score_title {
+      font-weight: 400;
+      font-size: 30px;
+    }
+
+    .my_score {
+      padding: 10px 0;
+      color: $themeColor;
+      font-size: 38px;
+    }
+
+    .level {
+      color: $grayWord;
+      font-size: 30px;
+    }
+  }
+
+  .rank_list {
+    padding: 10px 25px 50px;
+    box-shadow: 0 8px 8px $grayBackground;
+
+    .list_title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 2px solid $line;
+
+      .title_left {
+        display: flex;
+        align-items: center;
+
+        .school_rank {
+          position: relative;
+          padding-right: 30px;
+
+          &::after {
+            position: absolute;
+            right: 6px;
+            color: $grayWord;
+            content: '/';
+          }
+        }
+      }
+
+      .my_rank {
+        color: $themeColor;
+        font-weight: bold;
+      }
+    }
+
+    .rank_item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 10px 10px 0;
+
+      .item_left {
+        display: flex;
+        align-items: center;
+
+        .ranking_icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .user_head {
+          width: 80px;
+          height: 80px;
+          margin: 0 15px;
+          background-color: $grayBackground;
+          border-radius: 50%;
+        }
+
+        .name_level {
+          display: flex;
+          flex-direction: column;
+
+          .user_name {
+            margin-bottom: 6px;
+            color: $grayWord;
+          }
+        }
+      }
+
+      .item_right {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .user_score {
+          margin-bottom: 6px;
+          color: $grayWord;
+        }
+      }
+    }
+  }
+
+  .rank_explain {
+    padding: 30px;
+    box-shadow: 0 8px 8px $grayBackground;
+  }
+
+  .explain_detail {
+    margin-top: 10px;
+  }
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}

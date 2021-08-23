@@ -1,0 +1,24 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 2px solid $line;
+}
+
+.item_left {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
