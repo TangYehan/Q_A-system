@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
 import Taro from '@tarojs/taro'
@@ -8,6 +8,7 @@ import ThemeBotton from '../../components/ThemeButton/index'
 import NavigateItem from './components/navigateItem/index'
 
 import httpUtils from '../../utils/request/index'
+import {baseImgUrl} from '../../utils/request/http'
 
 import './index.scss'
 import volunteerIcon from '../../img/identity/volunteer.svg'
@@ -19,22 +20,43 @@ import rankIcon from '../../img/userInfo/rank.svg'
 import feedbackIcon from '../../img/userInfo/feedback.svg'
 import aboutIcon from '../../img/userInfo/about.svg'
 
-// interface accountInfo {
-//   userName: string
-//   college: string
-//   imgPath: string
-//   introduce: string
-//   questionCount: number
-//   role: number
-//   score: number
-//   solveCount: number
-//   agreeCount: number
-//   answerCount: number
-//   collectionCount: number
-// }
+interface stateProp {
+  userInfo: {accountId: number | string; college: string}
+  login: boolean
+}
 
-function Personal(props): JSX.Element {
-  const [accountInfo, setAccountInfo] = useState<any>()
+interface accountInfoProp {
+  userName: string
+  college: string
+  imgPath: string
+  introduce: string
+  questionCount: number
+  role: number
+  score: number
+  solveCount: number
+  agreeCount: number
+  answerCount: number
+  collectionCount: number
+}
+
+const initAccountInfo = {
+  userName: '',
+  college: '',
+  imgPath: '',
+  introduce: '',
+  questionCount: 0,
+  role: 0,
+  score: 0,
+  solveCount: 0,
+  agreeCount: 0,
+  answerCount: 0,
+  collectionCount: 0
+}
+
+function Personal(props: stateProp): JSX.Element {
+  const [accountInfo, setAccountInfo] =
+    useState<accountInfoProp>(initAccountInfo)
+
   useDidShow(() => {
     if (props.login) {
       const accountId = props.userInfo.accountId
@@ -54,11 +76,18 @@ function Personal(props): JSX.Element {
         })
     }
   })
+
+  const gotoEdit = () => {}
+
   return (
     <View className='personal_page'>
       <View className='personal_card'>
         <View className='base_info'>
-          <Image className='head_img' src=''></Image>
+          <Image
+            className='head_img'
+            src={
+              accountInfo.imgPath ? baseImgUrl + accountInfo.imgPath : ''
+            }></Image>
           <View className='intro'>
             <View className='name'>{accountInfo.userName}</View>
             <View className='intro_msg'>
@@ -84,7 +113,7 @@ function Personal(props): JSX.Element {
               </View>
               <View className='intro_item'>
                 <Image className='item_icon' src={collegeIcon}></Image>
-                <Text className='college'>{accountInfo.college}</Text>
+                <Text className='college'>{props.userInfo.college}</Text>
               </View>
               <View className='intro_item'>
                 <Image className='item_icon' src={levelIcon}></Image>
@@ -106,7 +135,9 @@ function Personal(props): JSX.Element {
         </View>
         <View className='relevant_info'>
           <View className='relevant_left'>
-            <View className='edit_btn'>编辑资料</View>
+            <View className='edit_btn' onClick={gotoEdit}>
+              编辑资料
+            </View>
             <View>积分：{accountInfo.score}</View>
           </View>
           <View className='relevant_right'>
@@ -151,7 +182,7 @@ function Personal(props): JSX.Element {
   )
 }
 
-export default connect(state => ({
+export default connect((state: stateProp) => ({
   login: state.login,
   userInfo: state.userInfo
 }))(Personal)

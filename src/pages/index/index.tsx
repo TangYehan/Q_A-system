@@ -4,7 +4,7 @@ import Taro from '@tarojs/taro'
 import {View} from '@tarojs/components'
 
 import changeLoginStatus from '../../redux/actions/login'
-import {setUserInfo} from 'src/redux/actions/userInfo'
+import {setUserInfo} from '../../redux/actions/userInfo'
 import httpUtils from '../../utils/request/index'
 import './index.scss'
 

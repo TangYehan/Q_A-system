@@ -2,6 +2,8 @@ import Taro from '@tarojs/taro'
 
 const baseUrl = 'https://xscqa.cqupt.edu.cn/question'
 
+export const baseImgUrl = 'https://xscqa.cqupt.edu.cn/question/img'
+
 const baseRequest = function (params, method = 'GET') {
   const {url, data} = params
   const contentType = 'application/json'
