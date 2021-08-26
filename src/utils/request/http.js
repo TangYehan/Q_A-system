@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 
-const baseUrl = 'https://xscqa.cqupt.edu.cn/question'
+export const baseUrl = 'https://xscqa.cqupt.edu.cn/question'
 
 export const baseImgUrl = 'https://xscqa.cqupt.edu.cn/question/img'
 
@@ -37,5 +37,5 @@ export const post = function (
   contentType = 'application/x-www-form-urlencoded'
 ) {
   const option = {url, data, contentType}
-  return intercept(option)
+  return intercept(option, 'post')
 }

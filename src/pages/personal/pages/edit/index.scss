@@ -1,0 +1,25 @@
+.edit_page {
+  padding: 25px;
+  font-size: $fontSize;
+
+  .user_img_area {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .user_img_box {
+    width: 222px;
+    height: 222px;
+    border-radius: 50%;
+  }
+
+  .change_img {
+    margin-top: 20px;
+    color: $themeColor;
+  }
+
+  .self_intro {
+    margin-bottom: 30px;
+    padding: 10px;
+  }
+}

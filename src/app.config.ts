@@ -7,7 +7,8 @@ export default {
     'pages/personal/index',
     'pages/personal/pages/about/index',
     'pages/personal/pages/feedback/index',
-    'pages/personal/pages/rank/index'
+    'pages/personal/pages/rank/index',
+    'pages/personal/pages/edit/index'
   ],
   window: {
     backgroundTextStyle: 'light',

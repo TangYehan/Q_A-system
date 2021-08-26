@@ -77,7 +77,13 @@ function Personal(props: stateProp): JSX.Element {
     }
   })
 
-  const gotoEdit = () => {}
+  const gotoEdit = () => {
+    Taro.navigateTo({
+      url: `/pages/personal/pages/edit/index?imagePath=${
+        accountInfo.imgPath
+      }&intro=${'accountInfo.introduce'}`
+    })
+  }
 
   return (
     <View className='personal_page'>

@@ -1,0 +1,16 @@
+.introduce_area {
+  width: calc(100vw - 74rpx);
+  height: 220px;
+  padding: 10px 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  border-top: 2rpx solid rgb(153, 153, 153);
+  border-bottom: 2rpx solid rgb(153, 153, 153);
+}
+
+.words_count {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px 25px;
+  color: var(--grayWord);
+}
