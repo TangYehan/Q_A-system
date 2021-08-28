@@ -7,7 +7,7 @@ import './index.scss'
 
 interface Props {
   myPlaceholder: string
-  value: string | undefined
+  value?: string | undefined
 }
 
 export default React.forwardRef((props: Props, ref) => {

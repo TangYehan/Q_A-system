@@ -60,11 +60,12 @@ function edit(props: stateProp): JSX.Element {
       }
       Taro.hideLoading()
       Taro.showToast({
-        icon: 'none',
-        title: '保存成功'
+        icon: 'success',
+        title: '保存成功',
+        duration: 1000
       })
 
-      Taro.navigateBack()
+      setTimeout(_ => Taro.navigateBack(), 1000)
     } catch (err) {}
   }
   return (
