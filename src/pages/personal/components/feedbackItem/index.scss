@@ -1,0 +1,78 @@
+@import '../../../../img/operate/iconfont.css';
+
+.feedback_content {
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 8px 8px $grayBackground;
+
+  .basic_inform {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+
+    .user_infor {
+      display: flex;
+      align-items: center;
+
+      .user_head,
+      .user_identity {
+        display: flex;
+        align-items: center;
+      }
+
+      .user_head_img {
+        width: 48px;
+        height: 48px;
+        margin-right: 15px;
+        background-color: rgb(220, 220, 238);
+        border-radius: 50%;
+      }
+
+      .user_identity {
+        margin-left: 20px;
+
+        .item_icon {
+          width: 43px;
+          height: 43px;
+        }
+
+        .user_identity_text {
+          color: $grayWord;
+        }
+      }
+    }
+  }
+
+  .item_content {
+    .content_words {
+      padding: 10rpx 0;
+    }
+
+    .img {
+      width: 100%;
+      height: 200px;
+      margin-right: 10px;
+    }
+  }
+
+  .agree_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 10px;
+
+    .agree {
+      color: rgb(255, 141, 26);
+    }
+
+    .disagree {
+      color: gray;
+    }
+
+    .iconfont {
+      padding-right: 10px;
+      font-size: 30px;
+    }
+  }
+}

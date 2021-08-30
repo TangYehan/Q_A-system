@@ -18,11 +18,19 @@ export default React.forwardRef((props: Props, ref) => {
       titleInput: titleIpt,
       detailInput: textArea.current.getText(),
       imgs: imgs.current.getpics()
-    })
+    }),
+    clear
   }))
+
   const titleInput = e => {
     const data = e.detail.value
     setTitleIpt(data)
+  }
+
+  const clear = _ => {
+    setTitleIpt('')
+    textArea.current.clear()
+    imgs.current.clear()
   }
   return (
     <View className=''>
@@ -30,6 +38,7 @@ export default React.forwardRef((props: Props, ref) => {
         placeholder='请输入反馈类型(功能，页面...)'
         className='title_ipt'
         onInput={titleInput}
+        value={titleIpt}
       />
       <MyTextarea
         myPlaceholder='好的建议会被采纳哟~  感谢您的支持'

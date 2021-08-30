@@ -1,0 +1,44 @@
+.rank_item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px 20px 0;
+
+  .item_left {
+    display: flex;
+    align-items: center;
+
+    .ranking_icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .user_head {
+      width: 80px;
+      height: 80px;
+      margin: 0 15px;
+      background-color: $grayBackground;
+      border-radius: 50%;
+    }
+
+    .name_level {
+      display: flex;
+      flex-direction: column;
+
+      .user_name {
+        margin-bottom: 6px;
+        color: $grayWord;
+      }
+    }
+  }
+
+  .item_right {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .user_score {
+      margin-bottom: 6px;
+      color: $grayWord;
+    }
+  }
+}

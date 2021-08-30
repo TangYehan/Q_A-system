@@ -1,61 +1,118 @@
-import React, {ReactElement, useState} from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
+import Taro from '@tarojs/taro'
+import {connect} from 'react-redux'
+
 import {View, Text, Image} from '@tarojs/components'
-import Title from '../../../../components/Title/index.tsx'
+import Title from '../../../../components/Title'
+import RankItem from '../../components/rankItem'
+import httpUtils from '../../../../utils/request'
+import {baseImgUrl} from '../../../../utils/request/http'
 import './index.scss'
 
 import rankIcon from '../../../../img/userInfo/rank.svg'
 import tipsIcon from '../../../../img/common/prompt.svg'
 import ranking1 from '../../../../img/rank/rank1.svg'
-// import ranking2 from '../../../../img/rank/rank2.svg'
-// import ranking3 from '../../../../img/rank/rank3.svg'
-// import ranking4 from '../../../../img/rank/rank4.svg'
-// import ranking5 from '../../../../img/rank/rank5.svg'
-// import ranking6 from '../../../../img/rank/rank6.svg'
+import ranking2 from '../../../../img/rank/rank2.svg'
+import ranking3 from '../../../../img/rank/rank3.svg'
+import ranking4 from '../../../../img/rank/rank4.svg'
+import ranking5 from '../../../../img/rank/rank5.svg'
+import ranking6 from '../../../../img/rank/rank6.svg'
 
-export default function index(): ReactElement {
-  const {activeRank, setActiveRank} = useState('allSchool')
-  const changeRank = (event: {currentTarget; target}): void => {
-    console.log(event)
+const rankingIcons = [
+  ranking1,
+  ranking2,
+  ranking3,
+  ranking4,
+  ranking5,
+  ranking6
+]
+
+function Rank(props: {accountId: string}): ReactElement {
+  const [rankType, setRankType] = useState(0)
+  const [rankList, setRankList] = useState([])
+  const [userMsg, setUserMsg] = useState<any>({})
+  const [img, setImg] = useState('')
+
+  useEffect(() => {
+    const data = {accountId: 1662901, type: 0}
+    getRankList(data)
+    getImg()
+  }, [])
+
+  const changeRank = (type: number) => {
+    if (type === rankType) return
+    setRankType(type)
+    getRankList({accountId: 1662901, type})
+  }
+
+  const getRankList = data => {
+    httpUtils
+      .getRankList(data)
+      .then(res => {
+        setRankList(JSON.parse(JSON.stringify(res.data.list)))
+        setUserMsg(JSON.parse(JSON.stringify(res.data.myData)))
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: err,
+          icon: 'none'
+        })
+      })
+  }
+
+  const getImg = () => {
+    httpUtils
+      .getImgs({type: 3})
+      .then(res => {
+        if (res.code !== 1) return Promise.reject()
+        setImg(res.data[0].url)
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: err,
+          icon: 'none'
+        })
+      })
   }
   return (
     <View className='rank_page'>
-      <View className='my_rank_msg'>
-        <View className='my_score_title'>成长总积分</View>
-        <View className='my_score'>999</View>
-        <View className='level'>段位：名扬四海</View>
+      <View className='my_score'>
+        <Image
+          src={img ? baseImgUrl + img : ''}
+          className='bg_img'
+          mode='aspectFill'></Image>
+        <View className='bg_text_container'>
+          <View className='bg_text'>
+            <View className='my_score_title'>成长总积分</View>
+            <View className='my_score_num'>{userMsg.score}</View>
+            <View className='my_score_level'>段位：名扬四海</View>
+          </View>
+        </View>
       </View>
       <View className='rank_list'>
         <View className='list_title'>
           <View className='title_left'>
             <Image src={rankIcon} className='icon'></Image>
             <Text
-              className='school_rank'
+              className={`school_rank ${rankType === 0 ? 'active' : ''}`}
               data-rank='allSchool'
-              onClick={changeRank}>
+              onClick={() => changeRank(0)}>
               全校总榜
             </Text>
-            <Text data-rank='volunteer' onClick={changeRank}>
+            <Text
+              data-rank={`volunteer ${rankType === 1 ? 'active' : ''}`}
+              onClick={() => changeRank(1)}>
               志愿者榜
             </Text>
           </View>
           <View>
-            No.<Text className='my_rank'>100</Text>
+            No.<Text className='my_rank'>{userMsg.rank}</Text>
           </View>
         </View>
-
-        <View className='rank_item'>
-          <View className='item_left'>
-            <Image src={ranking1} className='ranking_icon'></Image>
-            <Image src='' className='user_head'></Image>
-            <View className='name_level'>
-              <Text className='user_name'>唐椰涵</Text>
-              <Text>最强王者</Text>
-            </View>
-          </View>
-          <View className='item_right'>
-            <Text className='user_score'>总积分</Text>
-            <Text>999</Text>
-          </View>
+        <View>
+          {rankList.map((item, index) => (
+            <RankItem icon={rankingIcons[index]} userInfo={item} />
+          ))}
         </View>
       </View>
       <View className='rank_explain'>
@@ -67,3 +124,7 @@ export default function index(): ReactElement {
     </View>
   )
 }
+
+export default connect((state: any) => ({accountId: state.userInfo.accountId}))(
+  Rank
+)

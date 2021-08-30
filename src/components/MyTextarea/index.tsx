@@ -19,7 +19,8 @@ export default React.forwardRef((props: Props, ref) => {
 
   //暴露给父组件输入框内容
   useImperativeHandle(ref, () => ({
-    getText: () => currentText
+    getText: () => currentText,
+    clear: () => setCurrentText('')
   }))
 
   const textareaInput = e => {

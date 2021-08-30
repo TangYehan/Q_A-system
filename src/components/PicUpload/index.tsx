@@ -11,7 +11,8 @@ export default React.forwardRef((props: Props, ref) => {
   const [img, setImg] = useState<string[]>([])
   //暴露给父组件输入框内容
   useImperativeHandle(ref, () => ({
-    getpics: () => img
+    getpics: () => img,
+    clear: () => setImg([])
   }))
 
   const uploadPic = () => {

@@ -6,6 +6,7 @@ import './index.scss'
 interface Props {
   children: string
   icon: string
+  className?: string
 }
 
 export default function index(props: Props): ReactElement {

@@ -1,4 +1,21 @@
 .feedback_page {
   padding: 25px;
   font-size: $fontSize;
+
+  .submit_container {
+    padding-bottom: 30px;
+    box-shadow: 0 8px 8px $grayBackground;
+
+    .submitBtn {
+      margin-top: 20px;
+    }
+  }
+
+  .feedback_container {
+    margin-top: 40px;
+
+    .title {
+      margin-bottom: 20px;
+    }
+  }
 }

@@ -1,23 +1,11 @@
-import { Component } from 'react'
-import { View, Text } from '@tarojs/components'
-import './index.scss'
+import React, {ReactElement, useEffect} from 'react'
+import {View} from '@tarojs/components'
 
-export default class Index extends Component {
-  componentWillMount() {}
+interface Props {}
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  render() {
-    return (
-      <View className='index'>
-        <Text>资讯</Text>
-      </View>
-    )
-  }
+export default function index({}: Props): ReactElement {
+  useEffect(() => {
+    console.log(123)
+  }, [])
+  return <View className='index'>资讯</View>
 }
