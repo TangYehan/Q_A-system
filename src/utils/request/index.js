@@ -63,6 +63,25 @@ class Https {
    * 获取排行榜信息
    */
   getRankList = param => get('/account/showRank', param)
+
+  /**
+   * 获取科目
+   */
+  searchSubject = param => get('/subject/search', param)
+
+  /**
+   * 发布问题
+   */
+  submitQuestion = ({filePath = undefined, data}) => {
+    if (filePath)
+      return upLoadFile({url: '/question/addQuestion', filePath, data})
+    else
+      return post(
+        '/question/addQuestion',
+        data,
+        'application/x-www-form-urlencoded'
+      )
+  }
 }
 
 export default new Https()

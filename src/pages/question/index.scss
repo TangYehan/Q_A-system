@@ -1,1 +1,54 @@
+.add_question_page {
+  padding: 25px;
+  font-size: $fontSize;
 
+  .add {
+    position: relative;
+    padding: 0 0 0 55px;
+    color: $themeColor;
+    font-size: 38px;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      top: 50%;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      color: white;
+      line-height: 38rpx;
+      text-align: center;
+      background-color: $themeColor;
+      border-radius: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      content: '+';
+    }
+  }
+
+  .choosed_category {
+    display: inline-block;
+    margin-left: 40px;
+    padding: 15px 0;
+
+    .choosed_category_item {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      color: $themeColor;
+      font-weight: bold;
+      background-color: $grayBackground;
+      border-radius: 999rpx;
+    }
+  }
+
+  .ipt_container {
+    padding: 0 20px;
+
+    .btn {
+      margin-top: 80px;
+    }
+  }
+}

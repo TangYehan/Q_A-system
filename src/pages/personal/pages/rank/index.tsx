@@ -34,7 +34,7 @@ function Rank(props: {accountId: string}): ReactElement {
   const [img, setImg] = useState('')
 
   useEffect(() => {
-    const data = {accountId: 1662901, type: 0}
+    const data = {accountId: props.accountId, type: 0}
     getRankList(data)
     getImg()
   }, [])
@@ -42,7 +42,7 @@ function Rank(props: {accountId: string}): ReactElement {
   const changeRank = (type: number) => {
     if (type === rankType) return
     setRankType(type)
-    getRankList({accountId: 1662901, type})
+    getRankList({accountId: props.accountId, type})
   }
 
   const getRankList = data => {

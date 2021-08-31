@@ -17,7 +17,7 @@ const config = {
   },
   framework: 'react',
   sass: {
-    resource: ['src/styles/variable.scss']
+    resource: ['src/static/styles/variable.scss']
   },
   mini: {
     postcss: {

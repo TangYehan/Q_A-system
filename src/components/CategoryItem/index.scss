@@ -1,0 +1,115 @@
+.category_item_box {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 20px;
+  font-size: $fontSize;
+  box-shadow: 0 8px 8px $grayBackground;
+
+  .item_left {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    padding: 0 10px 0 0;
+    text-align: center;
+    border-right: 4px solid $line;
+
+    .text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .left_text_first {
+      color: $themeColor;
+      font-size: 22px;
+    }
+
+    .icon {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      background-color: $grayBackground;
+      border: 2rpx solid $themeColor;
+      border-radius: 20px;
+    }
+  }
+
+  .item_right {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 25px;
+
+    .number_g {
+      padding: 0 10px;
+      color: $themeColor;
+      font-size: 35px;
+      white-space: nowrap;
+    }
+
+    .unsolve_add {
+      margin-bottom: 10px;
+
+      .number_y {
+        padding: 0 10px;
+        color: orange;
+        font-size: 35px;
+        white-space: nowrap;
+      }
+    }
+
+    .intro_content {
+      position: relative;
+      width: 300px;
+
+      .intro_cut {
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      .intro_hide {
+        position: absolute;
+        width: 400px;
+        margin-top: 15px;
+        padding: 5px 10px;
+        background-color: white;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+
+        .hide_content {
+          position: relative;
+
+          &::before {
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-bottom: 15px solid white;
+            content: '';
+          }
+
+          &::after {
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            z-index: -1;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-bottom: 15px solid rgba(187, 185, 185, 0.2);
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}

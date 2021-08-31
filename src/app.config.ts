@@ -8,7 +8,8 @@ export default {
     'pages/personal/pages/about/index',
     'pages/personal/pages/feedback/index',
     'pages/personal/pages/rank/index',
-    'pages/personal/pages/edit/index'
+    'pages/personal/pages/edit/index',
+    'pages/question/pages/choose_category/index'
   ],
   window: {
     backgroundTextStyle: 'light',

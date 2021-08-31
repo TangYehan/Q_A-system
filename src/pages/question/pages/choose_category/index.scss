@@ -1,0 +1,28 @@
+.choose_category_page {
+  padding: 25px;
+  font-size: $fontSize;
+
+  .search_box {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid rgb(187, 184, 184);
+    border-radius: 5px;
+    box-shadow: 0 8px 8px $line;
+
+    .search_icon {
+      width: 45px;
+      height: 45px;
+      padding: 0 10px 0 0;
+    }
+  }
+
+  .add_btn {
+    padding: 15px 25px;
+    color: white;
+    white-space: nowrap;
+    background-color: $themeColor;
+    border-radius: 6px;
+  }
+}

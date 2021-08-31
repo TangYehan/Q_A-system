@@ -1,6 +1,6 @@
 import React, {ReactElement, useEffect, useState} from 'react'
 import {View, Image} from '@tarojs/components'
-import Title from '../../../../components/Title/index.tsx'
+import Title from '../../../../components/Title'
 
 import {baseImgUrl} from '../../../../utils/request/http'
 import httpUtils from '../../../../utils/request'
@@ -19,7 +19,10 @@ export default function index(): ReactElement {
   }, [])
   return (
     <View className='aboutApp_box'>
-      <Image src={baseImgUrl + img} className='image' mode='aspectFill'></Image>
+      <Image
+        src={img ? baseImgUrl + img : ''}
+        className='image'
+        mode='aspectFill'></Image>
       <View className='intro'>
         <Title icon={aboutIcon}>排行榜说明</Title>
         <View className='intro_content'>

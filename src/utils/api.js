@@ -24,7 +24,6 @@ export const chooseImg = function (
 }
 
 export const upLoadFile = function ({filePath, data, url}) {
-  console.log(filePath)
   return new Promise((resolve, reject) => {
     Taro.uploadFile({
       filePath: filePath,
