@@ -5,9 +5,11 @@ import './index.scss'
 
 import temp from '../../img/timg.jpg'
 interface Props {
+  categorayMsg: any
   classNameName?: string
   rightOperate?: ReactElement
-  categorayMsg: any
+  key?: any
+  onClick?: () => void
 }
 
 export default function index(props: Props): ReactElement {
@@ -29,7 +31,7 @@ export default function index(props: Props): ReactElement {
     setIsShowDetail(false)
   }
   return (
-    <View className='category_item_box'>
+    <View className='category_item_box' key={props.key}>
       <View className='item_left'>
         <Image
           className='icon'

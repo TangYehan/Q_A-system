@@ -82,6 +82,46 @@ class Https {
         'application/x-www-form-urlencoded'
       )
   }
+
+  /**
+   * 获取资讯列表
+   */
+  getMessageList = param => get('/news/listNews', param)
+
+  /**
+   * 获取资讯详情
+   */
+  getMessageDetail = param => get('/news/getNewsById', param)
+
+  /**
+   * 获取动态
+   */
+  getDynamic = param => get('/email/showDynamic', param)
+
+  /**
+   * 查看用户收藏/提出的问题
+   */
+  getAboutMyQuestion = param => get('/question/relatedQuestion', param)
+
+  /**
+   * 获取邀请回答
+   */
+  getInvitation = param => get('/email/showMyInvitation', param)
+
+  /**
+   * 获取背景图片
+   */
+  getImgs = param => get('/resource/listImgByType', param)
+
+  /**
+   * 获取课程信息
+   */
+  listSubjectByCollege = param => get('/subject/listSubjectByCollege', param)
+
+  /**
+   * 查询得到课程详细信息
+   */
+  getCouseList = param => get('/subject/search', param)
 }
 
 export default new Https()

@@ -1,0 +1,85 @@
+.invitation_card {
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 8px 8px $grayBackground;
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .item_head {
+      display: flex;
+      align-items: center;
+
+      .head_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+        background-color: $grayBackground;
+        border-radius: 50%;
+      }
+
+      .head_name {
+        display: flex;
+        flex-direction: column;
+        color: black;
+
+        .time {
+          margin-top: 10px;
+          color: $grayWord;
+        }
+      }
+    }
+  }
+
+  .question_content {
+    padding: 20px;
+    background-color: $grayBackground;
+
+    .content_left {
+      width: 100%;
+
+      .question_titile {
+        margin-bottom: 10px;
+        font-size: 32px;
+        line-height: 1.5em;
+
+        .category {
+          display: inline;
+          padding: 8px;
+          color: white;
+          font-size: 24px;
+          white-space: nowrap;
+          background-color: #8dba00;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+
+    .question_inform {
+      color: $grayWord;
+    }
+
+    .write_btn {
+      display: flex;
+      padding: 8px 12px;
+      color: white;
+      background-color: $themeColor;
+      border-radius: 999px;
+
+      .write_icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.question_list_page {
+  padding: 25px;
+  font-size: $fontSize;
+
+  .search_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: white;
+
+    .search_box_left {
+      display: flex;
+      flex: 1;
+      margin-right: 10px;
+      padding: 5px;
+      border: 2px solid rgb(187, 184, 184);
+      border-radius: 5px;
+      box-shadow: 0 8px 8px $line;
+
+      .search_icon {
+        width: 45px;
+        height: 45px;
+        padding: 0 10px 0 0;
+      }
+
+      .search_ipt {
+        flex: 1;
+      }
+    }
+  }
+}

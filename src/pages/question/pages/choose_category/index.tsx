@@ -13,7 +13,7 @@ import searchIcon from '../../../../img/common/search.svg'
 
 const initPageInfo = {
   currentPage: 1,
-  pageSize: 5,
+  pageSize: 7,
   totalRows: 0,
   totalPages: 1
 }
@@ -32,6 +32,10 @@ function AddCategory(props: any): ReactElement {
       pageSize: pageInfo.pageSize
     }
     getCategoryList(data)
+
+    return () => {
+      initCategoryList = []
+    }
   }, [])
 
   useReachBottom(() => {

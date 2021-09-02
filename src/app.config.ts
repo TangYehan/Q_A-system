@@ -9,7 +9,10 @@ export default {
     'pages/personal/pages/feedback/index',
     'pages/personal/pages/rank/index',
     'pages/personal/pages/edit/index',
-    'pages/question/pages/choose_category/index'
+    'pages/question/pages/choose_category/index',
+    'pages/message/pages/message_detail/index',
+    'pages/index/pages/show_more_course/index',
+    'pages/index/pages/question_list/index'
   ],
   window: {
     backgroundTextStyle: 'light',

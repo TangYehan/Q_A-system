@@ -1,0 +1,44 @@
+.message_item_box {
+  margin-bottom: 10px;
+  padding: 0 15px;
+  background-color: white;
+  box-shadow: 2px 8px 8px $grayBackground;
+
+  .message_title {
+    padding: 10px 0 15px;
+    overflow: hidden;
+    font-size: 32px;
+    letter-spacing: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+  }
+
+  .user_info {
+    display: flex;
+    align-items: center;
+
+    .user_head_img {
+      width: 45px;
+      height: 45px;
+      margin-right: 15px;
+      border-radius: 50%;
+    }
+  }
+
+  .content {
+    display: -webkit-box;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: $grayWord;
+  }
+}

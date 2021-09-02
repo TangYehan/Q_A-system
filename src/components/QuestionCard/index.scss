@@ -1,0 +1,88 @@
+.question_card {
+  padding: 20px;
+  box-shadow: 0 8px 8px $grayBackground;
+
+  .question_card_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 34px;
+
+    .title_left {
+      display: -webkit-box;
+      flex: 1;
+      margin-right: 10px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .solve {
+      color: $themeColor;
+    }
+
+    .unsolve {
+      color: red; //$unsolveColor;
+    }
+  }
+
+  .basic_inform {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    white-space: nowrap;
+
+    .user_infor {
+      display: flex;
+      align-items: centers;
+
+      .user_head,
+      .user_identity {
+        display: flex;
+        align-items: center;
+      }
+
+      .user_head_img {
+        width: 45px;
+        height: 45px;
+        margin-right: 15px;
+        background-color: $grayBackground;
+        border-radius: 50%;
+      }
+
+      .user_identity {
+        margin-left: 20px;
+
+        .user_identity_icon {
+          width: 43px;
+          height: 43px;
+        }
+
+        .user_identity_text {
+          color: $grayWord;
+        }
+      }
+    }
+  }
+
+  .answer_content {
+    display: -webkit-box;
+    margin: 10px 0;
+    overflow: hidden;
+    line-height: 40px;
+    letter-spacing: 2px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .question_card_footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    color: $grayWord;
+    white-space: nowrap;
+  }
+}

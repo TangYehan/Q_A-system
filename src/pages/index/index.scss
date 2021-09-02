@@ -1,1 +1,134 @@
+.index_page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  font-size: $fontSize;
+  background-color: $grayBackground;
 
+  .title {
+    padding: 20px 0;
+  }
+
+  .swiper {
+    // height: 32vh;
+
+    .img {
+      height: 100%;
+    }
+  }
+
+  .box {
+    margin: 0 0 15px 0;
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 6px;
+
+    .title_box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: 2px;
+      text-align: center;
+      background-color: white;
+
+      .current_college {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .course {
+      display: grid;
+      grid-template-columns: repeat(5, 20%);
+      padding: 0 20px;
+
+      .course_item {
+        display: flex;
+        /* background: content-box; */
+        flex-direction: column;
+        width: 100px;
+        padding: 15px;
+        text-align: center;
+
+        .course_item_img {
+          width: 100px;
+          height: 100px;
+          background-color: rgb(236, 236, 236);
+          border-radius: 20px;
+        }
+
+        .course_item_more_img {
+          display: flex;
+          width: 60px;
+          height: 60px;
+          padding: 19px;
+          border: 1px solid $themeColor;
+          border-radius: 20px;
+        }
+
+        .course_item_text {
+          padding: 10px 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .other_question_title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid $line;
+    }
+
+    .show {
+      width: 30px;
+      height: 30px;
+      padding: 0 10px;
+    }
+  }
+
+  .choose_college_mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    background-color: white;
+    opacity: 0.5;
+  }
+
+  .choose_college {
+    position: fixed;
+    top: 20vh;
+    left: 12.5vw;
+    z-index: 999;
+    width: 75vw;
+    height: 60vh;
+    overflow: scroll;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 8px 8px 16px $grayBackground;
+    opacity: 1;
+
+    .choose_college_title {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .college_item {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid $line;
+
+      .add_college {
+        color: $grayWord;
+      }
+    }
+  }
+}

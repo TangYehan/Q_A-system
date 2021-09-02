@@ -1,1 +1,24 @@
+.message_list_page {
+  padding: 25px;
+  font-size: $fontSize;
 
+  .search_box {
+    display: flex;
+    align-items: center;
+    padding: 10rpx;
+    background-color: white;
+    border: 2rpx solid rgb(187, 184, 184);
+    border-radius: 5rpx;
+    box-shadow: 0 8rpx 8rpx $line;
+  }
+
+  .search_icon {
+    width: 45rpx;
+    height: 45rpx;
+    padding: 0 10rpx 0 0;
+  }
+
+  .message_list_item {
+    margin-top: 10px;
+  }
+}

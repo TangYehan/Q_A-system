@@ -1,11 +1,93 @@
-import React, {ReactElement, useEffect} from 'react'
-import {View} from '@tarojs/components'
+import React, {ReactElement, useEffect, useRef, useState} from 'react'
+import Taro, {useReachBottom} from '@tarojs/taro'
 
-interface Props {}
+import httpUtils from '../../utils/request'
+import {View, Image, Input} from '@tarojs/components'
+import MessageItem from './components/MessageItem'
+import LoadMore from '../../components/LoadMore'
 
-export default function index({}: Props): ReactElement {
+import './index.scss'
+
+const initPageInfo = {
+  currentPage: 1,
+  pageSize: 7,
+  totalRows: 0,
+  totalPages: 1
+}
+let saveMessageList = []
+
+export default function index(): ReactElement {
+  const input = useRef<any>()
+  const timer = useRef<undefined | NodeJS.Timeout>(undefined)
+  const [messageList, setMessageList] = useState(saveMessageList)
+  const [pageInfo, setPageInfo] = useState(initPageInfo)
+
   useEffect(() => {
-    console.log(123)
+    const data = {
+      currentPage: pageInfo.currentPage,
+      pageSize: pageInfo.pageSize
+    }
+    getMessageList(data)
+
+    return () => {
+      saveMessageList = []
+    }
   }, [])
-  return <View className='index'>资讯</View>
+
+  useReachBottom(() => {
+    const {currentPage, totalPages, pageSize} = pageInfo
+    if (currentPage < totalPages) {
+      let data: Object
+      if (input.current)
+        data = {keyWords: input.current, currentPage: currentPage + 1, pageSize}
+      else data = {currentPage: currentPage + 1, pageSize}
+      getMessageList(data)
+    }
+  })
+
+  const getMessageList = data => {
+    httpUtils
+      .getMessageList(data)
+      .then(res => {
+        if (res.code !== 1) return Promise.reject('出错啦~')
+        saveMessageList = [...saveMessageList, ...res.data.list]
+        setMessageList(saveMessageList)
+        setPageInfo(JSON.parse(JSON.stringify(res.data.pageInfo)))
+      })
+      .catch(err => {
+        Taro.showToast({
+          icon: 'none',
+          title: err
+        })
+      })
+  }
+
+  const searchInput = e => {
+    if (timer.current) {
+      clearTimeout(timer.current)
+    }
+    timer.current = setTimeout(() => {
+      const value = e.detail.value.trim()
+      let data: object
+      if (value) data = {keyWords: value, currentPage: 1, pageSize: 7}
+      else data = {currentPage: 1, pageSize: 7}
+      saveMessageList = []
+      getMessageList(data)
+    }, 300)
+  }
+
+  return (
+    <View className='message_list_page'>
+      <View className='search_box'>
+        <Image src='/img/common/search.svg' className='search_icon'></Image>
+        <Input type='text' placeholder='搜索相关资讯' onInput={searchInput} />
+      </View>
+      <View className='message_list_item'>
+        {messageList.map((item: any) => (
+          <MessageItem msg={item} key={item.newsId} />
+        ))}
+      </View>
+      <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
+    </View>
+  )
 }

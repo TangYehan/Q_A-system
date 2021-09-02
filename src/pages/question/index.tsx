@@ -46,11 +46,11 @@ function AddQuestion(props): ReactElement {
         describes: detailInput,
         subjectId: props.choosedCategory.subjectId
       }
-      const res = imgs.length
+      let res = imgs.length
         ? await httpUtils.submitQuestion({data, filePath: imgs[0]})
         : await httpUtils.submitQuestion({data})
-      console.log(res)
-      if (res.code === 1) {
+      res = JSON.parse(res)
+      if (Number(res.code) === 1) {
         questionIpt.current.clear()
         props.setChooseCategory({subjectName: undefined, subjectId: undefined})
         Taro.showToast({
@@ -60,7 +60,6 @@ function AddQuestion(props): ReactElement {
         })
       } else throw '出错啦~'
     } catch (err) {
-      console.log(err)
       const errMsg = typeof err === 'string' ? err : '网络错误'
       Taro.showToast({
         icon: 'none',
