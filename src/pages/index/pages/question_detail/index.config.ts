@@ -1,0 +1,4 @@
+export default {
+  navigationBarTitleText: '问题详情',
+  enablePullDownRefresh: true
+}

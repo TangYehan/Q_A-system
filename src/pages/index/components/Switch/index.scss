@@ -1,0 +1,75 @@
+.i-switch {
+  position: relative;
+  display: inline-block;
+  width: 96px;
+  height: 48px;
+  line-height: 48px;
+  vertical-align: middle;
+  background-color: #ccc;
+  border: 2px solid #ccc;
+  border-radius: 48px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+
+  &::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 44px;
+    height: 44px;
+    background-color: #fff;
+    border-radius: 44px;
+    cursor: pointer;
+    transition: left 0.2s ease-in-out, width 0.2s ease-in-out;
+    content: '';
+  }
+
+  .i-switch-hide-input {
+    display: none;
+    opacity: 0;
+  }
+
+  .i-switch-inner {
+    position: absolute;
+    left: 50px;
+    color: #fff;
+    font-size: 24px;
+
+    .i-icon {
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
+
+.i-switch-checked:after {
+  left: 16px;
+}
+
+.i-switch-large {
+  width: 120px;
+}
+
+.i-switch-large.i-switch-checked:after {
+  left: 74px;
+}
+
+.i-switch-checked:after {
+  left: 50px;
+}
+
+.i-switch-checked {
+  background-color: $themeColor;
+  border-color: $themeColor;
+}
+
+.i-switch-checked .i-switch-inner {
+  left: 16px;
+}
+
+.i-switch-checked:after {
+  left: 50px;
+}

@@ -53,7 +53,6 @@ export default function index(): ReactElement {
   const searchInput = e => {
     if (timer.current) clearTimeout(timer.current)
     timer.current = setTimeout(() => {
-      console.log(123)
       const value = e.detail.value.trim()
       setInput(value)
       const data = value

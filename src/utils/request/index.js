@@ -122,6 +122,21 @@ class Https {
    * 查询得到课程详细信息
    */
   getCouseList = param => get('/subject/search', param)
+
+  /**
+   * 获取问题列表
+   */
+  getQuestionList = param => get('/question/search', param)
+
+  /**
+   * 根据问题Id获取问题详情
+   */
+  getQuestionDetailById = param => get('/question/getQuestionById', param)
+
+  /**
+   * 获取回答列表
+   */
+  getAnswerList = param => get('/answer/listAnswer', param)
 }
 
 export default new Https()

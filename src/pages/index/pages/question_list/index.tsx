@@ -5,22 +5,144 @@ import httpUtil from '../../../../utils/request'
 import {View, Input, Image, Navigator} from '@tarojs/components'
 import LoadMore from '../../../../components/LoadMore'
 import QuestionCard from '../../../../components/QuestionCard'
+import Switch from '../../components/Switch'
 
 import './index.scss'
 
 export default function index(): ReactElement {
   const initPageInfo = {
-    currentPage: 0,
+    currentPage: 1,
     pageSize: 7,
     totalPages: 0,
     totalRows: 0
   }
+
+  const [typeValue, setTypeValue] = useState(0)
   const [pageInfo, setPageInfo] = useState(initPageInfo)
   const [questionList, setQuestionList] = useState<any>([])
+  const [input, setInput] = useState('')
+  const timer = useRef<undefined | NodeJS.Timeout>(undefined)
+  const subjectInfo = useRef<any>(null)
+
   useEffect(() => {
     const {subjectId, subjectName} = Taro.getCurrentInstance().router.params
+    Taro.setNavigationBarTitle({
+      title: subjectName as string
+    })
+    const {currentPage, pageSize} = pageInfo
+    subjectInfo.current = {subjectId: Number(subjectId), subjectName}
+    const data =
+      subjectId == 'undefined'
+        ? {subjectName, state: typeValue, currentPage, pageSize}
+        : {subjectId, state: typeValue, currentPage, pageSize}
+    getQuestionList({data})
   }, [])
-  const searchInput = () => {}
+
+  useReachBottom(() => {
+    const {currentPage, pageSize, totalPages} = pageInfo
+    const {subjectId, subjectName} = subjectInfo.current
+    if (currentPage < totalPages) {
+      const data = input
+        ? subjectId == 'undefined'
+          ? {
+              subjectName,
+              state: typeValue,
+              currentPage: currentPage + 1,
+              pageSize,
+              keyWords: input
+            }
+          : {
+              subjectId,
+              state: typeValue,
+              currentPage: currentPage + 1,
+              pageSize,
+              keyWords: input
+            }
+        : subjectId == 'undefined'
+        ? {
+            subjectName,
+            state: typeValue,
+            currentPage: currentPage + 1,
+            pageSize
+          }
+        : {subjectId, state: typeValue, currentPage: currentPage + 1, pageSize}
+      getQuestionList({data})
+    }
+  })
+
+  const changeType = value => {
+    const {subjectId, subjectName} = subjectInfo.current
+    value = value ? 1 : 0
+    setTypeValue(value)
+    const data = input
+      ? subjectId == 'undefined'
+        ? {
+            subjectName,
+            state: value,
+            currentPage: 1,
+            pageSize: 7,
+            keyWords: input
+          }
+        : {
+            subjectId,
+            state: value,
+            currentPage: 1,
+            pageSize: 7,
+            keyWords: input
+          }
+      : subjectId == 'undefined'
+      ? {subjectName, state: value, currentPage: 1, pageSize: 7}
+      : {subjectId, state: value, currentPage: 1, pageSize: 7}
+    getQuestionList({data, clear: true})
+  }
+
+  const searchInput = e => {
+    if (timer.current) clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      const value = e.detail.value.trim()
+      setInput(value)
+      const {subjectId, subjectName} = subjectInfo.current
+      const data = value
+        ? subjectId == 'undefined'
+          ? {
+              state: typeValue,
+              currentPage: 1,
+              pageSize: 7,
+              keyWords: value,
+              subjectName
+            }
+          : {
+              subjectId,
+              state: typeValue,
+              currentPage: 1,
+              pageSize: 7,
+              keyWords: value
+            }
+        : subjectId == 'undefined'
+        ? {subjectName, state: typeValue, currentPage: 1, pageSize: 7}
+        : {subjectId, state: typeValue, currentPage: 1, pageSize: 7}
+      getQuestionList({data, clear: true})
+    }, 300)
+  }
+
+  const getQuestionList = ({data, clear = false}) => {
+    httpUtil
+      .getQuestionList(data)
+      .then(res => {
+        if (res.code !== 1) return Promise.reject('获取失败')
+        setPageInfo(JSON.parse(JSON.stringify(res.data.pageInfo)))
+        clear
+          ? setQuestionList([...res.data.list])
+          : setQuestionList([...questionList, ...res.data.list])
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: String(err),
+          icon: 'none'
+        })
+      })
+  }
+
   return (
     <View className='question_list_page'>
       <View className='search_box'>
@@ -33,19 +155,18 @@ export default function index(): ReactElement {
             onInput={searchInput}
           />
         </View>
-        <View>
-          <i-switch
-            value='{{state}}'
-            size='large'
-            bind:change='onChange'
-            slot='footer'>
-            <View slot='open'>已解</View>
-            <View slot='close'>未解</View>
-          </i-switch>
-        </View>
+        <Switch
+          openText='已解'
+          closeText='未解'
+          onChange={changeType}
+          value={typeValue}
+        />
       </View>
-      {questionList.map(item => (
-        <QuestionCard msg={item} />
+      {questionList.map((item: any) => (
+        <QuestionCard
+          msg={item}
+          key={'question_list_page' + item.question.questionId}
+        />
       ))}
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>

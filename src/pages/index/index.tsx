@@ -227,17 +227,17 @@ function Index(props): ReactElement {
             {professionalCourses.length ? (
               <View className='course'>
                 {professionalCourses.map((item: any) => (
-                  <View
+                  <Navigator
+                    url={`./pages/question_list/index?subjectName=${item.subjectName}&subjectId=${item.subjectId}`}
                     className='course_item'
                     key={item.subjectId}
                     data-id={item.subjectId}
-                    data-name={item.subjectName}
-                    onClick={gotoQuestionList}>
+                    data-name={item.subjectName}>
                     <Image
                       src={baseImgUrl + item.imgPath}
                       className='course_item_img'></Image>
                     <Text className='course_item_text'>{item.subjectName}</Text>
-                  </View>
+                  </Navigator>
                 ))}
                 <Navigator
                   className='course_item'

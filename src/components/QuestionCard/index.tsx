@@ -1,4 +1,5 @@
 import React, {ReactElement} from 'react'
+import Taro from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 
 import {baseImgUrl} from '../../utils/request/http'
@@ -11,6 +12,7 @@ import './index.scss'
 
 interface Props {
   className?: string
+  key: any
   subjectLable?: ReactElement
   msg: {
     [propName: string]: any
@@ -19,10 +21,14 @@ interface Props {
 
 export default function index(props: Props): ReactElement {
   const msg = props.msg
-  const gotoPersonalIndex = () => {}
+  const gotoQestionDetail = () => {
+    Taro.navigateTo({
+      url: `/pages/index/pages/question_detail/index?questionId=${msg.question.questionId}`
+    })
+  }
 
   return (
-    <View className='question_card'>
+    <View className='question_card' key={props.key} onClick={gotoQestionDetail}>
       <View className='question_card_title'>
         <View className='title_left'>
           {props.subjectLable ? props.subjectLable : ''}
@@ -41,7 +47,7 @@ export default function index(props: Props): ReactElement {
           {' '}
           <View className='basic_inform'>
             <View className='user_infor'>
-              <View className='user_head' onClick={gotoPersonalIndex}>
+              <View className='user_head'>
                 <Image
                   className='user_head_img'
                   src={
