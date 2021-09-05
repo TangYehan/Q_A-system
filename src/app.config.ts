@@ -13,7 +13,9 @@ export default {
     'pages/message/pages/message_detail/index',
     'pages/index/pages/show_more_course/index',
     'pages/index/pages/question_list/index',
-    'pages/index/pages/question_detail/index'
+    'pages/index/pages/question_detail/index',
+    'pages/index/pages/answer_detail/index',
+    'pages/index/pages/write_comment/index'
   ],
   window: {
     backgroundTextStyle: 'light',

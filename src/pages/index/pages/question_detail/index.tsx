@@ -149,6 +149,15 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
     })
   }
 
+  const gotoAnswerDetail = (answerId, currentIndex) => {
+    Taro.navigateTo({
+      url: `../answer_detail/index?answerId=${answerId}&questionDetail=${encodeURIComponent(
+        JSON.stringify(questionDetail)
+      )}&currentIndex=${currentIndex}&totalRows=${
+        pageInfo.totalRows
+      }&sortOrder=${answerListType}`
+    })
+  }
   return (
     <View className='question_detail_page'>
       <QuestionDetailCard
@@ -202,8 +211,15 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
             }`}></View>
         </View>
       </View>
-      {currentAnswerList.map(item => (
-        <AnswerCard answer={item} key={item.answerId} />
+      {currentAnswerList.map((item, index) => (
+        <AnswerCard
+          answer={item}
+          key={item.answerId}
+          onClick={() => {
+            console.log(112333)
+            gotoAnswerDetail(item.answerId, index)
+          }}
+        />
       ))}
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>

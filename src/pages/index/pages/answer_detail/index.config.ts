@@ -1,4 +1,3 @@
 export default {
-  navigationBarTitleText: '回答详情',
-  enablePullDownRefresh: true
+  navigationBarTitleText: '回答详情'
 }

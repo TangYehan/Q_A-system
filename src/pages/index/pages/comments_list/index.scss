@@ -1,0 +1,24 @@
+.comments_list_page {
+  padding: 25px;
+
+  .title {
+    position: relative;
+    padding: 20rpx;
+    line-height: 40rpx;
+    text-align: center;
+  }
+
+  .back {
+    position: absolute;
+    top: 20rpx;
+    right: 20rpx;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40rpx;
+    height: 40rpx;
+    background-color: var(--background);
+    border-radius: 50%;
+  }
+}

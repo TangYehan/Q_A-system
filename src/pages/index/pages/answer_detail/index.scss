@@ -1,0 +1,16 @@
+.answer_detail_page {
+  margin-bottom: 30px;
+  padding: 20px;
+  font-size: $fontSize;
+
+  .tip_title {
+    margin-top: 8px;
+    padding: 15px;
+  }
+
+  .show_comments {
+    padding: 20px;
+    color: $grayWord;
+    text-align: center;
+  }
+}

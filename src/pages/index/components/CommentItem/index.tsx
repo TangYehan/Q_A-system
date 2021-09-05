@@ -11,75 +11,57 @@ import '../../../../img/operate/iconfont.css'
 
 interface Props {
   key?: any
-  onClick?: any
-  answer: {
+  comment: {
     [propName: string]: any
   }
 }
 
 export default function index(props: Props): ReactElement {
-  const answer = props.answer ? props.answer : {}
-
+  const comment = props.comment ? props.comment : {}
   const gotoPersonal = e => {
     // e.stopPropagation()
     // console.log(123123)
   }
   return (
-    <View
-      className='answer_list_item'
-      key={props.key}
-      onClick={props.onClick ? props.onClick : ''}>
+    <View className='comment_item' key={props.key}>
       <View className='user_infor' onClick={gotoPersonal}>
         <View className='left_info'>
           <View className='user_head'>
             <Image
               className='user_head_img'
-              src={answer.userImg ? baseImgUrl + answer.userImg : ''}></Image>
-            <Text>{answer.userName}</Text>
+              src={comment.userImg ? baseImgUrl + comment.userImg : ''}></Image>
+            <Text>{comment.userName}</Text>
           </View>
           <View className='user_identity'>
             <Image
               className='user_identity_icon'
               src={
-                answer.role == 3
+                comment.role == 3
                   ? studentIcon
-                  : answer.role == 2
+                  : comment.role == 2
                   ? volunteerIcon
-                  : answer.role == 4
+                  : comment.role == 4
                   ? managerIcon
                   : teacherIcon
               }></Image>
             <Text className='user_identity_text'>
-              {answer.role == 3
+              {comment.role == 3
                 ? '学生'
-                : answer.role == 2
+                : comment.role == 2
                 ? '志愿者'
-                : answer.role == 4
+                : comment.role == 4
                 ? '管理员'
                 : '老师'}
             </Text>
           </View>
         </View>
         <View className='right_operate'>
-          <View className='status'>{answer.isAdopt ? '已采纳' : ''}</View>
           <Navigator className='iconfont icon-jubao'></Navigator>
         </View>
       </View>
-      <View className='answer_content'>
-        <View className='content_text'>{answer.content}</View>
-        {answer.contentImg && answer.contentImg !== '-1' ? (
-          <Image
-            className='content_img'
-            src={baseImgUrl + answer.contentImg}></Image>
-        ) : (
-          ''
-        )}
-      </View>
+      <View className='comment_content'>{comment.content}</View>
       <View className='footer'>
-        <View className='footer_left'>
-          {answer.agreeCount} 赞同 {answer.commentCount} 评论
-        </View>
-        <View className='footer_right'>{answer.answerTime}</View>
+        <View className='footer_right'>{comment.commentTime}</View>
       </View>
     </View>
   )

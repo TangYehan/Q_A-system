@@ -1,4 +1,4 @@
-.answer_list_item {
+.answer_detail {
   padding: 20px;
   box-shadow: 0 8px 8px $grayBackground;
 
@@ -57,20 +57,13 @@
 
   .answer_content {
     .content_text {
-      display: -webkit-box;
       margin: 12px 0;
-      overflow: hidden;
-      line-height: 40px;
-      letter-spacing: 2px;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
     }
 
     .content_img {
       width: 100%;
-      height: 200px;
       margin: 0 auto;
+      margin: 15px 0;
     }
   }
 
@@ -79,5 +72,46 @@
     justify-content: space-between;
     color: $grayWord;
     white-space: nowrap;
+  }
+
+  .footer_operate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    .footer_tips {
+      padding: 20px 0 10px;
+      color: $grayWord;
+    }
+
+    .operate {
+      display: flex;
+      color: $grayWord;
+
+      .operate_item {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+
+        .iconfont {
+          padding: 0 10px;
+          font-size: 50px;
+        }
+
+        .adopted {
+          color: rgb(255, 141, 26);
+        }
+
+        .agreed {
+          color: rgb(255, 87, 51);
+        }
+
+        .icon-message {
+          color: $themeColor;
+        }
+      }
+    }
   }
 }

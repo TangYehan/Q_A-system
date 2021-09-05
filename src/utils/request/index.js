@@ -137,6 +137,40 @@ class Https {
    * 获取回答列表
    */
   getAnswerList = param => get('/answer/listAnswer', param)
+
+  /**
+   * 获取回答详情
+   */
+  getAnswerDetail = param => get('/answer/getAnswerById', param)
+
+  /**
+   * 获取评论
+   */
+  getComment = param => get('/comment/listComment', param)
+
+  /**
+   * 采纳回答
+   */
+  acceptAnswer = param =>
+    post('/question/accept', param, 'application/x-www-form-urlencoded')
+
+  /**
+   * 赞同回答
+   */
+  agreeAnswer = param =>
+    post('/answer/agreeAnswer', param, 'application/x-www-form-urlencoded')
+
+  /**
+   * 取消赞同回答
+   */
+  cancelAgreeAnswer = param =>
+    post('/answer/cancelAgree', param, 'application/x-www-form-urlencoded')
+
+    /**
+     * 发布评论
+     */
+  submitComment = param => post('/comment/addComment', param,  "application/x-www-form-urlencoded")
+
 }
 
 export default new Https()
