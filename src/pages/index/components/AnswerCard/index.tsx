@@ -62,7 +62,13 @@ export default function index(props: Props): ReactElement {
         </View>
         <View className='right_operate'>
           <View className='status'>{answer.isAdopt ? '已采纳' : ''}</View>
-          <Navigator className='iconfont icon-jubao'></Navigator>
+          <Navigator
+            className='iconfont icon-jubao'
+            url={`../../pages/report/index?type=${1}&answerId=${
+              answer.answerId
+            }&content=${
+              answer.content ? answer.content : '[图片]'
+            }`}></Navigator>
         </View>
       </View>
       <View className='answer_content'>

@@ -8,6 +8,7 @@ import './index.scss'
 interface Props {
   myPlaceholder: string
   value?: string | undefined
+  className?: string
 }
 
 export default React.forwardRef((props: Props, ref) => {
@@ -36,7 +37,8 @@ export default React.forwardRef((props: Props, ref) => {
   }
 
   return (
-    <View className='my_textarea_box'>
+    <View
+      className={`my_textarea_box ${props.className ? props.className : ''}`}>
       <Textarea
         className='introduce_area'
         onInput={textareaInput}

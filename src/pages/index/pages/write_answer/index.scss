@@ -1,0 +1,16 @@
+.write_answer_page {
+  padding: 25px;
+  font-size: $fontSize;
+
+  .text_area {
+    margin-top: 20px;
+  }
+
+  .tips {
+    color: $themeColor;
+  }
+
+  .btn {
+    margin-top: 20px;
+  }
+}

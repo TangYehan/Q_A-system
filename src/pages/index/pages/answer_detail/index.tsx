@@ -3,13 +3,14 @@ import Taro, {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
 import httpUtil from '../../../../utils/request'
 
-import {View, Navigator} from '@tarojs/components'
+import {View, Navigator, Image} from '@tarojs/components'
 import QustionDetailCard from '../../components/QuestionDetailCard'
 import AnswerDetailCard from '../../components/AnswerDetailCard'
 import CommentItem from '../../components/CommentItem'
 
 import './index.scss'
 import '../../../../img/operate/iconfont.css'
+import showArrow from '../../../../img/common/show.svg'
 
 function AnswerDetail(props: any): ReactElement {
   const [questionDetail, setQuestionDetail] = useState<any>({})
@@ -17,24 +18,31 @@ function AnswerDetail(props: any): ReactElement {
   const [commentList, setCommentList] = useState<any>([])
   const [commentPageInfo, setCommentPageInfo] = useState<any>({})
   const answerInfo = useRef<any>({})
+
   useEffect(() => {
-    let {answerId, questionDetail, currentIndex, sortOrder, totalRows} =
-      Taro.getCurrentInstance().router.params
-    questionDetail = JSON.parse(decodeURIComponent(questionDetail as string))
-    setQuestionDetail(questionDetail)
-    answerInfo.current = {answerId, sortOrder, currentIndex, totalRows}
-    const accountId = 1662901
-    getAnswerDetail({answerId, accountId})
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      let {answerId, questionDetail, currentPage, sortOrder, totalRows} =
+        router.params
+      questionDetail = JSON.parse(decodeURIComponent(questionDetail as string))
+      setQuestionDetail(questionDetail)
+      answerInfo.current = {answerId, sortOrder, currentPage, totalRows}
+      const accountId = 1662901
+      getAnswerDetail({answerId, accountId})
+    }
     // getComment({answerId, currentPage: 1, pageSize: 2})
   }, [])
 
   useDidShow(() => {
-    let {answerId} = Taro.getCurrentInstance().router.params
-    getComment({
-      answerId: answerId,
-      currentPage: 1,
-      pageSize: 2
-    })
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      let {answerId} = router.params
+      getComment({
+        answerId: answerId,
+        currentPage: 1,
+        pageSize: 2
+      })
+    }
   })
 
   const getAnswerDetail = data => {
@@ -68,6 +76,49 @@ function AnswerDetail(props: any): ReactElement {
       )
   }
 
+  const gotoCommentList = () => {
+    Taro.navigateTo({
+      url: `../comments_list/index?answerId=${answerDetail.answerId}`
+    })
+  }
+
+  const showNext = async () => {
+    try {
+      const {currentPage, totalRows, sortOrder} = answerInfo.current
+      if (Number(currentPage) < Number(totalRows)) {
+        const data = {
+          accountId: 1662901,
+          currentPage: Number(currentPage) + 1,
+          pageSize: 1,
+          questionId: questionDetail.questionId,
+          sortOrder
+        }
+        const res = await httpUtil.getAnswerList(data)
+        if (res.code !== 1) throw '获取下一个回答失败'
+        const nextAnswerId = res.data.list[0].answerId
+        Taro.redirectTo({
+          url: `../answer_detail/index?answerId=${nextAnswerId}&questionDetail=${encodeURIComponent(
+            JSON.stringify(questionDetail)
+          )}&currentPage=${
+            Number(currentPage) + 1
+          }&totalRows=${totalRows}&sortOrder=${sortOrder}&questionId=${
+            questionDetail.questionId
+          }`
+        })
+      } else {
+        Taro.showToast({
+          title: '已经最后啦',
+          icon: 'none'
+        })
+      }
+    } catch (err) {
+      Taro.showToast({
+        title: String(err),
+        icon: 'none'
+      })
+    }
+  }
+
   return (
     <View className='answer_detail_page'>
       <QustionDetailCard questionDetail={questionDetail} />
@@ -83,14 +134,16 @@ function AnswerDetail(props: any): ReactElement {
         <CommentItem comment={item} key={'comment' + item.commentId} />
       ))}
       {answerDetail.commentCount > 2 ? (
-        <Navigator
-          className='show_comments'
-          url={`../comments_list/index?answerId${answerDetail.answerId}`}>
+        <View onClick={gotoCommentList} className='show_comments'>
           查看全部评论 {'>>'}{' '}
-        </Navigator>
+        </View>
       ) : (
         ''
       )}
+      <View className='next_botton' onClick={showNext}>
+        <Image src={showArrow} className='next_icon'></Image>
+        <View className='next_text'>下一个</View>
+      </View>
     </View>
   )
 }

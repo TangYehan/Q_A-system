@@ -56,7 +56,9 @@ export default function index(props: Props): ReactElement {
           </View>
         </View>
         <View className='right_operate'>
-          <Navigator className='iconfont icon-jubao'></Navigator>
+          <Navigator
+            className='iconfont icon-jubao'
+            url={`../../pages/report/index?type=2&commentId=${comment.commentId}&content=${comment.content}`}></Navigator>
         </View>
       </View>
       <View className='comment_content'>{comment.content}</View>

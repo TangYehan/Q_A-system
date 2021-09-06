@@ -1,4 +1,5 @@
 .answer_detail_page {
+  position: relative;
   margin-bottom: 30px;
   padding: 20px;
   font-size: $fontSize;
@@ -12,5 +13,32 @@
     padding: 20px;
     color: $grayWord;
     text-align: center;
+  }
+
+  .next_botton {
+    position: fixed;
+    top: 60vh;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+    text-align: center;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+
+    .next_icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .next_text {
+      font-size: 22px;
+    }
   }
 }

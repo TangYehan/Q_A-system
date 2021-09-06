@@ -15,7 +15,10 @@ export default {
     'pages/index/pages/question_list/index',
     'pages/index/pages/question_detail/index',
     'pages/index/pages/answer_detail/index',
-    'pages/index/pages/write_comment/index'
+    'pages/index/pages/write_comment/index',
+    'pages/index/pages/comments_list/index',
+    'pages/index/pages/report/index',
+    'pages/index/pages/write_answer/index'
   ],
   window: {
     backgroundTextStyle: 'light',

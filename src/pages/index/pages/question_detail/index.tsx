@@ -20,7 +20,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
     totalRows: 0
   }
 
-  const [questionDetail, SetQuestionDetail] = useState<any>()
+  const [questionDetail, SetQuestionDetail] = useState<any>({})
   const [isCollection, setIsCollection] = useState(false)
   const [answerListType, setAnswerListType] = useState(1) //0最新 1最热
   const [currentAnswerList, setCurrentAnswerList] = useState<any>([])
@@ -30,18 +30,21 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
   const _questionId = useRef<any>(undefined)
 
   useEffect(() => {
-    const {questionId} = Taro.getCurrentInstance().router.params
-    _questionId.current = questionId
-    const data = {accountId: 1662901, questionId}
-    const data2 = {
-      questionId: _questionId.current,
-      currentPage: pageInfo.currentPage,
-      pageSize: pageInfo.pageSize,
-      accountId: 1662901,
-      sortOrder: answerListType
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      const {questionId} = router.params
+      _questionId.current = questionId
+      const data = {accountId: 1662901, questionId}
+      const data2 = {
+        questionId: _questionId.current,
+        currentPage: pageInfo.currentPage,
+        pageSize: pageInfo.pageSize,
+        accountId: 1662901,
+        sortOrder: answerListType
+      }
+      getQuestionDetail(data)
+      getAnswerList(data2)
     }
-    getQuestionDetail(data)
-    getAnswerList(data2)
   }, [])
 
   useReachBottom(() => {
@@ -124,9 +127,29 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
       })
   }
 
-  const addIntoCollection = () => {
-    const current = !isCollection
-    setIsCollection(current)
+  const addIntoCollection = async () => {
+    try {
+      const current = !isCollection
+      setIsCollection(current)
+      const data = {
+        accountId: 1662901,
+        questionId: questionDetail.questionId
+      }
+      const newQuestionDetail = questionDetail
+      current
+        ? newQuestionDetail.collectionCount++
+        : newQuestionDetail.collectionCount--
+      SetQuestionDetail(newQuestionDetail)
+      const res = current
+        ? await httpUtil.CollectionProblem(data)
+        : await httpUtil.cancelCollectionProblem(data)
+      if (res.code !== 1) throw '失败啦'
+    } catch (err) {
+      Taro.showToast({
+        title: String(err),
+        icon: 'none'
+      })
+    }
   }
 
   const getAnswerList = data => {
@@ -153,9 +176,17 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
     Taro.navigateTo({
       url: `../answer_detail/index?answerId=${answerId}&questionDetail=${encodeURIComponent(
         JSON.stringify(questionDetail)
-      )}&currentIndex=${currentIndex}&totalRows=${
+      )}&currentPage=${currentIndex * 1 + 1}&totalRows=${
         pageInfo.totalRows
       }&sortOrder=${answerListType}`
+    })
+  }
+
+  const gotoWriteAnswer = () => {
+    Taro.navigateTo({
+      url: `../write_answer/index?questionDetail=${encodeURIComponent(
+        JSON.stringify(questionDetail)
+      )}`
     })
   }
   return (
@@ -178,7 +209,9 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
                   : '未解决'
                 : ''}
             </View>
-            <Navigator className='iconfont icon-jubao'></Navigator>
+            <Navigator
+              className='iconfont icon-jubao'
+              url={`../report/index?type=0&questionId=${questionDetail.questionId}&content=${questionDetail.title}`}></Navigator>
           </View>
         }
         footerOperate={
@@ -190,7 +223,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
                 }`}></View>
               <View>收藏问题，日后回顾</View>
             </View>
-            <ThemeButton>我来回答</ThemeButton>
+            <ThemeButton onClick={gotoWriteAnswer}>我来回答</ThemeButton>
           </View>
         }
       />
@@ -216,7 +249,6 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
           answer={item}
           key={item.answerId}
           onClick={() => {
-            console.log(112333)
             gotoAnswerDetail(item.answerId, index)
           }}
         />

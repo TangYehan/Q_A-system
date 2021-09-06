@@ -8,7 +8,7 @@ import LoadMore from '../../../../components/LoadMore'
 
 import './index.scss'
 
-export default function index({}: Props): ReactElement {
+export default function index(): ReactElement {
   const initPageInfo = {
     currentPage: 0,
     totalPages: 1,
@@ -20,14 +20,17 @@ export default function index({}: Props): ReactElement {
   const curAnswerId = useRef<any>()
 
   useEffect(() => {
-    let {answerId} = Taro.getCurrentInstance().router.params
-    curAnswerId.current = answerId
-    const data = {
-      answerId,
-      currentPage: 1,
-      pageSize: pageInfo.pageSize
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      let {answerId} = router.params
+      curAnswerId.current = answerId
+      const data = {
+        answerId,
+        currentPage: 1,
+        pageSize: pageInfo.pageSize
+      }
+      getCommetList(data)
     }
-    getCommetList(data)
   }, [])
 
   useReachBottom(() => {

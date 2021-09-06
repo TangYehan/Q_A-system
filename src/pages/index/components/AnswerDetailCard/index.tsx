@@ -34,9 +34,7 @@ export default function index(props: Props): ReactElement {
   }
 
   const handleAdopt = async () => {
-    console.log(12)
     if (answer.isAdopt) return
-    console.log(123)
     const newState = !answer.isAdopt
     try {
       const data = {
@@ -136,7 +134,9 @@ export default function index(props: Props): ReactElement {
         </View>
         <View className='right_operate'>
           {answer.isAdopt ? <View className='status'>已采纳</View> : ''}
-          <Navigator className='iconfont icon-jubao'></Navigator>
+          <Navigator
+            className='iconfont icon-jubao'
+            url={`../../pages/report/index?type=1&content=${answer.answerId}&content=${answer.content}`}></Navigator>
         </View>
       </View>
       <View className='answer_content'>

@@ -166,11 +166,78 @@ class Https {
   cancelAgreeAnswer = param =>
     post('/answer/cancelAgree', param, 'application/x-www-form-urlencoded')
 
-    /**
-     * 发布评论
-     */
-  submitComment = param => post('/comment/addComment', param,  "application/x-www-form-urlencoded")
+  /**
+   * 发布评论
+   */
+  submitComment = param =>
+    post('/comment/addComment', param, 'application/x-www-form-urlencoded')
 
+  /**
+   * 收藏问题
+   */
+  CollectionProblem = param =>
+    post('/question/followQuestion', param, 'application/x-www-form-urlencoded')
+
+  /**
+   * 取消收藏问题
+   */
+  cancelCollectionProblem = param =>
+    post('/question/cancelFollow', param, 'application/x-www-form-urlencoded')
+
+  /**
+   * 举报问题
+   */
+  reportQuestion = ({filePath = undefined, data}) => {
+    if (filePath)
+      return upLoadFile({url: '/question/reportQuestion', filePath, data})
+    else
+      return post(
+        '/question/reportQuestion',
+        data,
+        'application/x-www-form-urlencoded'
+      )
+  }
+
+  /**
+   * 举报回答
+   */
+  reportAnswer = ({filePath = undefined, data}) => {
+    if (filePath)
+      return upLoadFile({url: '/answer/reportAnswer', filePath, data})
+    else
+      return post(
+        '/answer/reportAnswer',
+        data,
+        'application/x-www-form-urlencoded'
+      )
+  }
+
+  /**
+   * 举报评论
+   */
+  reportComment = ({filePath = undefined, data}) => {
+    if (filePath)
+      return upLoadFile({url: '/comment/reportComment', filePath, data})
+    else
+      return post(
+        '/comment/reportComment',
+        data,
+        'application/x-www-form-urlencoded'
+      )
+  }
+
+  /**
+   * 写回答
+   */
+  submitAnswer = ({filePath = undefined, data}) => {
+    if (filePath) return upLoadFile({url: '/answer/addAnswer', filePath, data})
+    else
+      return post(
+        '/answer/addAnswer',
+        data,
+        'application/x-www-form-urlencoded'
+      )
+  }
 }
 
 export default new Https()

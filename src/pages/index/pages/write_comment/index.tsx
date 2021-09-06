@@ -13,9 +13,12 @@ function WriteComment(props: any): ReactElement {
   const currentAnswerId = useRef<any>(undefined)
   const content = useRef<any>()
   useEffect(() => {
-    const {answerId, answerUser} = Taro.getCurrentInstance().router.params
-    currentAnswerId.current = answerId
-    SetAswerUser(answerUser)
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      const {answerId, answerUser} = router.params
+      currentAnswerId.current = answerId
+      SetAswerUser(answerUser)
+    }
   }, [])
 
   const submit = async () => {
