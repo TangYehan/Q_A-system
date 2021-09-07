@@ -18,7 +18,10 @@ import invitationIcon from '../../img/email/write.svg'
 import collectionIcon from '../../img/email/collection.svg'
 import myquestionIcon from '../../img/email/myquestion.svg'
 
-function Email(props: {accountId: number | string}): ReactElement {
+function Email(props: {
+  accountId: number | string
+  isLogin: boolean
+}): ReactElement {
   const initPageInfo = {
     currentPage: 0,
     pageSize: 5,
@@ -38,7 +41,7 @@ function Email(props: {accountId: number | string}): ReactElement {
   const myQuestionPageInfo = useRef(initPageInfo)
   const invitationPageInfo = useRef(initPageInfo)
   const collectionPageInfo = useRef(initPageInfo)
-  const isLogin = useRef(false)
+  const isLogin = useRef<any>(undefined)
 
   const topBarConfig = [
     {
@@ -68,14 +71,24 @@ function Email(props: {accountId: number | string}): ReactElement {
   ]
 
   useDidShow(() => {
-    console.log(123)
-    if (!isLogin.current && props.accountId) {
+    if (!isLogin.current && props.isLogin) {
       isLogin.current = true
       Taro.startPullDownRefresh()
     } else return
   })
 
   useEffect(() => {
+    //首次到该页面时检测
+    if (isLogin.current === undefined) {
+      isLogin.current = props.isLogin
+      if (!props.isLogin) {
+        Taro.showToast({
+          title: '未登录',
+          icon: 'none'
+        })
+        return
+      }
+    }
     switch (currentType) {
       case 'dynamic':
         if (dynamicList.length === 0) {
@@ -183,8 +196,7 @@ function Email(props: {accountId: number | string}): ReactElement {
   }
 
   const getDynamicList = (clear = false) => {
-    console.log(props.accountId)
-    if (!props.accountId) return
+    if (!props.isLogin) return
     const data = {
       type: 1,
       accountId: props.accountId,
@@ -214,7 +226,7 @@ function Email(props: {accountId: number | string}): ReactElement {
   }
 
   const getCollectionList = (clear = false) => {
-    if (!props.accountId) return
+    if (!props.isLogin) return
     const data = {
       relatedType: 2,
       accountId: props.accountId,
@@ -246,7 +258,7 @@ function Email(props: {accountId: number | string}): ReactElement {
   }
 
   const getInvitationList = (clear = false) => {
-    if (!props.accountId) return
+    if (!props.isLogin) return
     const data = {
       accountId: props.accountId,
       currentPage: invitationPageInfo.current.currentPage + 1,
@@ -278,7 +290,7 @@ function Email(props: {accountId: number | string}): ReactElement {
   }
 
   const getMyQuestionList = (clear = false) => {
-    if (!props.accountId) return
+    if (!props.isLogin) return
     const data = {
       relatedType: 1,
       accountId: props.accountId,
@@ -363,5 +375,6 @@ function Email(props: {accountId: number | string}): ReactElement {
 }
 
 export default connect((state: any) => ({
-  accountId: state.userInfo.accountId
+  accountId: state.userInfo.accountId,
+  isLogin: state.login
 }))(Email)

@@ -22,7 +22,7 @@ import aboutIcon from '../../img/userInfo/about.svg'
 
 interface stateProp {
   userInfo: {accountId: number | string; college: string}
-  login: boolean
+  isLogin: boolean
 }
 
 interface accountInfoProp {
@@ -58,7 +58,7 @@ function Personal(props: stateProp): JSX.Element {
     useState<accountInfoProp>(initAccountInfo)
 
   useDidShow(() => {
-    if (props.login) {
+    if (props.isLogin) {
       const accountId = props.userInfo.accountId
       httpUtils
         .getAccountById({accountId})
@@ -68,9 +68,8 @@ function Personal(props: stateProp): JSX.Element {
           setAccountInfo(JSON.parse(JSON.stringify(res.data)))
         })
         .catch(err => {
-          const errMsg = typeof err === 'string' ? err : '网络繁忙'
           Taro.showToast({
-            title: errMsg,
+            title: String(err),
             icon: 'none'
           })
         })
@@ -78,6 +77,11 @@ function Personal(props: stateProp): JSX.Element {
   })
 
   const gotoEdit = () => {
+    if (!props.isLogin)
+      return Taro.showToast({
+        title: '未登录',
+        icon: 'none'
+      })
     Taro.navigateTo({
       url: `/pages/personal/pages/edit/index?imagePath=${
         accountInfo.imgPath
@@ -182,13 +186,13 @@ function Personal(props: stateProp): JSX.Element {
         </NavigateItem>
       </View>
       <View className='btn_area'>
-        <ThemeBotton>去登陆</ThemeBotton>
+        <ThemeBotton>{props.isLogin ? '退出登录' : '去登陆'}</ThemeBotton>
       </View>
     </View>
   )
 }
 
-export default connect((state: stateProp) => ({
-  login: state.login,
+export default connect((state: any) => ({
+  isLogin: state.login,
   userInfo: state.userInfo
 }))(Personal)

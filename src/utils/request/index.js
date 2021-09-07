@@ -238,6 +238,11 @@ class Https {
         'application/x-www-form-urlencoded'
       )
   }
+
+  /**
+   * 获取所有学院
+   */
+  getAllCollege = param => get('/subject/listAllCollege')
 }
 
 export default new Https()

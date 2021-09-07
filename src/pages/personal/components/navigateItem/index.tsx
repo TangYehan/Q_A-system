@@ -3,15 +3,22 @@ import Taro from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import arrowIcon from '../../../../img/common/show.svg'
 import './index.scss'
+import {connect} from 'react-redux'
 
 interface Props {
   children: string
   icon: string
   url: string
+  isLogin?: boolean
 }
-export default function index(props: Props): ReactElement {
+function Nav(props: Props): ReactElement {
   const {icon, url, children} = props
   const navigateTo = function () {
+    if (!props.isLogin)
+      return Taro.showToast({
+        title: '未登录',
+        icon: 'none'
+      })
     Taro.navigateTo({
       url
     })
@@ -26,3 +33,5 @@ export default function index(props: Props): ReactElement {
     </View>
   )
 }
+
+export default connect((state: any) => ({isLogin: state.login}))(Nav)

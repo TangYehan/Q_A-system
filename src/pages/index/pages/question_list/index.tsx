@@ -25,17 +25,27 @@ export default function index(): ReactElement {
   const subjectInfo = useRef<any>(null)
 
   useEffect(() => {
-    const {subjectId, subjectName} = Taro.getCurrentInstance().router.params
-    Taro.setNavigationBarTitle({
-      title: subjectName as string
-    })
-    const {currentPage, pageSize} = pageInfo
-    subjectInfo.current = {subjectId: Number(subjectId), subjectName}
-    const data =
-      subjectId == 'undefined'
-        ? {subjectName, state: typeValue, currentPage, pageSize}
-        : {subjectId, state: typeValue, currentPage, pageSize}
-    getQuestionList({data})
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      let {subjectId, subjectName} = router.params
+      Taro.setNavigationBarTitle({
+        title: subjectName as string
+      })
+      const {currentPage, pageSize} = pageInfo
+      subjectInfo.current = {
+        subjectId:
+          String(subjectId) === 'undefined'
+            ? Number(subjectId)
+            : String(subjectId),
+        subjectName
+      }
+      const data =
+        String(subjectId) === 'undefined'
+          ? {subjectName, state: typeValue, currentPage, pageSize}
+          : {subjectId, state: typeValue, currentPage, pageSize}
+      console.log(data)
+      getQuestionList({data})
+    }
   }, [])
 
   useReachBottom(() => {
@@ -43,7 +53,7 @@ export default function index(): ReactElement {
     const {subjectId, subjectName} = subjectInfo.current
     if (currentPage < totalPages) {
       const data = input
-        ? subjectId == 'undefined'
+        ? subjectId === 'undefined'
           ? {
               subjectName,
               state: typeValue,
@@ -58,7 +68,7 @@ export default function index(): ReactElement {
               pageSize,
               keyWords: input
             }
-        : subjectId == 'undefined'
+        : subjectId === 'undefined'
         ? {
             subjectName,
             state: typeValue,

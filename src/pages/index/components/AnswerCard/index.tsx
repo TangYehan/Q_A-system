@@ -76,6 +76,7 @@ export default function index(props: Props): ReactElement {
         {answer.contentImg && answer.contentImg !== '-1' ? (
           <Image
             className='content_img'
+            mode='aspectFill'
             src={baseImgUrl + answer.contentImg}></Image>
         ) : (
           ''

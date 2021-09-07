@@ -12,7 +12,7 @@ import './index.scss'
 
 interface Props {
   className?: string
-  key: any
+  key?: any
   subjectLable?: ReactElement
   msg: {
     [propName: string]: any

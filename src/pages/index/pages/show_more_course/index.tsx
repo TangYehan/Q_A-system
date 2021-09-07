@@ -23,17 +23,20 @@ export default function index(): ReactElement {
   const timer = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(() => {
-    const {college} = Taro.getCurrentInstance().router.params
-    console.log(college)
-    const {currentPage, pageSize} = pageInfo
-    let data
-    if (college) {
-      data = {currentPage: currentPage + 1, pageSize, college}
-      setCollege(college)
-    } else {
-      data = {currentPage: currentPage + 1, pageSize}
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      const {college} = router.params
+      console.log(college)
+      const {currentPage, pageSize} = pageInfo
+      let data
+      if (college) {
+        data = {currentPage: currentPage + 1, pageSize, college}
+        setCollege(college)
+      } else {
+        data = {currentPage: currentPage + 1, pageSize}
+      }
+      getCourse({data})
     }
-    getCourse({data})
   }, [])
 
   useReachBottom(() => {

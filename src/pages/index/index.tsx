@@ -1,6 +1,6 @@
 import React, {useEffect, ReactElement, useState} from 'react'
 import {connect} from 'react-redux'
-import Taro from '@tarojs/taro'
+import Taro, {usePullDownRefresh} from '@tarojs/taro'
 
 import {
   View,
@@ -32,40 +32,56 @@ function Index(props): ReactElement {
   const [collegeList, setCollegeList] = useState([])
   const [chooseCollege, setChooseCollege] = useState(false)
   const [otherDetail, setOtherDetail] = useState<any>({})
-  const [currentCollege, setCurrentCollege] = useState('经济管理学院')
+  const [currentCollege, setCurrentCollege] = useState('')
 
   useEffect(() => {
-    // httpUtils
-    //   .getUserInfo({uniqueId: 'SLVWBTXNLPEL1629454771237'})
-    //   .then(res => {
-    //     if (res.code !== 1 || res.data === null) {
-    //       Taro.clearStorage()
-    //       return Promise.reject('请登录')
-    //     }
-    //     props.changeLoginStatus()
-    //     props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
-    //     Taro.setStorageSync('accountId', res.data.accountId)
-    //     Taro.setStorageSync('college', res.data.college)
-    //     if (res.data.loginScore !== 0) {
-    //       Taro.showToast({
-    //         title: `签到成功，积分+${res.data.loginScore}`,
-    //         icon: 'none'
-    //       })
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     const errMsg = typeof err === 'string' ? err : '网络繁忙'
-    //     Taro.showToast({
-    //       title: errMsg,
-    //       icon: 'none',
-    //       duration: 2000,
-    //       mask: true
-    //     })
-    //   })
+    httpUtils
+      .getUserInfo({uniqueId: 'SLVWBTXNLPEL1629454771237'})
+      .then(res => {
+        if (res.code !== 1 || res.data === null) {
+          Taro.clearStorage()
+          return Promise.reject('请登录')
+        }
+
+        props.changeLoginStatus()
+        props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
+        Taro.setStorageSync('accountId', res.data.accountId)
+        Taro.setStorageSync('college', res.data.college)
+        setCurrentCollege(res.data.college)
+
+        if (res.data.loginScore !== 0) {
+          Taro.showToast({
+            title: `签到成功，积分+${res.data.loginScore}`,
+            icon: 'none'
+          })
+        }
+        return Promise.all(
+          [
+            getSwiper(),
+            getBasicSubject(),
+            listSubjectByCollege(res.data.college)
+          ].map(item =>
+            item.catch(err => {
+              Taro.showToast({title: String(err), icon: 'none'})
+            })
+          )
+        )
+      })
+      .then(res => {
+        setIsLoading(false)
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: String(err),
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+      })
   }, [])
 
-  useEffect(() => {
+  //下拉刷新
+  usePullDownRefresh(() => {
     Promise.all(
       [
         getSwiper(),
@@ -79,9 +95,11 @@ function Index(props): ReactElement {
       )
     ).then(res => {
       setIsLoading(false)
+      Taro.stopPullDownRefresh()
     })
-  }, [])
+  })
 
+  //获取轮播图
   const getSwiper = () => {
     return new Promise((resolve, reject) => {
       httpUtils
@@ -97,10 +115,11 @@ function Index(props): ReactElement {
     })
   }
 
+  //获取基础课程
   const getBasicSubject = () => {
     return new Promise((resolve, reject) => {
       httpUtils
-        .listSubjectByCollege({college: '基础课程'})
+        .listSubjectByCollege({college: '基础学科'})
         .then(res => {
           if (res.code !== 1) return Promise.reject('获取基础课程失败')
           let {data} = res
@@ -116,10 +135,11 @@ function Index(props): ReactElement {
     })
   }
 
+  //获取对应学院的专业课程
   const listSubjectByCollege = collegeName => {
     return new Promise((resolve, reject) => {
       httpUtils
-        .listSubjectByCollege({college: '经济管理学院'})
+        .listSubjectByCollege({college: collegeName})
         .then(res => {
           if (res.code !== 1) return Promise.reject('获取专业课程失败')
           let {data} = res
@@ -135,15 +155,41 @@ function Index(props): ReactElement {
     })
   }
 
-  const gotoQuestionList = () => {}
+  const showAllCollege = () => {
+    if (!props.isLogin) {
+      Taro.showToast({
+        title: '未登录',
+        icon: 'none'
+      })
+      return
+    }
+    if (collegeList.length === 0) {
+      httpUtils
+        .getAllCollege()
+        .then(res => {
+          if (res.code !== 1) return Promise.reject('获取课程失败')
+          setCollegeList(JSON.parse(JSON.stringify(res.data)))
+        })
+        .catch(err =>
+          Taro.showToast({
+            title: String(err),
+            icon: 'none'
+          })
+        )
+    }
+    setChooseCollege(true)
+  }
 
-  const showMore = () => {}
+  const cancelMask = () => {
+    setChooseCollege(false)
+  }
 
-  const showAllCollege = () => {}
-
-  const cancelMask = () => {}
-
-  const changeCollege = () => {}
+  const changeCollege = (e, collegeName) => {
+    e.stopPropagation()
+    setCurrentCollege(collegeName)
+    listSubjectByCollege(collegeName)
+    setChooseCollege(false)
+  }
 
   return (
     <View className='index_page'>
@@ -189,27 +235,29 @@ function Index(props): ReactElement {
             {basicCourses.length ? (
               <View className='course'>
                 {basicCourses.map((item: any) => (
-                  <View
+                  <Navigator
+                    url={`./pages/question_list/index?subjectName=${item.subjectName}&subjectId=${item.subjectId}`}
+                    hoverClass='none'
                     className='course_item'
                     key={item.subjectId}
                     data-id={item.subjectId}
-                    data-name={item.subjectName}
-                    onClick={gotoQuestionList}>
+                    data-name={item.subjectName}>
                     <Image
                       src={baseImgUrl + item.imgPath}
                       className='course_item_img'></Image>
                     <Text className='course_item_text'>{item.subjectName}</Text>
-                  </View>
+                  </Navigator>
                 ))}
-                <View
+                <Navigator
+                  hoverClass='none'
                   className='course_item'
-                  onClick={showMore}
+                  url={`./pages/show_more_course/index?college=基础学科`}
                   data-type='basic'>
                   <Image
                     src={showMoreIcon}
                     className='course_item_more_img'></Image>
                   <Text className='course_item_text'>更多</Text>
-                </View>
+                </Navigator>
               </View>
             ) : (
               ''
@@ -228,6 +276,7 @@ function Index(props): ReactElement {
               <View className='course'>
                 {professionalCourses.map((item: any) => (
                   <Navigator
+                    hoverClass='none'
                     url={`./pages/question_list/index?subjectName=${item.subjectName}&subjectId=${item.subjectId}`}
                     className='course_item'
                     key={item.subjectId}
@@ -240,6 +289,7 @@ function Index(props): ReactElement {
                   </Navigator>
                 ))}
                 <Navigator
+                  hoverClass='none'
                   className='course_item'
                   url={`./pages/show_more_course/index?college=${currentCollege}`}>
                   <Image
@@ -254,14 +304,13 @@ function Index(props): ReactElement {
           </View>
 
           <View className='box'>
-            <View
+            <Navigator
+              hoverClass='none'
               className='other_question_title'
-              data-id='{{undefined}}'
-              data-name='其他疑难'
-              onClick={gotoQuestionList}>
+              url={`./pages/question_list/index?subjectName=其他疑难&subjectId=${undefined}`}>
               <Title icon={titleIcon}>其他疑难</Title>
               <Image src={showArrow} className='show'></Image>
-            </View>
+            </Navigator>
             {otherDetail.question ? <QuestionCard msg={otherDetail} /> : ''}
           </View>
         </View>
@@ -276,9 +325,11 @@ function Index(props): ReactElement {
               <View
                 className='college_item'
                 key={item.collegeName}
-                data-collegename={item.collegeName}
-                onClick={changeCollege}>
-                <View>{item.collegeNam}</View>
+                data-name='13123'
+                onClick={e => {
+                  changeCollege(e, item.collegeName)
+                }}>
+                <View>{item.collegeName}</View>
                 <View className='add_college'> + </View>
               </View>
             ))}
@@ -291,7 +342,7 @@ function Index(props): ReactElement {
   )
 }
 
-export default connect(state => ({isLogin: state.login}), {
+export default connect((state: any) => ({isLogin: state.login}), {
   changeLoginStatus,
   setUserInfo
 })(Index)

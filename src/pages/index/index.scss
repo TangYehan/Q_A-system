@@ -111,8 +111,8 @@
     height: 60vh;
     overflow: scroll;
     background-color: white;
+    border: 5px solid $grayBackground;
     border-radius: 30px;
-    box-shadow: 8px 8px 16px $grayBackground;
     opacity: 1;
 
     .choose_college_title {

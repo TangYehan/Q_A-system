@@ -16,9 +16,10 @@ function AddQuestion(props): ReactElement {
   const delCurrentCategory = () => {
     props.setChooseCategory({subjectName: undefined, subjectId: undefined})
   }
+
   const submit = async () => {
     try {
-      if (!props.accountId) throw '请登录'
+      if (!props.isLogin) throw '请登录'
       const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
       if (!titleInput || !detailInput) {
         Taro.showToast({
@@ -60,20 +61,30 @@ function AddQuestion(props): ReactElement {
         })
       } else throw '出错啦~'
     } catch (err) {
-      const errMsg = typeof err === 'string' ? err : '网络错误'
       Taro.showToast({
         icon: 'none',
-        title: errMsg
+        title: String(err)
       })
     }
   }
 
+  const gotoChooseCategory = () => {
+    if (!props.isLogin)
+      return Taro.showToast({
+        title: '请登录',
+        icon: 'none'
+      })
+
+    Taro.navigateTo({
+      url: './pages/choose_category/index'
+    })
+  }
   return (
     <View className='add_question_page'>
       <View>
-        <Navigator url='./pages/choose_category/index' className='add'>
+        <View onClick={gotoChooseCategory} className='add'>
           请添加问题类别
-        </Navigator>
+        </View>
         <View className='choosed_category'>
           {props.choosedCategory.subjectName ? (
             <View className='choosed_category_item'>
@@ -100,7 +111,8 @@ function AddQuestion(props): ReactElement {
 export default connect(
   (state: any) => ({
     choosedCategory: state.choosedCategory,
-    accountId: state.userInfo.accountId
+    accountId: state.userInfo.accountId,
+    isLogin: state.login
   }),
   {
     setChooseCategory
