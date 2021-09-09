@@ -57,9 +57,12 @@ function WriteAnswer(props: {accountId: string | number}): ReactElement {
         title: '发布成功',
         icon: 'success'
       })
+      let pages = Taro.getCurrentPages() // 获取以后的页面栈
+      let prevPage = pages[pages.length - 2]
+      prevPage.options = Object.assign({shouldRefresh: true}, prevPage.options)
       setTimeout(() => {
         Taro.navigateBack()
-      }, 1500)
+      }, 1000)
     } catch (err) {
       Taro.showToast({
         title: String(err),

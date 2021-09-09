@@ -3,7 +3,6 @@ import {View, Text, Image} from '@tarojs/components'
 import {baseImgUrl} from '../../utils/request/http'
 import './index.scss'
 
-import temp from '../../img/timg.jpg'
 interface Props {
   categorayMsg: any
   classNameName?: string

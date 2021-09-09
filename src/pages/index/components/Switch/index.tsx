@@ -1,11 +1,11 @@
-import React, {ReactElement, useState} from 'react'
-import {View, Input} from '@tarojs/components'
+import {ReactElement, useState} from 'react'
+import {View} from '@tarojs/components'
 import './index.scss'
 
 interface Props {
   openText: string
   closeText: string
-  value: string | boolean
+  value: string | boolean | number
   onChange: (value) => void
 }
 

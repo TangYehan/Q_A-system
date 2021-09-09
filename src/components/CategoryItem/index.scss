@@ -63,6 +63,7 @@
     .intro_content {
       position: relative;
       width: 300px;
+      min-width: 100px;
 
       .intro_cut {
         display: -webkit-box;

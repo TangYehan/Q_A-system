@@ -6,7 +6,10 @@ import MyTextarea from '../MyTextarea'
 import PicUpload from '../PicUpload'
 import './index.scss'
 
-interface Props {}
+interface Props {
+  titlePlaceholder?: string
+  textPlaceholder?: string
+}
 
 export default React.forwardRef((props: Props, ref) => {
   const [titleIpt, setTitleIpt] = useState<string>('')
@@ -35,15 +38,12 @@ export default React.forwardRef((props: Props, ref) => {
   return (
     <View className=''>
       <Input
-        placeholder='请输入反馈类型(功能，页面...)'
+        placeholder={props.titlePlaceholder}
         className='title_ipt'
         onInput={titleInput}
         value={titleIpt}
       />
-      <MyTextarea
-        myPlaceholder='好的建议会被采纳哟~  感谢您的支持'
-        ref={textArea}
-      />
+      <MyTextarea myPlaceholder={props.textPlaceholder} ref={textArea} />
       <View className='tips'>有时候一张图片胜过千言万语！</View>
       <PicUpload ref={imgs} />
     </View>

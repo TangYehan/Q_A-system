@@ -35,7 +35,7 @@ function Email(props: {
   const [invitationList, setInvitationList] = useState<any>([])
   const [currentPageInfo, setCurrentPageInfo] = useState({
     currentPage: 0,
-    totalPages: 1
+    totalPages: 0
   })
   const dynamicPageInfo = useRef(initPageInfo)
   const myQuestionPageInfo = useRef(initPageInfo)

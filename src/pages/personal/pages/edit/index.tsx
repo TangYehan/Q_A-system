@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useRef} from 'react'
+import React, {ReactElement, useEffect, useState, useRef} from 'react'
 import Taro from '@tarojs/taro'
 import {connect} from 'react-redux'
 
@@ -20,12 +20,19 @@ interface stateProp {
   }
 }
 
-function edit(props: stateProp): JSX.Element {
-  const {imagePath: propImg, intro: propIntro} =
-    Taro.getCurrentInstance().router.params
-  const [imgPath, setImgPath] = useState(baseImgUrl + propImg)
-  const [intro, setIntro] = useState(propIntro)
+function edit(props: stateProp): ReactElement {
+  const [imgPath, setImgPath] = useState('')
+  const [intro, setIntro] = useState<string | undefined>('')
   const inputText = useRef<any>()
+
+  useEffect(() => {
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      const {imagePath: propImg, intro: propIntro} = router.params
+      setImgPath(baseImgUrl + propImg)
+      setIntro(propIntro)
+    }
+  })
 
   const changeHeadImg = () => {
     chooseImg(1).then(res => {
@@ -68,6 +75,7 @@ function edit(props: stateProp): JSX.Element {
       setTimeout(_ => Taro.navigateBack(), 1000)
     } catch (err) {}
   }
+
   return (
     <View className='edit_page'>
       <View className='user_img_area'>

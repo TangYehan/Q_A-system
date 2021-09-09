@@ -3,11 +3,18 @@
   font-size: $fontSize;
 
   .submit_container {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     box-shadow: 0 8px 8px $grayBackground;
 
     .submitBtn {
       margin-top: 20px;
+    }
+
+    .group_tips {
+      margin-top: 20px;
+      color: $grayWord;
+      font-size: 26px;
+      text-align: center;
     }
   }
 

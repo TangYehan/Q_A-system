@@ -1,6 +1,7 @@
 export default {
   pages: [
     'pages/index/index',
+    'pages/loginout/index',
     'pages/message/index',
     'pages/question/index',
     'pages/email/index',

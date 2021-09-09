@@ -6,7 +6,7 @@ import {View, Text, Image, Textarea} from '@tarojs/components'
 import './index.scss'
 
 interface Props {
-  myPlaceholder: string
+  myPlaceholder?: string
   value?: string | undefined
   className?: string
 }
@@ -26,14 +26,15 @@ export default React.forwardRef((props: Props, ref) => {
 
   const textareaInput = e => {
     const inputValue = e.detail.value
-    if (inputValue.length >= allowWords) {
+    const inputLen = inputValue.length
+    if (inputLen >= allowWords) {
       Taro.showToast({
         icon: 'none',
         title: `最多${allowWords}个字，不能更多啦`
       })
     }
-    setCurrentWordLen(inputValue.length)
-    setCurrentText(inputValue)
+    setCurrentWordLen(inputLen < allowWords ? inputLen : allowWords)
+    setCurrentText(inputValue.slice(0, allowWords))
   }
 
   return (

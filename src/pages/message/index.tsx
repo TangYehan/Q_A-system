@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
-import Taro, {useReachBottom} from '@tarojs/taro'
+import Taro, {useReachBottom, usePullDownRefresh} from '@tarojs/taro'
 
 import httpUtils from '../../utils/request'
 import {View, Image, Input} from '@tarojs/components'
@@ -43,6 +43,12 @@ export default function index(): ReactElement {
       else data = {currentPage: currentPage + 1, pageSize}
       getMessageList(data)
     }
+  })
+
+  usePullDownRefresh(() => {
+    saveMessageList = []
+    getMessageList({currentPage: 1, pageSize: initPageInfo.pageSize})
+    Taro.stopPullDownRefresh()
   })
 
   const getMessageList = data => {

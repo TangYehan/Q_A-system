@@ -95,12 +95,11 @@ function Rank(props: {accountId: string}): ReactElement {
             <Image src={rankIcon} className='icon'></Image>
             <Text
               className={`school_rank ${rankType === 0 ? 'active' : ''}`}
-              data-rank='allSchool'
               onClick={() => changeRank(0)}>
               全校总榜
             </Text>
             <Text
-              data-rank={`volunteer ${rankType === 1 ? 'active' : ''}`}
+              className={`volunteer ${rankType === 1 ? 'active' : ''}`}
               onClick={() => changeRank(1)}>
               志愿者榜
             </Text>

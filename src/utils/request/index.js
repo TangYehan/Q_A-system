@@ -243,6 +243,11 @@ class Https {
    * 获取所有学院
    */
   getAllCollege = param => get('/subject/listAllCollege')
+
+  /**
+   * 去登陆
+   */
+  login = param => get('/casLogin', param)
 }
 
 export default new Https()

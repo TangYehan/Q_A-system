@@ -1,8 +1,8 @@
-import React, {useEffect, ReactElement, useState, useRef} from 'react'
+import {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
 
 import httpUtil from '../../../../utils/request'
-import {View, Input, Image, Navigator} from '@tarojs/components'
+import {View, Input, Image} from '@tarojs/components'
 import LoadMore from '../../../../components/LoadMore'
 import QuestionCard from '../../../../components/QuestionCard'
 import Switch from '../../components/Switch'
@@ -43,7 +43,6 @@ export default function index(): ReactElement {
         String(subjectId) === 'undefined'
           ? {subjectName, state: typeValue, currentPage, pageSize}
           : {subjectId, state: typeValue, currentPage, pageSize}
-      console.log(data)
       getQuestionList({data})
     }
   }, [])
@@ -161,7 +160,7 @@ export default function index(): ReactElement {
           <Input
             type='text'
             className='search_ipt'
-            placeholder='{{searchPlaceholder}}'
+            placeholder='搜索问题'
             onInput={searchInput}
           />
         </View>

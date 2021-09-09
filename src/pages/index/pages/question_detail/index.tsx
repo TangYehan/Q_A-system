@@ -1,5 +1,9 @@
 import React, {useEffect, ReactElement, useState, useRef} from 'react'
-import Taro, {useReachBottom, usePullDownRefresh} from '@tarojs/taro'
+import Taro, {
+  useReachBottom,
+  usePullDownRefresh,
+  useDidShow
+} from '@tarojs/taro'
 import {connect} from 'react-redux'
 
 import httpUtil from '../../../../utils/request'
@@ -47,6 +51,25 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
     }
   }, [])
 
+  useDidShow(() => {
+    const pages = Taro.getCurrentPages()
+    const {shouldRefresh} = pages[pages.length - 1].options
+
+    if (shouldRefresh === 'undefined' || !Boolean(shouldRefresh)) return
+    pages[pages.length - 1].options.shouldRefresh = 'false'
+    const data = {
+      questionId: _questionId.current,
+      currentPage: 1,
+      pageSize: pageInfo.pageSize,
+      accountId: 1662901,
+      sortOrder: 0
+    }
+
+    newAnswerList.current = []
+    getAnswerList(data)
+    setAnswerListType(0)
+  })
+
   useReachBottom(() => {
     if (pageInfo.currentPage < pageInfo.totalPages) {
       const data = {
@@ -83,7 +106,6 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
       if (newAnswerList.current.length !== 0)
         setCurrentAnswerList([...newAnswerList.current])
       else {
-        console.log(hotAnswerList, newAnswerList)
         const data = {
           questionId: _questionId.current,
           currentPage: 1,

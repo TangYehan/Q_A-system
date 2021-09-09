@@ -41,7 +41,7 @@ interface accountInfoProp {
 
 const initAccountInfo = {
   userName: '',
-  college: '',
+  college: '重庆邮电大学',
   imgPath: '',
   introduce: '',
   questionCount: 0,
@@ -89,6 +89,42 @@ function Personal(props: stateProp): JSX.Element {
     })
   }
 
+  //去登录
+  const gotoLogin = () => {
+    console.log('in')
+
+    /**生成随机数最为用户uniqueId */
+    const dataString = new Date().getTime()
+    const randomString = this.getRandom()
+    const uniqueId = randomString + dataString
+    Taro.showToast({
+      title: '跳转中...',
+      icon: 'loading',
+      mask: true
+    })
+    httpUtils
+      .login({uniqueId})
+      .then(res => {
+        if (res.code !== 1) return Promise.reject('获取登录地址失败')
+        let src = res.data
+        Taro.setStorageSync('Loginsrc', src)
+        Taro.setStorageSync('uniqueId', uniqueId)
+        Taro.navigateTo({
+          url: `../loginout/index?type=login`
+        })
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: String(err),
+          icon: 'none'
+        })
+      })
+  }
+
+  //退出登录
+  const gotoLogout = () => {
+    console.log('out')
+  }
   return (
     <View className='personal_page'>
       <View className='personal_card'>
@@ -123,7 +159,9 @@ function Personal(props: stateProp): JSX.Element {
               </View>
               <View className='intro_item'>
                 <Image className='item_icon' src={collegeIcon}></Image>
-                <Text className='college'>{props.userInfo.college}</Text>
+                <Text className='college'>
+                  {props.userInfo.college ? props.userInfo.college : '重邮'}
+                </Text>
               </View>
               <View className='intro_item'>
                 <Image className='item_icon' src={levelIcon}></Image>
@@ -186,7 +224,9 @@ function Personal(props: stateProp): JSX.Element {
         </NavigateItem>
       </View>
       <View className='btn_area'>
-        <ThemeBotton>{props.isLogin ? '退出登录' : '去登陆'}</ThemeBotton>
+        <ThemeBotton onClick={props.isLogin ? gotoLogout : gotoLogin}>
+          {props.isLogin ? '退出登录' : '去登陆'}
+        </ThemeBotton>
       </View>
     </View>
   )

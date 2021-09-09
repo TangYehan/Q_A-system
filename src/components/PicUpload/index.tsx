@@ -6,7 +6,7 @@ import pic from '../../img/timg.jpg'
 import './index.scss'
 
 interface Props {}
-const allowMaxPic = 3
+const allowMaxPic = 1
 export default React.forwardRef((props: Props, ref) => {
   const [img, setImg] = useState<string[]>([])
   //暴露给父组件输入框内容
