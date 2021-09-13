@@ -41,8 +41,7 @@ export const upLoadFile = function ({filePath, data, url}) {
   })
 }
 
-export const format = function (text) {
-  if (!text) return
-  const reg = getRegExp('\\\\n', 'g')
-  return text.replace(reg, '\n')
+export const format = function (str) {
+  if (!str) return
+  return str.replace(/\\n/gi, '\n').replace(/&nbsp;/gi, '&nbsp;')
 }

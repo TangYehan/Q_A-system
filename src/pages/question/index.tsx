@@ -107,10 +107,6 @@ function AddQuestion(props): ReactElement {
         <ThemeButton className='btn' onClick={submit}>
           发布问题
         </ThemeButton>
-        <View>
-          你&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好 <br />
-          <br />啊<br />
-        </View>
       </View>
     </View>
   )

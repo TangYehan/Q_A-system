@@ -1,5 +1,6 @@
-import React, {ReactElement} from 'react'
+import {ReactElement} from 'react'
 import {baseImgUrl} from '../../../../utils/request/http'
+import {format} from '../../../../utils/api'
 import {View, Image, Text, Navigator} from '@tarojs/components'
 
 import studentIcon from '../../../../img/identity/student.svg'
@@ -72,7 +73,11 @@ export default function index(props: Props): ReactElement {
         </View>
       </View>
       <View className='answer_content'>
-        <View className='content_text'>{answer.content}</View>
+        <View>
+          <Text className='content_text' decode={true}>
+            {format(answer.content)}
+          </Text>
+        </View>
         {answer.contentImg && answer.contentImg !== '-1' ? (
           <Image
             className='content_img'

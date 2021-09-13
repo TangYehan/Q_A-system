@@ -1,5 +1,6 @@
-import React, {ReactElement} from 'react'
+import {ReactElement} from 'react'
 import {baseImgUrl} from '../../../../utils/request/http'
+import {format} from '../../../../utils/api'
 import {View, Image, Text, Navigator} from '@tarojs/components'
 
 import studentIcon from '../../../../img/identity/student.svg'
@@ -61,7 +62,9 @@ export default function index(props: Props): ReactElement {
             url={`../../pages/report/index?type=2&commentId=${comment.commentId}&content=${comment.content}`}></Navigator>
         </View>
       </View>
-      <View className='comment_content'>{comment.content}</View>
+      <Text className='comment_content' decode={true}>
+        {format(comment.content)}
+      </Text>
       <View className='footer'>
         <View className='footer_right'>{comment.commentTime}</View>
       </View>

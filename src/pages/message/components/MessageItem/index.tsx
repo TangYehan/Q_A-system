@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 
-import httpUtils from '../../../../utils/request'
+import {format} from '../../../../utils/api'
 import {baseImgUrl} from '../../../../utils/request/http'
 
 import './index.scss'
@@ -32,7 +32,7 @@ export default function index(props: Props): ReactElement {
       </View>
       <View>
         <Text className='content' decode={true}>
-          {msg.content}
+          {format(msg.content)}
         </Text>
       </View>
       <View className='footer'>

@@ -1,7 +1,8 @@
-import React, {ReactElement, useState, useEffect} from 'react'
+import {ReactElement, useState, useEffect} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 
+import {format} from '../../../../utils/api'
 import httpUtils from '../../../../utils/request'
 import {baseImgUrl} from '../../../../utils/request/http'
 import './index.scss'
@@ -9,20 +10,23 @@ export default function index(): ReactElement {
   const [newsDetail, setNewsDetail] = useState<any>({})
 
   useEffect(() => {
-    const {newsId} = Taro.getCurrentInstance().router.params
-    httpUtils
-      .getMessageDetail({newsId})
-      .then(res => {
-        if (res.code !== 1) return Promise.reject('出错啦')
-        setNewsDetail(res.data)
-      })
-      .catch(err => {
-        const errMsg = typeof err === 'string' ? err : String(err)
-        Taro.showToast({
-          title: errMsg,
-          icon: 'none'
+    const router = Taro.getCurrentInstance().router
+    if (router) {
+      const {newsId} = router.params
+      httpUtils
+        .getMessageDetail({newsId})
+        .then(res => {
+          if (res.code !== 1) return Promise.reject('出错啦')
+          setNewsDetail(res.data)
         })
-      })
+        .catch(err => {
+          const errMsg = typeof err === 'string' ? err : String(err)
+          Taro.showToast({
+            title: errMsg,
+            icon: 'none'
+          })
+        })
+    }
   }, [])
 
   const preViewPic = e => {
@@ -53,8 +57,8 @@ export default function index(): ReactElement {
       </View>
       <View className='content'>
         <View>
-          <Text decode={true} className='content_text'>
-            {newsDetail.content}
+          <Text className='content_text' decode={true}>
+            {format(newsDetail.content)}
           </Text>
         </View>
         {newsDetail.imgPath && Number(newsDetail.imgPath) !== -1 ? (

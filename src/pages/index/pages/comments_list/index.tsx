@@ -1,4 +1,4 @@
-import React, {useEffect, ReactElement, useState, useRef} from 'react'
+import {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
 import httpUtil from '../../../../utils/request'
 

@@ -1,6 +1,7 @@
-import React, {ReactElement, useRef, useState} from 'react'
+import {ReactElement, useState} from 'react'
 import {View, Text, Image} from '@tarojs/components'
 import {baseImgUrl} from '../../utils/request/http'
+import {format} from '../../utils/api'
 import './index.scss'
 
 interface Props {
@@ -14,14 +15,7 @@ interface Props {
 export default function index(props: Props): ReactElement {
   const [isShowDetail, setIsShowDetail] = useState(false)
   const categoryMsg = props.categorayMsg
-  // const categoryMsg = {
-  //   college: '经济管理学院',
-  //   subjectName: '高数',
-  //   questionCount: 12,
-  //   unresolvedQuestionCount: 12,
-  //   subjectInfo: '者中sdfsfsdf...',
-  //   newQuestionCount: 12
-  // }
+
   const showDetail = () => {
     setIsShowDetail(true)
   }
@@ -62,7 +56,9 @@ export default function index(props: Props): ReactElement {
 
             {isShowDetail ? (
               <View className='intro_hide'>
-                <View className='hide_content'>{categoryMsg.subjectInfo}</View>{' '}
+                <Text decode={true} className='hide_content'>
+                  {format(categoryMsg.subjectInfo)}
+                </Text>
               </View>
             ) : (
               ''

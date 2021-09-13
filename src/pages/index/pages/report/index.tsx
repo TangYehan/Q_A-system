@@ -1,8 +1,10 @@
-import React, {ReactElement, useState, useEffect, useRef} from 'react'
-import Taro, {useReachBottom, usePullDownRefresh} from '@tarojs/taro'
-import {View} from '@tarojs/components'
+import {ReactElement, useState, useEffect, useRef} from 'react'
+import Taro from '@tarojs/taro'
+import {View, Text} from '@tarojs/components'
 
 import httpUtil from '../../../../utils/request'
+import {format} from '../../../../utils/api'
+
 import ThemeButton from '../../../../components/ThemeButton'
 import MyTextarea from '../../../../components/MyTextarea'
 import PicUpload from '../../../../components/PicUpload'
@@ -109,7 +111,9 @@ function Report(props: {accountId: string | number}): ReactElement {
   return (
     <View className='report_page'>
       <View className='report_title'>你将要举报如下内容</View>
-      <View className='content_card'>{content}</View>
+      <Text decode={true} className='content_card'>
+        {format(content)}
+      </Text>
       <MyTextarea myPlaceholder='请输入举报理由' ref={textContent} />
       <PicUpload ref={picUp} />
       <ThemeButton className='btn' onClick={submit}>

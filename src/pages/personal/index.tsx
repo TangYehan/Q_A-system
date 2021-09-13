@@ -7,6 +7,7 @@ import {View, Text, Image} from '@tarojs/components'
 import ThemeBotton from '../../components/ThemeButton/index'
 import NavigateItem from './components/navigateItem/index'
 
+import {format} from '../../utils/api'
 import httpUtils from '../../utils/request/index'
 import {baseImgUrl} from '../../utils/request/http'
 
@@ -91,11 +92,9 @@ function Personal(props: stateProp): JSX.Element {
 
   //去登录
   const gotoLogin = () => {
-    console.log('in')
-
     /**生成随机数最为用户uniqueId */
     const dataString = new Date().getTime()
-    const randomString = this.getRandom()
+    const randomString = getRandom()
     const uniqueId = randomString + dataString
     Taro.showToast({
       title: '跳转中...',
@@ -106,8 +105,7 @@ function Personal(props: stateProp): JSX.Element {
       .login({uniqueId})
       .then(res => {
         if (res.code !== 1) return Promise.reject('获取登录地址失败')
-        let src = res.data
-        Taro.setStorageSync('Loginsrc', src)
+        Taro.setStorageSync('loginsrc', res.data)
         Taro.setStorageSync('uniqueId', uniqueId)
         Taro.navigateTo({
           url: `../loginout/index?type=login`
@@ -122,9 +120,19 @@ function Personal(props: stateProp): JSX.Element {
   }
 
   //退出登录
-  const gotoLogout = () => {
-    console.log('out')
+  const gotoLogout = () => {}
+
+  //生成随机数
+  const getRandom = function () {
+    const e = 12
+    const t = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    const length = t.length
+    let n = ''
+    for (let i = 0; i < e; i++)
+      n += t.charAt(Math.floor(Math.random() * length))
+    return n
   }
+
   return (
     <View className='personal_page'>
       <View className='personal_card'>
@@ -177,7 +185,7 @@ function Personal(props: stateProp): JSX.Element {
               </View>
             </View>
             <View className='self_intro'>
-              <Text decode>{accountInfo.introduce}</Text>
+              <Text decode={true}>{format(accountInfo.introduce)}</Text>
             </View>
           </View>
         </View>

@@ -79,9 +79,9 @@ export default function index(props: Props): ReactElement {
               </View>
             </View>
           </View>
-          <View className='answer_content'>
+          <Text className='answer_content' decode={true}>
             {msg.answer.content ? msg.answer.content : '[图片]'}
-          </View>
+          </Text>
         </>
       ) : (
         <View className='answer_content'>

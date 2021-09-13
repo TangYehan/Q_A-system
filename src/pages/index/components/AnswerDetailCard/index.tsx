@@ -1,9 +1,10 @@
-import React, {ReactElement, useEffect, useState} from 'react'
+import {ReactElement, useEffect, useState} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text, Navigator} from '@tarojs/components'
 
 import httpUtil from '../../../../utils/request'
 import {baseImgUrl} from '../../../../utils/request/http'
+import {format} from '../../../../utils/api'
 
 import studentIcon from '../../../../img/identity/student.svg'
 import managerIcon from '../../../../img/identity/manager.svg'
@@ -74,7 +75,7 @@ export default function index(props: Props): ReactElement {
       const res = isAgree
         ? await httpUtil.agreeAnswer(data)
         : await httpUtil.cancelAgreeAnswer(data)
-      if (res.code !== 1) throw '点赞故障'
+      if (res.code !== 1) throw '点赞失败'
     } catch (err) {
       Taro.showToast({
         title: String(err),
@@ -140,7 +141,9 @@ export default function index(props: Props): ReactElement {
         </View>
       </View>
       <View className='answer_content'>
-        <View className='content_text'>{answer.content}</View>
+        <Text decode={true} className='content_text'>
+          {format(answer.content)}
+        </Text>
         {answer.contentImg && answer.contentImg !== '-1' ? (
           <Image
             onClick={preView}

@@ -1,9 +1,9 @@
-import React, {useEffect, ReactElement, useState, useRef} from 'react'
+import {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
 import httpUtil from '../../../../utils/request'
 
-import {View, Navigator, Image} from '@tarojs/components'
+import {View, Image} from '@tarojs/components'
 import QustionDetailCard from '../../components/QuestionDetailCard'
 import AnswerDetailCard from '../../components/AnswerDetailCard'
 import CommentItem from '../../components/CommentItem'
@@ -12,7 +12,7 @@ import './index.scss'
 import '../../../../img/operate/iconfont.css'
 import showArrow from '../../../../img/common/show.svg'
 
-function AnswerDetail(props: any): ReactElement {
+function AnswerDetail(props: {accountId: string | number}): ReactElement {
   const [questionDetail, setQuestionDetail] = useState<any>({})
   const [answerDetail, setAnswerDetail] = useState<any>({})
   const [commentList, setCommentList] = useState<any>([])
@@ -27,7 +27,7 @@ function AnswerDetail(props: any): ReactElement {
       questionDetail = JSON.parse(decodeURIComponent(questionDetail as string))
       setQuestionDetail(questionDetail)
       answerInfo.current = {answerId, sortOrder, currentPage, totalRows}
-      const accountId = 1662901
+      const accountId = props.accountId
       getAnswerDetail({answerId, accountId})
     }
     // getComment({answerId, currentPage: 1, pageSize: 2})
@@ -87,7 +87,7 @@ function AnswerDetail(props: any): ReactElement {
       const {currentPage, totalRows, sortOrder} = answerInfo.current
       if (Number(currentPage) < Number(totalRows)) {
         const data = {
-          accountId: 1662901,
+          accountId: props.accountId,
           currentPage: Number(currentPage) + 1,
           pageSize: 1,
           questionId: questionDetail.questionId,
@@ -127,7 +127,7 @@ function AnswerDetail(props: any): ReactElement {
         answerDetail={answerDetail}
         questioner={questionDetail.accountId}
         questionId={questionDetail.questionId}
-        currentUser={1662901}
+        currentUser={props.accountId}
       />
       <View className='tip_title'>评论 {commentPageInfo.totalRows}</View>
       {commentList.map(item => (
@@ -135,7 +135,7 @@ function AnswerDetail(props: any): ReactElement {
       ))}
       {answerDetail.commentCount > 2 ? (
         <View onClick={gotoCommentList} className='show_comments'>
-          查看全部评论 {'>>'}{' '}
+          查看全部评论 {'>>'}
         </View>
       ) : (
         ''

@@ -1,8 +1,9 @@
-import React, {ReactElement} from 'react'
+import {ReactElement} from 'react'
 import Taro from '@tarojs/taro'
 
 import {baseImgUrl} from '../../../../utils/request/http'
-import {View, Image, Navigator} from '@tarojs/components'
+import {format} from '../../../../utils/api'
+import {View, Image, Text} from '@tarojs/components'
 
 import './index.scss'
 import '../../../../img/operate/iconfont.css'
@@ -26,10 +27,14 @@ export default function index(props: Props): ReactElement {
   return (
     <View className='question_detail_card'>
       <View className='question_title'>
-        <View className='title_text'>{questionDetailData.title}</View>
+        <Text decode={true} className='title_text'>
+          {format(questionDetailData.title)}
+        </Text>
         {props.statusShow ? props.statusShow : ''}
       </View>
-      <View className='question_content'>{questionDetailData.describes}</View>
+      <Text decode={true} className='question_content'>
+        {format(questionDetailData.describes)}
+      </Text>
       {questionDetailData.imgPath && questionDetailData.imgPath !== '-1' ? (
         <View>
           <Image

@@ -55,12 +55,12 @@ export default function index(props: Props): ReactElement {
       </View>
       <View className='question_content'>
         <View className='content_left'>
-          <View className='question_titile'>
+          <Text className='question_titile' decode={true}>
             <Text className='category'>
               {msg.emailContent.question.subjectName}
             </Text>
             {msg.emailContent.question.title}
-          </View>
+          </Text>
           <View className='footer'>
             <View className='question_inform'>
               {msg.emailContent.question.collectionCount} 收藏{' '}

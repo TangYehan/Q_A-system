@@ -1,4 +1,4 @@
-import React, {useEffect, ReactElement, useState, useRef} from 'react'
+import {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {
   useReachBottom,
   usePullDownRefresh,
@@ -38,12 +38,12 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
     if (router) {
       const {questionId} = router.params
       _questionId.current = questionId
-      const data = {accountId: 1662901, questionId}
+      const data = {accountId: props.accountId, questionId}
       const data2 = {
         questionId: _questionId.current,
         currentPage: pageInfo.currentPage,
         pageSize: pageInfo.pageSize,
-        accountId: 1662901,
+        accountId: props.accountId,
         sortOrder: answerListType
       }
       getQuestionDetail(data)
@@ -61,7 +61,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
       questionId: _questionId.current,
       currentPage: 1,
       pageSize: pageInfo.pageSize,
-      accountId: 1662901,
+      accountId: props.accountId,
       sortOrder: 0
     }
 
@@ -76,7 +76,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
         questionId: _questionId.current,
         currentPage: pageInfo.currentPage + 1,
         pageSize: pageInfo.pageSize,
-        accountId: 1662901,
+        accountId: props.accountId,
         sortOrder: answerListType
       }
       getAnswerList(data)
@@ -84,12 +84,12 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
   })
 
   usePullDownRefresh(() => {
-    const data = {accountId: 1662901, questionId: _questionId.current}
+    const data = {accountId: props.accountId, questionId: _questionId.current}
     const data2 = {
       questionId: _questionId.current,
       currentPage: pageInfo.currentPage,
       pageSize: pageInfo.pageSize,
-      accountId: 1662901,
+      accountId: props.accountId,
       sortOrder: answerListType
     }
     getQuestionDetail(data)
@@ -110,7 +110,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
           questionId: _questionId.current,
           currentPage: 1,
           pageSize: initPageInfo.pageSize,
-          accountId: 1662901,
+          accountId: props.accountId,
           sortOrder: newType
         }
         getAnswerList(data)
@@ -123,7 +123,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
           questionId: _questionId.current,
           currentPage: 1,
           pageSize: initPageInfo.pageSize,
-          accountId: 1662901,
+          accountId: props.accountId,
           sortOrder: newType
         }
         getAnswerList(data)
@@ -154,7 +154,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
       const current = !isCollection
       setIsCollection(current)
       const data = {
-        accountId: 1662901,
+        accountId: props.accountId,
         questionId: questionDetail.questionId
       }
       const newQuestionDetail = questionDetail
