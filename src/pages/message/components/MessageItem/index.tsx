@@ -16,6 +16,7 @@ interface Props {
 
 export default function index(props: Props): ReactElement {
   const msg = props.msg
+
   const gotoMessageDetail = () => {
     Taro.navigateTo({
       url: `./pages/message_detail/index?newsId=${msg.newsId}`

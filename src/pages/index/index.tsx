@@ -1,6 +1,6 @@
-import React, {useEffect, ReactElement, useState} from 'react'
+import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import {connect} from 'react-redux'
-import Taro, {usePullDownRefresh} from '@tarojs/taro'
+import Taro, {usePullDownRefresh, useDidShow} from '@tarojs/taro'
 
 import {
   View,
@@ -33,52 +33,116 @@ function Index(props): ReactElement {
   const [chooseCollege, setChooseCollege] = useState(false)
   const [otherDetail, setOtherDetail] = useState<any>({})
   const [currentCollege, setCurrentCollege] = useState('')
+  const currentLoginStatus = useRef(false)
 
-  useEffect(() => {
-    httpUtils
-      .getUserInfo({uniqueId: 'SLVWBTXNLPEL1629454771237'})
-      .then(res => {
-        if (res.code !== 1 || res.data === null) {
-          Taro.clearStorage()
-          return Promise.reject('请登录')
-        }
+  // useEffect(() => {
+  //   const uniqueId = Taro.getStorageSync('uniqueId')
+  //   if (uniqueId) {
+  //     httpUtils
+  //       .getUserInfo({uniqueId})
+  //       .then(res => {
+  //         if (res.code !== 1 || res.data === null) {
+  //           Taro.clearStorage()
+  //           return Promise.reject('请登录')
+  //         }
 
-        props.changeLoginStatus()
-        props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
-        Taro.setStorageSync('accountId', res.data.accountId)
-        Taro.setStorageSync('college', res.data.college)
-        setCurrentCollege(res.data.college)
+  //         props.changeLoginStatus()
+  //         currentLoginStatus.current = true
 
-        if (res.data.loginScore !== 0) {
-          Taro.showToast({
-            title: `签到成功，积分+${res.data.loginScore}`,
-            icon: 'none'
-          })
-        }
-        return Promise.all(
-          [
-            getSwiper(),
-            getBasicSubject(),
-            listSubjectByCollege(res.data.college)
-          ].map(item =>
-            item.catch(err => {
-              Taro.showToast({title: String(err), icon: 'none'})
+  //         props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
+  //         Taro.setStorageSync('accountId', res.data.accountId)
+  //         Taro.setStorageSync('college', res.data.college)
+  //         setCurrentCollege(res.data.college)
+
+  //         if (res.data.loginScore !== 0) {
+  //           Taro.showToast({
+  //             title: `签到成功，积分+${res.data.loginScore}`,
+  //             icon: 'none'
+  //           })
+  //         }
+  //         return Promise.all(
+  //           [
+  //             getSwiper(),
+  //             getBasicSubject(),
+  //             listSubjectByCollege(res.data.college)
+  //           ].map(item =>
+  //             item.catch(err => {
+  //               Taro.showToast({title: String(err), icon: 'none'})
+  //             })
+  //           )
+  //         )
+  //       })
+  //       .then(res => {
+  //         setIsLoading(false)
+  //       })
+  //       .catch(err => {
+  //         Taro.showToast({
+  //           title: String(err),
+  //           icon: 'none',
+  //           duration: 2000,
+  //           mask: true
+  //         })
+  //       })
+  //   } else {
+  //     getSwiper()
+  //     Taro.showToast({
+  //       title: '未登录',
+  //       icon: 'none'
+  //     })
+  //   }
+  // }, [])
+
+  useDidShow(() => {
+    if (currentLoginStatus.current) return
+    const uniqueId = Taro.getStorageSync('uniqueId')
+    if (uniqueId) {
+      httpUtils
+        .getUserInfo({uniqueId})
+        .then(res => {
+          if (res.code !== 1 || res.data === null) {
+            Taro.clearStorage()
+            return Promise.reject('请登录')
+          }
+
+          props.changeLoginStatus()
+          currentLoginStatus.current = true
+
+          props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
+          Taro.setStorageSync('accountId', res.data.accountId)
+          Taro.setStorageSync('college', res.data.college)
+          setCurrentCollege(res.data.college)
+
+          if (res.data.loginScore !== 0) {
+            Taro.showToast({
+              title: `签到成功，积分+${res.data.loginScore}`,
+              icon: 'none'
             })
+          }
+          return Promise.all(
+            [
+              getSwiper(),
+              getBasicSubject(),
+              listSubjectByCollege(res.data.college)
+            ].map(item =>
+              item.catch(err => {
+                Taro.showToast({title: String(err), icon: 'none'})
+              })
+            )
           )
-        )
-      })
-      .then(res => {
-        setIsLoading(false)
-      })
-      .catch(err => {
-        Taro.showToast({
-          title: String(err),
-          icon: 'none',
-          duration: 2000,
-          mask: true
         })
-      })
-  }, [])
+        .then(res => {
+          setIsLoading(false)
+        })
+        .catch(err => {
+          Taro.showToast({
+            title: String(err),
+            icon: 'none',
+            duration: 2000,
+            mask: true
+          })
+        })
+    }
+  })
 
   //下拉刷新
   usePullDownRefresh(() => {

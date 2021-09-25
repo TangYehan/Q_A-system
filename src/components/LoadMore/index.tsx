@@ -1,5 +1,5 @@
-import React, {ReactElement} from 'react'
-import {View, Text, Image} from '@tarojs/components'
+import {ReactElement} from 'react'
+import {View} from '@tarojs/components'
 
 import './index.scss'
 

@@ -19,7 +19,7 @@ class Https {
   /**
    * 编辑修改个人信息
    */
-  editPersonal = ({filePath, data}) => {
+  editPersonal = ({filePath = undefined, data}) => {
     if (filePath)
       return upLoadFile({url: '/account/updateAccount', filePath, data})
     else

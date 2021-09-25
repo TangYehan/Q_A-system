@@ -1,5 +1,4 @@
 import React, {useRef, useState, useImperativeHandle} from 'react'
-import Taro from '@tarojs/taro'
 
 import {View, Input} from '@tarojs/components'
 import MyTextarea from '../MyTextarea'
@@ -18,7 +17,9 @@ export default React.forwardRef((props: Props, ref) => {
   //暴露给父组件输入框内容
   useImperativeHandle(ref, () => ({
     getInput: () => ({
-      titleInput: titleIpt,
+      titleInput: titleIpt
+        ? titleIpt.replace(/[\n]/g, '\\n').replace(/[ ]/g, '&nbsp;')
+        : titleIpt,
       detailInput: textArea.current.getText(),
       imgs: imgs.current.getpics()
     }),

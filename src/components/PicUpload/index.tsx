@@ -1,8 +1,7 @@
-import React, {ReactElement, useState, useImperativeHandle} from 'react'
+import React, {useState, useImperativeHandle} from 'react'
 import Taro from '@tarojs/taro'
 import {chooseImg} from '../../utils/api'
-import {View, Text, Image, Textarea} from '@tarojs/components'
-import pic from '../../img/timg.jpg'
+import {View, Text, Image} from '@tarojs/components'
 import './index.scss'
 
 interface Props {}

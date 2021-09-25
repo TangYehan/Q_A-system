@@ -2,7 +2,7 @@ import React, {ReactElement, useEffect, useState, useRef} from 'react'
 import Taro from '@tarojs/taro'
 import {connect} from 'react-redux'
 
-import {View, Text, Image} from '@tarojs/components'
+import {View, Image} from '@tarojs/components'
 import Title from '../../../../components/Title/index'
 import ThemeBotton from '../../../../components/ThemeButton/index'
 import MyTextarea from '../../../../components/MyTextarea/index'
@@ -10,6 +10,7 @@ import MyTextarea from '../../../../components/MyTextarea/index'
 import {baseImgUrl} from '../../../../utils/request/http'
 import {chooseImg} from '../../../../utils/api'
 import httpUtils from '../../../../utils/request/index'
+import {format} from '../../../../utils/api'
 
 import introIcon from '../../../../img/userInfo/introduce_icon.svg'
 import './index.scss'
@@ -23,16 +24,20 @@ interface stateProp {
 function edit(props: stateProp): ReactElement {
   const [imgPath, setImgPath] = useState('')
   const [intro, setIntro] = useState<string | undefined>('')
+  const oldImgPath = useRef('')
   const inputText = useRef<any>()
 
   useEffect(() => {
     const router = Taro.getCurrentInstance().router
     if (router) {
-      const {imagePath: propImg, intro: propIntro} = router.params
+      let {imagePath: propImg, intro: propIntro} = router.params
+      propIntro = decodeURIComponent(String(propIntro))
+
+      oldImgPath.current = baseImgUrl + propImg
       setImgPath(baseImgUrl + propImg)
       setIntro(propIntro)
     }
-  })
+  }, [])
 
   const changeHeadImg = () => {
     chooseImg(1).then(res => {
@@ -53,16 +58,18 @@ function edit(props: stateProp): ReactElement {
 
     try {
       const newIntro = getInput()
-      const oldImgPath = baseImgUrl + propImg
-      if (newIntro !== intro || imgPath !== oldImgPath) {
+      const preImgPath = oldImgPath.current
+
+      if (newIntro !== intro || imgPath !== preImgPath) {
         const data = {
           accountId: props.userInfo.accountId,
           introduction: newIntro
         }
-        const res =
-          oldImgPath === imgPath
-            ? await httpUtils.editPersonal({data, filePath: undefined})
+        let res =
+          preImgPath === imgPath
+            ? await httpUtils.editPersonal({data})
             : await httpUtils.editPersonal({data, filePath: imgPath})
+        res = typeof res === 'string' ? JSON.parse(res) : res
         if (res.code !== 1) throw '出错啦'
       }
       Taro.hideLoading()
@@ -73,7 +80,12 @@ function edit(props: stateProp): ReactElement {
       })
 
       setTimeout(_ => Taro.navigateBack(), 1000)
-    } catch (err) {}
+    } catch (err) {
+      Taro.showToast({
+        icon: 'none',
+        title: String(err)
+      })
+    }
   }
 
   return (
@@ -91,8 +103,8 @@ function edit(props: stateProp): ReactElement {
       <Title icon={introIcon}>个人简介</Title>
       <View className='self_intro'>
         <MyTextarea
-          myPlaceholder='请输入你的新简介'
-          value={intro}
+          // myPlaceholder={intro ? format(intro) : '请输入你的新简介'}
+          value={format(intro)}
           ref={inputText}
         />
       </View>

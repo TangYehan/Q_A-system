@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import httpUtils from '../../utils/request'
 import setChooseCategory from '../../redux/actions/choosedCategory'
 
-import {View, Navigator, Text} from '@tarojs/components'
+import {View, Text} from '@tarojs/components'
 import TextPicUpload from '../../components/TextPicUpload'
 import ThemeButton from '../../components/ThemeButton'
 
@@ -18,54 +18,56 @@ function AddQuestion(props): ReactElement {
   }
 
   const submit = async () => {
-    try {
-      if (!props.isLogin) throw '请登录'
-      const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
-      if (!titleInput || !detailInput) {
-        Taro.showToast({
-          title: '请完善标题或内容',
-          icon: 'none'
-        })
-        return
-      }
-      if (!props.choosedCategory.subjectId) {
-        Taro.showToast({
-          title: '请选择相应科目',
-          icon: 'none'
-        })
-        return
-      }
-      Taro.showToast({
-        icon: 'loading',
-        title: '正在提交反馈',
-        duration: 10000,
-        mask: true
-      })
-      const data = {
-        accountId: props.accountId,
-        title: titleInput,
-        describes: detailInput,
-        subjectId: props.choosedCategory.subjectId
-      }
-      let res = imgs.length
-        ? await httpUtils.submitQuestion({data, filePath: imgs[0]})
-        : await httpUtils.submitQuestion({data})
-      res = JSON.parse(res)
-      if (Number(res.code) === 1) {
-        questionIpt.current.clear()
-        props.setChooseCategory({subjectName: undefined, subjectId: undefined})
-        Taro.showToast({
-          icon: 'success',
-          title: '发布成功',
-          duration: 1500
-        })
-      } else throw '出错啦~'
-    } catch (err) {
-      Taro.showToast({
-        icon: 'none',
-        title: String(err)
-      })
-    }
+    const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
+    console.log(titleInput, detailInput)
+    // try {
+    //   if (!props.isLogin) throw '请登录'
+    //   const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
+    //   if (!titleInput || !detailInput) {
+    //     Taro.showToast({
+    //       title: '请完善标题或内容',
+    //       icon: 'none'
+    //     })
+    //     return
+    //   }
+    //   if (!props.choosedCategory.subjectId) {
+    //     Taro.showToast({
+    //       title: '请选择相应科目',
+    //       icon: 'none'
+    //     })
+    //     return
+    //   }
+    //   Taro.showToast({
+    //     icon: 'loading',
+    //     title: '正在提交反馈',
+    //     duration: 10000,
+    //     mask: true
+    //   })
+    //   const data = {
+    //     accountId: props.accountId,
+    //     title: titleInput,
+    //     describes: detailInput,
+    //     subjectId: props.choosedCategory.subjectId
+    //   }
+    //   let res = imgs.length
+    //     ? await httpUtils.submitQuestion({data, filePath: imgs[0]})
+    //     : await httpUtils.submitQuestion({data})
+    //   res = JSON.parse(res)
+    //   if (Number(res.code) === 1) {
+    //     questionIpt.current.clear()
+    //     props.setChooseCategory({subjectName: undefined, subjectId: undefined})
+    //     Taro.showToast({
+    //       icon: 'success',
+    //       title: '发布成功',
+    //       duration: 1500
+    //     })
+    //   } else throw '出错啦~'
+    // } catch (err) {
+    //   Taro.showToast({
+    //     icon: 'none',
+    //     title: String(err)
+    //   })
+    // }
   }
 
   const gotoChooseCategory = () => {

@@ -83,10 +83,11 @@ function Personal(props: stateProp): JSX.Element {
         title: '未登录',
         icon: 'none'
       })
+    console.log(accountInfo.introduce)
     Taro.navigateTo({
       url: `/pages/personal/pages/edit/index?imagePath=${
         accountInfo.imgPath
-      }&intro=${'accountInfo.introduce'}`
+      }&intro= ${encodeURIComponent(accountInfo.introduce)}`
     })
   }
 
@@ -120,7 +121,12 @@ function Personal(props: stateProp): JSX.Element {
   }
 
   //退出登录
-  const gotoLogout = () => {}
+  const gotoLogout = () => {
+    Taro.clearStorage()
+    Taro.navigateTo({
+      url: `../loginout/index?type=logout`
+    })
+  }
 
   //生成随机数
   const getRandom = function () {

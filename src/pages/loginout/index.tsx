@@ -9,11 +9,13 @@ export default function index(): ReactElement {
     const router = Taro.getCurrentInstance().router
     if (router) {
       let {type} = router.params
-      console.log(type, type === 'login', Taro.getStorageSync('loginsrc'))
-      const url = type === 'login' ? Taro.getStorageSync('loginSrc') : ''
+      const url =
+        type === 'login'
+          ? Taro.getStorageSync('loginsrc')
+          : 'https://ids.cqupt.edu.cn/authserver/logout'
       setUrl(url)
     }
   }, [])
 
-  return <WebView src={url}></WebView>
+  return <>{url ? <WebView src={url}></WebView> : ''}</>
 }

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default React.forwardRef((props: Props, ref) => {
-  const allowWords = 6
+  const allowWords = 150
   const [currentWordLen, setCurrentWordLen] = useState<number>(0)
   const [currentText, setCurrentText] = useState<string | undefined>(
     props.value
@@ -20,7 +20,11 @@ export default React.forwardRef((props: Props, ref) => {
 
   //暴露给父组件输入框内容
   useImperativeHandle(ref, () => ({
-    getText: () => currentText,
+    getText: () => {
+      return currentText
+        ? currentText.replace(/[\n]/g, '\\n').replace(/[ ]/g, '&nbsp;')
+        : currentText
+    },
     clear: () => setCurrentText('')
   }))
 
