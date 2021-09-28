@@ -1,0 +1,81 @@
+.other_index {
+  font-size: $fontSize;
+
+  .personal_card {
+    width: 100%;
+    padding: 35px 0 20px 0;
+    background-color: rgb(196, 232, 248);
+    border-radius: 10px;
+
+    .personal_info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .personal_img {
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+      }
+
+      .personal_name {
+        padding: 25px 0;
+      }
+
+      .userInfo_detail {
+        display: flex;
+        justify-content: space-around;
+
+        .userInfo_item {
+          display: flex;
+          align-items: center;
+          margin-right: 15px;
+          text-align: center;
+
+          .icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .question_detail {
+      display: flex;
+      justify-content: space-around;
+      padding: 30px 20px 15px 20px;
+
+      .number {
+        font-weight: bold;
+        font-size: 28px;
+      }
+
+      .question_item {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  }
+
+  .personal_intro {
+    margin: 15px 0;
+    padding: 5px 15px 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px $grayBackground;
+
+    .introduce_text {
+      margin-left: 20px;
+      padding: 10px 0;
+    }
+  }
+
+  .dynamic {
+    padding: 5px 15px 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 8px 8px $grayBackground;
+  }
+}

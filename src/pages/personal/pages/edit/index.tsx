@@ -10,7 +10,6 @@ import MyTextarea from '../../../../components/MyTextarea/index'
 import {baseImgUrl} from '../../../../utils/request/http'
 import {chooseImg} from '../../../../utils/api'
 import httpUtils from '../../../../utils/request/index'
-import {format} from '../../../../utils/api'
 
 import introIcon from '../../../../img/userInfo/introduce_icon.svg'
 import './index.scss'
@@ -32,7 +31,6 @@ function edit(props: stateProp): ReactElement {
     if (router) {
       let {imagePath: propImg, intro: propIntro} = router.params
       propIntro = decodeURIComponent(String(propIntro))
-
       oldImgPath.current = baseImgUrl + propImg
       setImgPath(baseImgUrl + propImg)
       setIntro(propIntro)
@@ -104,7 +102,7 @@ function edit(props: stateProp): ReactElement {
       <View className='self_intro'>
         <MyTextarea
           // myPlaceholder={intro ? format(intro) : '请输入你的新简介'}
-          value={format(intro)}
+          value={intro}
           ref={inputText}
         />
       </View>

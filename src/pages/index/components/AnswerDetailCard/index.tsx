@@ -30,8 +30,10 @@ export default function index(props: Props): ReactElement {
   }, [props.answerDetail])
 
   const gotoPersonal = e => {
-    // e.stopPropagation()
-    // console.log(123123)
+    e.stopPropagation()
+    Taro.navigateTo({
+      url: `/pages/index/pages/other_index/index?accountId=${answer.accountId}`
+    })
   }
 
   const handleAdopt = async () => {
@@ -137,7 +139,9 @@ export default function index(props: Props): ReactElement {
           {answer.isAdopt ? <View className='status'>已采纳</View> : ''}
           <Navigator
             className='iconfont icon-jubao'
-            url={`../../pages/report/index?type=1&content=${answer.answerId}&content=${answer.content}`}></Navigator>
+            url={`../../pages/report/index?type=1&content=${
+              answer.answerId
+            }&content=${encodeURIComponent(answer.content)}`}></Navigator>
         </View>
       </View>
       <View className='answer_content'>

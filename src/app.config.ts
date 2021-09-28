@@ -19,7 +19,8 @@ export default {
     'pages/index/pages/write_comment/index',
     'pages/index/pages/comments_list/index',
     'pages/index/pages/report/index',
-    'pages/index/pages/write_answer/index'
+    'pages/index/pages/write_answer/index',
+    'pages/index/pages/other_index/index'
   ],
   window: {
     backgroundTextStyle: 'light',

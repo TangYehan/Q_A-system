@@ -27,14 +27,14 @@ export default function index(props: Props): ReactElement {
   return (
     <View className='question_detail_card'>
       <View className='question_title'>
+        {props.statusShow ? props.statusShow : ''}
         <Text decode={true} className='title_text'>
           {format(questionDetailData.title)}
         </Text>
-        {props.statusShow ? props.statusShow : ''}
       </View>
-      <Text decode={true} className='question_content'>
-        {format(questionDetailData.describes)}
-      </Text>
+      <View className='question_content'>
+        <Text decode={true}>{format(questionDetailData.describes)}</Text>
+      </View>
       {questionDetailData.imgPath && questionDetailData.imgPath !== '-1' ? (
         <View>
           <Image

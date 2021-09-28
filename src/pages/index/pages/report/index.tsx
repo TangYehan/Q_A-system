@@ -22,6 +22,7 @@ function Report(props: {accountId: string | number}): ReactElement {
     const router = Taro.getCurrentInstance().router
     if (router) {
       let {type, answerId, questionId, commentId, content} = router.params
+      content = decodeURIComponent(content ? content : '')
       setContent(content)
       curType.current = Number(type)
       switch (
@@ -111,9 +112,11 @@ function Report(props: {accountId: string | number}): ReactElement {
   return (
     <View className='report_page'>
       <View className='report_title'>你将要举报如下内容</View>
-      <Text decode={true} className='content_card'>
-        {format(content)}
-      </Text>
+      <View className='content_card'>
+        <Text decode={true} className='content_card_text'>
+          {format(content)}
+        </Text>
+      </View>
       <MyTextarea myPlaceholder='请输入举报理由' ref={textContent} />
       <PicUpload ref={picUp} />
       <ThemeButton className='btn' onClick={submit}>

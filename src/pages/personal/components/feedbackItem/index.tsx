@@ -13,21 +13,17 @@ import './index.scss'
 
 interface Props {
   accountId: string | number
-  info: {
-    feedbackId: number
-    userName: string
-    role: number | string
-    content: string
-    agreeCount: number
-    userImg: string
-    contentImg: string
-    isAgree: boolean
-  }
+  info: {[propName: string]: any}
 }
 function feedbackItem(props: Props): ReactElement {
   const [feedback, setFeedback] = useState(props.info)
 
-  const gotoPersonalIndex = () => {}
+  const gotoPersonalIndex = e => {
+    e.stopPropagation()
+    Taro.navigateTo({
+      url: `/pages/index/pages/other_index/index?accountId=${feedback.accountId}`
+    })
+  }
 
   const preViewPic = () => {
     Taro.previewImage({

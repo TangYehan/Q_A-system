@@ -19,7 +19,7 @@ class Https {
   /**
    * 编辑修改个人信息
    */
-  editPersonal = ({filePath = undefined, data}) => {
+  editPersonal = ({filePath = '', data}) => {
     if (filePath)
       return upLoadFile({url: '/account/updateAccount', filePath, data})
     else
@@ -187,7 +187,7 @@ class Https {
   /**
    * 举报问题
    */
-  reportQuestion = ({filePath = undefined, data}) => {
+  reportQuestion = ({filePath = '', data}) => {
     if (filePath)
       return upLoadFile({url: '/question/reportQuestion', filePath, data})
     else
@@ -201,7 +201,7 @@ class Https {
   /**
    * 举报回答
    */
-  reportAnswer = ({filePath = undefined, data}) => {
+  reportAnswer = ({filePath = '', data}) => {
     if (filePath)
       return upLoadFile({url: '/answer/reportAnswer', filePath, data})
     else
@@ -215,7 +215,7 @@ class Https {
   /**
    * 举报评论
    */
-  reportComment = ({filePath = undefined, data}) => {
+  reportComment = ({filePath = '', data}) => {
     if (filePath)
       return upLoadFile({url: '/comment/reportComment', filePath, data})
     else

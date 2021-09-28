@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 
 import {baseImgUrl} from '../../utils/request/http'
+import {format} from '../../utils/api'
 
 import studentIcon from '../../img/identity/student.svg'
 import managerIcon from '../../img/identity/manager.svg'
@@ -32,7 +33,7 @@ export default function index(props: Props): ReactElement {
       <View className='question_card_title'>
         <View className='title_left'>
           {props.subjectLable ? props.subjectLable : ''}
-          {msg.question.title}
+          <Text decode={true}>{format(msg.question.title)}</Text>
         </View>
         <View
           className={`title_right_status ${
@@ -80,7 +81,7 @@ export default function index(props: Props): ReactElement {
             </View>
           </View>
           <Text className='answer_content' decode={true}>
-            {msg.answer.content ? msg.answer.content : '[图片]'}
+            {msg.answer.content ? format(msg.answer.content) : '[图片]'}
           </Text>
         </>
       ) : (

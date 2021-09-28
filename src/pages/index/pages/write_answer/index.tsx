@@ -50,7 +50,7 @@ function WriteAnswer(props: {accountId: string | number}): ReactElement {
           ? await httpUtil.submitAnswer({data})
           : await httpUtil.submitAnswer({data, filePath: img[0]})
       res = typeof res === 'string' ? JSON.parse(res) : res
-      if (res.code !== 1) throw '发布回答失败'
+      if (res.code !== 1) throw res.msg
       textContent.current.clear()
       picUp.current.clear()
       Taro.showToast({

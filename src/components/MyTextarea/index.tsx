@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useImperativeHandle} from 'react'
+import React, {useEffect, useState, useImperativeHandle} from 'react'
 import Taro from '@tarojs/taro'
 
 import {View, Text, Image, Textarea} from '@tarojs/components'
@@ -14,15 +14,22 @@ interface Props {
 export default React.forwardRef((props: Props, ref) => {
   const allowWords = 150
   const [currentWordLen, setCurrentWordLen] = useState<number>(0)
-  const [currentText, setCurrentText] = useState<string | undefined>(
-    props.value
-  )
+  const [currentText, setCurrentText] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (props.value) {
+      const formatValue = props.value
+        .replace(/\\n/gi, '\n')
+        .replace(/&nbsp;/gi, ' ')
+      setCurrentText(formatValue)
+    }
+  }, [props.value])
 
   //暴露给父组件输入框内容
   useImperativeHandle(ref, () => ({
     getText: () => {
       return currentText
-        ? currentText.replace(/[\n]/g, '\\n').replace(/[ ]/g, '&nbsp;')
+        ? currentText.trim().replace(/[\n]/g, '\\n').replace(/[ ]/g, '&nbsp;')
         : currentText
     },
     clear: () => setCurrentText('')
@@ -48,7 +55,7 @@ export default React.forwardRef((props: Props, ref) => {
         className='introduce_area'
         onInput={textareaInput}
         maxlength={allowWords}
-        placeholder={props.myPlaceholder}
+        // placeholder={props.myPlaceholder ? '123' : '321'}
         value={currentText}></Textarea>
       <Text className='words_count'>
         {currentWordLen}/{allowWords}

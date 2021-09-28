@@ -1,4 +1,5 @@
 import {ReactElement} from 'react'
+import Taro from '@tarojs/taro'
 import {baseImgUrl} from '../../../../utils/request/http'
 import {format} from '../../../../utils/api'
 import {View, Image, Text, Navigator} from '@tarojs/components'
@@ -22,8 +23,10 @@ export default function index(props: Props): ReactElement {
   const answer = props.answer ? props.answer : {}
 
   const gotoPersonal = e => {
-    // e.stopPropagation()
-    // console.log(123123)
+    e.stopPropagation()
+    Taro.navigateTo({
+      url: `/pages/index/pages/other_index/index?accountId=${answer.accountId}`
+    })
   }
   return (
     <View
@@ -68,7 +71,9 @@ export default function index(props: Props): ReactElement {
             url={`../../pages/report/index?type=${1}&answerId=${
               answer.answerId
             }&content=${
-              answer.content ? answer.content : '[图片]'
+              answer.content
+                ? encodeURIComponent(answer.content)
+                : encodeURIComponent('[图片]')
             }`}></Navigator>
         </View>
       </View>

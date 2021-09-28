@@ -9,13 +9,19 @@
   .content_card {
     margin: 20px 0 30px;
     padding: 20px;
-    overflow: hidden;
-    line-height: 40px;
-    text-overflow: ellipsis;
     background-color: $grayBackground;
     box-shadow: 0 8px 8px $grayBackground;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+
+    .content_card_text {
+      display: -webkit-box;
+      overflow: hidden;
+      line-height: 40px;
+      letter-spacing: 2px;
+      white-space: pre-wrap;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
 
   .btn {

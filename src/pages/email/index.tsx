@@ -7,7 +7,7 @@ import Taro, {
 } from '@tarojs/taro'
 import httpUtils from '../../utils/request'
 import {View, Text, Image} from '@tarojs/components'
-import DynamicItem from './components/dynamicItem'
+import DynamicItem from '../../components/dynamicItem'
 import CollectionMyquestionItem from '../../components/QuestionCard'
 import InvitationItem from './components/invitationItem'
 import LoadMore from '../../components/LoadMore'

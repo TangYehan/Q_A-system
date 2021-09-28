@@ -233,7 +233,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
             </View>
             <Navigator
               className='iconfont icon-jubao'
-              url={`../report/index?type=0&questionId=${questionDetail.questionId}&content=${questionDetail.title}`}></Navigator>
+              url={`../report/index?type=0&questionId=${questionDetail.questionId}&content=${encodeURIComponent(questionDetail.title)}`}></Navigator>
           </View>
         }
         footerOperate={
