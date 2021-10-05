@@ -5,6 +5,7 @@ import httpUtils from '../../utils/request'
 import {View, Image, Input} from '@tarojs/components'
 import MessageItem from './components/MessageItem'
 import LoadMore from '../../components/LoadMore'
+import Empty from '../../components/Empty'
 
 import './index.scss'
 
@@ -55,7 +56,7 @@ export default function index(): ReactElement {
     httpUtils
       .getMessageList(data)
       .then(res => {
-        if (res.code !== 1) return Promise.reject('出错啦~')
+        if (res.code !== 1) return Promise.reject('获取资讯失败')
         saveMessageList = [...saveMessageList, ...res.data.list]
         setMessageList(saveMessageList)
         setPageInfo(JSON.parse(JSON.stringify(res.data.pageInfo)))
@@ -63,7 +64,7 @@ export default function index(): ReactElement {
       .catch(err => {
         Taro.showToast({
           icon: 'none',
-          title: err
+          title: String(err)
         })
       })
   }
@@ -89,9 +90,13 @@ export default function index(): ReactElement {
         <Input type='text' placeholder='搜索相关资讯' onInput={searchInput} />
       </View>
       <View className='message_list_item'>
-        {messageList.map((item: any) => (
-          <MessageItem msg={item} key={item.newsId} />
-        ))}
+        {messageList.length !== 0 ? (
+          messageList.map((item: any) => (
+            <MessageItem msg={item} key={item.newsId} />
+          ))
+        ) : (
+          <Empty />
+        )}
       </View>
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>

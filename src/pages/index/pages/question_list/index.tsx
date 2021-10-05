@@ -6,6 +6,7 @@ import {View, Input, Image} from '@tarojs/components'
 import LoadMore from '../../../../components/LoadMore'
 import QuestionCard from '../../../../components/QuestionCard'
 import Switch from '../../components/Switch'
+import Empty from '../../../../components/Empty'
 
 import './index.scss'
 
@@ -171,12 +172,16 @@ export default function index(): ReactElement {
           value={typeValue}
         />
       </View>
-      {questionList.map((item: any) => (
-        <QuestionCard
-          msg={item}
-          key={'question_list_page' + item.question.questionId}
-        />
-      ))}
+      {questionList.length !== 0 ? (
+        questionList.map((item: any) => (
+          <QuestionCard
+            msg={item}
+            key={'question_list_page' + item.question.questionId}
+          />
+        ))
+      ) : (
+        <Empty />
+      )}
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>
   )

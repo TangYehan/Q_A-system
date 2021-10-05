@@ -8,6 +8,7 @@ import TextPicUpload from '../../../../components/TextPicUpload'
 import Title from '../../../../components/Title'
 import FeedbackItem from '../../components/feedbackItem'
 import LoadMore from '../../../../components/LoadMore'
+import Empty from '../../../../components/Empty'
 import httpUtils from '../../../../utils/request/index'
 
 import './index.scss'
@@ -48,17 +49,15 @@ function Feedback(props: {accountId: string | number}): ReactElement {
     httpUtils
       .getFeedbackList(data)
       .then(res => {
-        if (!res.code) return Promise.reject('出错啦~')
+        if (!res.code) return Promise.reject('获取反馈列表失败')
         clear
           ? setFeedbackList([...res.data.list])
           : setFeedbackList([...feedbackList, ...res.data.list])
         setPageInfo(JSON.parse(JSON.stringify(res.data.pageInfo)))
       })
       .catch(err => {
-        console.log(err)
-        const errMsg = typeof err === 'string' ? err : '网络繁忙'
         Taro.showToast({
-          title: errMsg,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -129,9 +128,13 @@ function Feedback(props: {accountId: string | number}): ReactElement {
         <Title className='title' icon={feedbackIcon}>
           最新反馈
         </Title>
-        {feedbackList.map(item => (
-          <FeedbackItem info={item} key={item.feedbackId} />
-        ))}
+        {feedbackList.length !== 0 ? (
+          feedbackList.map(item => (
+            <FeedbackItem info={item} key={item.feedbackId} />
+          ))
+        ) : (
+          <Empty />
+        )}
       </View>
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>

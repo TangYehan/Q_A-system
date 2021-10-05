@@ -12,6 +12,7 @@ import LoadMore from '../../../../components/LoadMore'
 import QuestionDetailCard from '../../components/QuestionDetailCard'
 import ThemeButton from '../../../../components/ThemeButton'
 import AnswerCard from '../../components/AnswerCard'
+import Empty from '../../../../components/Empty'
 
 import './index.scss'
 import '../../../../img/operate/iconfont.css'
@@ -233,7 +234,11 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
             </View>
             <Navigator
               className='iconfont icon-jubao'
-              url={`../report/index?type=0&questionId=${questionDetail.questionId}&content=${encodeURIComponent(questionDetail.title)}`}></Navigator>
+              url={`../report/index?type=0&questionId=${
+                questionDetail.questionId
+              }&content=${encodeURIComponent(
+                questionDetail.title
+              )}`}></Navigator>
           </View>
         }
         footerOperate={
@@ -266,15 +271,19 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
             }`}></View>
         </View>
       </View>
-      {currentAnswerList.map((item, index) => (
-        <AnswerCard
-          answer={item}
-          key={item.answerId}
-          onClick={() => {
-            gotoAnswerDetail(item.answerId, index)
-          }}
-        />
-      ))}
+      {currentAnswerList.length !== 0 ? (
+        currentAnswerList.map((item, index) => (
+          <AnswerCard
+            answer={item}
+            key={item.answerId}
+            onClick={() => {
+              gotoAnswerDetail(item.answerId, index)
+            }}
+          />
+        ))
+      ) : (
+        <Empty />
+      )}
       <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>
   )

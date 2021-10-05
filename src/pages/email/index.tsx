@@ -11,6 +11,7 @@ import DynamicItem from '../../components/dynamicItem'
 import CollectionMyquestionItem from '../../components/QuestionCard'
 import InvitationItem from './components/invitationItem'
 import LoadMore from '../../components/LoadMore'
+import Empty from '../../components/Empty'
 
 import './index.scss'
 import dynamicIcon from '../../img/email/dynamic.svg'
@@ -35,7 +36,7 @@ function Email(props: {
   const [invitationList, setInvitationList] = useState<any>([])
   const [currentPageInfo, setCurrentPageInfo] = useState({
     currentPage: 0,
-    totalPages: 0
+    totalPages: 1
   })
   const dynamicPageInfo = useRef(initPageInfo)
   const myQuestionPageInfo = useRef(initPageInfo)
@@ -43,6 +44,7 @@ function Email(props: {
   const collectionPageInfo = useRef(initPageInfo)
   const isLogin = useRef<any>(undefined)
 
+  //邮件页面tab栏配置
   const topBarConfig = [
     {
       icon: dynamicIcon,
@@ -82,6 +84,7 @@ function Email(props: {
     if (isLogin.current === undefined) {
       isLogin.current = props.isLogin
       if (!props.isLogin) {
+        setCurrentPageInfo({totalPages: 0, currentPage: 0})
         Taro.showToast({
           title: '未登录',
           icon: 'none'
@@ -111,7 +114,6 @@ function Email(props: {
         }
         break
       default:
-        console.log('default')
         break
     }
   }, [currentType])
@@ -206,7 +208,7 @@ function Email(props: {
     httpUtils
       .getDynamic(data)
       .then(res => {
-        if (res.code !== 1) return Promise.reject('获取失败')
+        if (res.code !== 1) return Promise.reject('获取动态失败')
         dynamicPageInfo.current = JSON.parse(JSON.stringify(res.data.pageInfo))
         clear
           ? setDynamicList([...res.data.list])
@@ -217,9 +219,9 @@ function Email(props: {
         })
       })
       .catch(err => {
-        const errMsg = typeof err === 'string' ? err : String(err)
+        setCurrentPageInfo({currentPage: 0, totalPages: 0})
         Taro.showToast({
-          title: errMsg,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -236,7 +238,7 @@ function Email(props: {
     httpUtils
       .getAboutMyQuestion(data)
       .then(res => {
-        if (res.code !== 1) return Promise.reject('获取失败')
+        if (res.code !== 1) return Promise.reject('获取收藏失败')
         collectionPageInfo.current = JSON.parse(
           JSON.stringify(res.data.pageInfo)
         )
@@ -249,9 +251,9 @@ function Email(props: {
         })
       })
       .catch(err => {
-        const errMsg = typeof err === 'string' ? err : String(err)
+        setCurrentPageInfo({currentPage: 0, totalPages: 0})
         Taro.showToast({
-          title: errMsg,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -268,7 +270,7 @@ function Email(props: {
     httpUtils
       .getInvitation(data)
       .then(res => {
-        if (res.code !== 1) return Promise.reject('获取失败')
+        if (res.code !== 1) return Promise.reject('获取邀请失败')
         invitationPageInfo.current = JSON.parse(
           JSON.stringify(res.data.pageInfo)
         )
@@ -281,9 +283,9 @@ function Email(props: {
         })
       })
       .catch(err => {
-        const errMsg = typeof err === 'string' ? err : String(err)
+        setCurrentPageInfo({currentPage: 0, totalPages: 0})
         Taro.showToast({
-          title: errMsg,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -301,7 +303,7 @@ function Email(props: {
     httpUtils
       .getAboutMyQuestion(data)
       .then(res => {
-        if (res.code !== 1) return Promise.reject('获取失败')
+        if (res.code !== 1) return Promise.reject('获取我的提问失败')
         myQuestionPageInfo.current = JSON.parse(
           JSON.stringify(res.data.pageInfo)
         )
@@ -314,9 +316,9 @@ function Email(props: {
         })
       })
       .catch(err => {
-        const errMsg = typeof err === 'string' ? err : String(err)
+        setCurrentPageInfo({currentPage: 0, totalPages: 0})
         Taro.showToast({
-          title: errMsg,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -344,28 +346,53 @@ function Email(props: {
       </View>
 
       <View className='email_container'>
-        {currentType === 'dynamic'
-          ? dynamicList.map(item => <DynamicItem msg={item} />)
-          : ''}
-        {currentType === 'invitation'
-          ? invitationList.map(item => <InvitationItem msg={item} />)
-          : ''}
-        {currentType === 'collection'
-          ? collectionList.map(item => (
+        {currentType === 'dynamic' ? (
+          dynamicList.length !== 0 ? (
+            dynamicList.map(item => <DynamicItem msg={item} />)
+          ) : (
+            <Empty />
+          )
+        ) : (
+          ''
+        )}
+        {currentType === 'invitation' ? (
+          invitationList.length !== 0 ? (
+            invitationList.map(item => <InvitationItem msg={item} />)
+          ) : (
+            <Empty />
+          )
+        ) : (
+          ''
+        )}
+
+        {currentType === 'collection' ? (
+          collectionList.length !== 0 ? (
+            collectionList.map(item => (
               <CollectionMyquestionItem
                 msg={item}
                 subjectLable={<Text className='label'>高数</Text>}
               />
             ))
-          : ''}
-        {currentType === 'myquestion'
-          ? myQuestionList.map(item => (
+          ) : (
+            <Empty />
+          )
+        ) : (
+          ''
+        )}
+        {currentType === 'myquestion' ? (
+          myQuestionList.length !== 0 ? (
+            myQuestionList.map(item => (
               <CollectionMyquestionItem
                 msg={item}
                 subjectLable={<Text className='label'>高数</Text>}
               />
             ))
-          : ''}
+          ) : (
+            <Empty />
+          )
+        ) : (
+          ''
+        )}
       </View>
       <LoadMore
         loading={currentPageInfo.currentPage < currentPageInfo.totalPages}
