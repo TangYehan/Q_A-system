@@ -88,7 +88,7 @@ function Feedback(props: {accountId: string | number}): ReactElement {
         : await httpUtils.submitFeedback({data})
 
       res = typeof res === 'string' ? JSON.parse(res) : res
-      if (res.code !== 1) throw '获取反馈列表失败'
+      if (res.code !== 1) throw res.msg||'提交失败'
       feedbackInputs.current.clear()
       const data2 = {
         currentPage: 1,

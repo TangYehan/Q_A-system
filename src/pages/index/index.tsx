@@ -122,7 +122,9 @@ function Index(props): ReactElement {
             [
               getSwiper(),
               getBasicSubject(),
-              listSubjectByCollege(res.data.college)
+              listSubjectByCollege(res.data.college),
+              getOtherDetail(),
+              getUnread()
             ].map(item =>
               item.catch(err => {
                 Taro.showToast({title: String(err), icon: 'none'})
@@ -150,7 +152,9 @@ function Index(props): ReactElement {
       [
         getSwiper(),
         getBasicSubject(),
-        listSubjectByCollege(currentCollege)
+        listSubjectByCollege(currentCollege),
+        getOtherDetail(),
+        getUnread()
       ].map(item =>
         item.catch(err => {
           console.log(err)
@@ -253,6 +257,55 @@ function Index(props): ReactElement {
     setCurrentCollege(collegeName)
     listSubjectByCollege(collegeName)
     setChooseCollege(false)
+  }
+
+  //获取其他疑难中的一个问答
+  const getOtherDetail = () => {
+    return new Promise((resolve, reject) => {
+      const data = {
+        state: 0,
+        currentPage: 1,
+        pageSize: 1,
+        subjectName: '其他疑难'
+      }
+      httpUtils
+        .getQuestionList(data)
+        .then(res => {
+          if (res.code !== 1) return Promise.reject('获取其他疑难失败')
+          setOtherDetail(JSON.parse(JSON.stringify(res.data.list[0])))
+          resolve('')
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  //获取邮件小红点
+  const getUnread = () => {
+    return new Promise((resolve, reject) => {
+      const accountId = Taro.getStorageSync('accountId')
+
+      if (accountId) {
+        httpUtils
+          .getUnReadMsg({
+            accountId
+          })
+          .then(res => {
+            if (res.code !== 1) return Promise.reject('获取未读信息失败')
+            if (res.data !== 0) {
+              Taro.setTabBarBadge({
+                index: 3,
+                text: String(res.data)
+              })
+            }
+            resolve('')
+          })
+          .catch(err => {
+            reject(err)
+          })
+      }
+    })
   }
 
   return (

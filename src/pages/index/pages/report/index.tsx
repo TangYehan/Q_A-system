@@ -91,7 +91,7 @@ function Report(props: {accountId: string | number}): ReactElement {
           break
       }
       res = typeof res === 'string' ? JSON.parse(res) : res
-      if (res.code !== 1) throw '举报失败'
+      if (res.code !== 1) throw res.msg || '举报失败'
       textContent.current.clear()
       picUp.current.clear()
       Taro.showToast({

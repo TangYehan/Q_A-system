@@ -248,6 +248,11 @@ class Https {
    * 去登陆
    */
   login = param => get('/casLogin', param)
+
+  /**
+   * 获取未读信息
+   */
+  getUnReadMsg = param => get('/email/getUnreadCount', param)
 }
 
 export default new Https()

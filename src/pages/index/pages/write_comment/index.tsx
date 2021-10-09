@@ -43,7 +43,7 @@ function WriteComment(props: any): ReactElement {
         content: contentWord
       }
       const res = await httpUtil.submitComment(data)
-      if (res.code !== 1) throw '发布评论失败'
+      if (res.code !== 1) throw  res.msg||'发布评论失败'
       else {
         Taro.showToast({
           title: '发布成功',

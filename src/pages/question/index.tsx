@@ -18,7 +18,6 @@ function AddQuestion(props): ReactElement {
   }
 
   const submit = async () => {
-    const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
     try {
       if (!props.isLogin) throw '请登录'
       const {titleInput, detailInput, imgs} = questionIpt.current.getInput()
@@ -60,7 +59,7 @@ function AddQuestion(props): ReactElement {
           title: '发布成功',
           duration: 1500
         })
-      } else throw '出错啦~'
+      } else throw res.msg || '出错啦'
     } catch (err) {
       Taro.showToast({
         icon: 'none',
