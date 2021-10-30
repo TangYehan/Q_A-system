@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useImperativeHandle} from 'react'
 import Taro from '@tarojs/taro'
 
-import {View, Text, Image, Textarea} from '@tarojs/components'
+import {View, Text, Textarea} from '@tarojs/components'
 
 import './index.scss'
 

@@ -29,7 +29,7 @@ export default function index(props: Props): ReactElement {
   }
 
   return (
-    <View className='question_card' key={props.key} onClick={gotoQestionDetail}>
+    <View className='question_card' onClick={gotoQestionDetail}>
       <View className='question_card_title'>
         <View className='title_left'>
           {props.subjectLable ? props.subjectLable : ''}

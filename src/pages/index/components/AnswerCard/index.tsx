@@ -31,7 +31,6 @@ export default function index(props: Props): ReactElement {
   return (
     <View
       className='answer_list_item'
-      key={props.key}
       onClick={props.onClick ? props.onClick : ''}>
       <View className='user_infor' onClick={gotoPersonal}>
         <View className='left_info'>

@@ -8,7 +8,8 @@ import {
   SwiperItem,
   Navigator,
   Image,
-  Text
+  Text,
+  ScrollView
 } from '@tarojs/components'
 import Title from '../../components/Title'
 import QuestionCard from '../../components/QuestionCard'
@@ -187,7 +188,7 @@ function Index(props): ReactElement {
   const getBasicSubject = () => {
     return new Promise((resolve, reject) => {
       httpUtils
-        .listSubjectByCollege({college: '基础学科'})
+        .listSubjectByCollege({college: '基础课程'})
         .then(res => {
           if (res.code !== 1) return Promise.reject('获取基础课程失败')
           let {data} = res
@@ -385,7 +386,7 @@ function Index(props): ReactElement {
             <View className='title_box'>
               <Title icon={titleIcon}>专业课程</Title>
               <View className='current_college' onClick={showAllCollege}>
-                当前：{currentCollege}
+                <View className='current_text'>当前：{currentCollege}</View>
                 <Image src={showArrow} className='show'></Image>
               </View>
             </View>
@@ -436,7 +437,7 @@ function Index(props): ReactElement {
       {chooseCollege ? (
         <>
           <View className='choose_college_mask' onClick={cancelMask}></View>
-          <View className='choose_college'>
+          <ScrollView className='choose_college' scroll-y={true}>
             <View className='choose_college_title'>请选择学院</View>
             {collegeList.map((item: any) => (
               <View
@@ -450,7 +451,7 @@ function Index(props): ReactElement {
                 <View className='add_college'> + </View>
               </View>
             ))}
-          </View>
+          </ScrollView>
         </>
       ) : (
         ''

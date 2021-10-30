@@ -24,7 +24,7 @@ export default function index(props: Props): ReactElement {
     // console.log(123123)
   }
   return (
-    <View className='comment_item' key={props.key}>
+    <View className='comment_item'>
       <View className='user_infor' onClick={gotoPersonal}>
         <View className='left_info'>
           <View className='user_head'>

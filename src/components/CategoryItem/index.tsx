@@ -24,7 +24,7 @@ export default function index(props: Props): ReactElement {
     setIsShowDetail(false)
   }
   return (
-    <View className='category_item_box' key={props.key}>
+    <View className='category_item_box'>
       <View className='item_left'>
         <Image
           className='icon'

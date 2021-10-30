@@ -100,10 +100,7 @@ export default function index(props: Props): ReactElement {
   }
 
   return (
-    <View
-      className='answer_detail'
-      // key={props.key}
-    >
+    <View className='answer_detail'>
       <View className='user_infor' onClick={gotoPersonal}>
         <View className='left_info'>
           <View className='user_head'>

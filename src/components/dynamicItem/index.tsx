@@ -5,6 +5,7 @@ import {View, Text, Image} from '@tarojs/components'
 import {baseImgUrl} from '../../utils/request/http'
 
 import './index.scss'
+
 interface Props {
   className?: string
   msg: {
