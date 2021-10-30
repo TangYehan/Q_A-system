@@ -27,6 +27,7 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
+    "prepare": "husky install",
     "commit": "git-cz",
     "release": "standard-version"
   },
@@ -38,6 +39,8 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
     "@tarojs/components": "3.3.0",
     "@tarojs/react": "3.3.0",
     "@tarojs/runtime": "3.3.0",
@@ -68,6 +71,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-taro": "^3.3.1",
+    "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "prettier": "^2.3.2",
     "prettier-eslint": "^13.0.0",
