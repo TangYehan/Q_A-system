@@ -1,6 +1,6 @@
 {
   "name": "Q_ASystem",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "邮问必答",
   "templateInfo": {
@@ -27,7 +27,8 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "standard-version"
   },
   "browserslist": [
     "last 3 versions",
@@ -70,6 +71,7 @@
     "lint-staged": "^11.2.6",
     "prettier": "^2.3.2",
     "prettier-eslint": "^13.0.0",
+    "standard-version": "^9.3.2",
     "stylelint": "^9.10.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^22.0.0",
