@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-husky --uninstall commitlint --edit $1
+npx commitlint -e $1
