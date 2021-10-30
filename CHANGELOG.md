@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/TangYehan/Q_A-system/compare/v1.1.0...v1.2.0) (2021-10-30)
+
+
+### Features
+
+* 提交和版本控制工程化 ([486030e](https://github.com/TangYehan/Q_A-system/commit/486030e257ef6fb20b9b45e2298a1fdb21f6c073))
+
 ## 1.1.0 (2021-10-30)
 
 
