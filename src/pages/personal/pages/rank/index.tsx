@@ -117,7 +117,7 @@ function Rank(props: {accountId: string}): ReactElement {
       <View className='rank_explain'>
         <Title icon={tipsIcon}>排行榜说明</Title>
         <View className='explain_detail'>
-          排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明排行榜说明
+          <Text>此排行榜的成员积分按邮问必答积分规则进行增加与减少。</Text>
         </View>
       </View>
     </View>

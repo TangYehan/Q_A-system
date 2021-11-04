@@ -122,7 +122,7 @@ function Feedback(props: {accountId: string | number}): ReactElement {
         <ThemeBotton onClick={submitFeedback} className='submitBtn'>
           提交反馈
         </ThemeBotton>
-        <View className='group_tips'>欢迎加入开发反馈群：1198734032</View>
+        <View className='group_tips'>欢迎加入开发反馈群：xxxxxxxxx</View>
       </View>
       <View className='feedback_container'>
         <Title className='title' icon={feedbackIcon}>
