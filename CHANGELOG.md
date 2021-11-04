@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.3](https://github.com/TangYehan/Q_A-system/compare/v3.1.2...v3.1.3) (2021-11-04)
+
+
+### Bug Fixes
+
+* 1、修改回答详情图片显示 2、解决点赞收藏采纳连续点击问题 ([c6a8801](https://github.com/TangYehan/Q_A-system/commit/c6a880161384af9153f2255c30b541f7661e57c0))
+
+
+### Styling
+
+* 修改部分静态页面样式和文字 ([83c1695](https://github.com/TangYehan/Q_A-system/commit/83c1695f47d414c7d458cb637d0be36b7a056e5c))
+
 ## [3.1.1](https://github.com/TangYehan/Q_A-system/compare/v1.1.0...v1.2.0) (2021-10-30)
 
 ### Features
