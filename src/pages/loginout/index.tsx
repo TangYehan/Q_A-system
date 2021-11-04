@@ -1,4 +1,4 @@
-import {ReactElement, useEffect, useState} from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
 import Taro from '@tarojs/taro'
 
 import {WebView} from '@tarojs/components'

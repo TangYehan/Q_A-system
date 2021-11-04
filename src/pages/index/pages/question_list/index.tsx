@@ -1,4 +1,4 @@
-import {useEffect, ReactElement, useState, useRef} from 'react'
+import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
 
 import httpUtil from '../../../../utils/request'
@@ -12,9 +12,9 @@ import './index.scss'
 
 export default function index(): ReactElement {
   const initPageInfo = {
-    currentPage: 1,
+    currentPage: 0,
     pageSize: 7,
-    totalPages: 0,
+    totalPages: 1,
     totalRows: 0
   }
 
@@ -32,7 +32,8 @@ export default function index(): ReactElement {
       Taro.setNavigationBarTitle({
         title: subjectName as string
       })
-      const {currentPage, pageSize} = pageInfo
+      let {currentPage, pageSize} = pageInfo
+      currentPage++
       subjectInfo.current = {
         subjectId:
           String(subjectId) === 'undefined'

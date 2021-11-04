@@ -1,4 +1,4 @@
-import {ReactElement, useState, useEffect} from 'react'
+import React, {ReactElement, useState, useEffect} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 

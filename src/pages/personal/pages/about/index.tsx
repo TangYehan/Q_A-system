@@ -14,7 +14,7 @@ export default function index(): ReactElement {
   useEffect(() => {
     httpUtils.getImgs({type: 4}).then(res => {
       if (res.code !== 1) return Promise.reject()
-      setImg(res.data[0].url)
+      setImg(res.data[0])
     })
   }, [])
   return (
@@ -24,7 +24,7 @@ export default function index(): ReactElement {
         className='image'
         mode='aspectFill'></Image>
       <View className='intro'>
-        <Title icon={aboutIcon}>排行榜说明</Title>
+        <Title icon={aboutIcon}>小程序简介</Title>
         <View className='intro_content'>
           <Text>
             本程序为线上学业辅导官方答疑小程序，以学习交流为主，也可以交流生活问题，可通过发布问题的形式求助，会有答疑志愿者及答疑老师进行答疑，同时也鼓励大家互相交流答疑解惑。请注意发言规范。

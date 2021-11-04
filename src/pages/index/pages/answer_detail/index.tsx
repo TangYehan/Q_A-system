@@ -1,4 +1,4 @@
-import {useEffect, ReactElement, useState, useRef} from 'react'
+import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
 import httpUtil from '../../../../utils/request'

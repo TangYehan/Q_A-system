@@ -1,4 +1,4 @@
-import {ReactElement, useEffect, useState} from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
 import Taro from '@tarojs/taro'
 import {useReachBottom} from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
@@ -135,7 +135,21 @@ export default function index(): ReactElement {
           </View> */}
             <View className='userInfo_item'>
               <Image src={levelIcon} className='icon'></Image>
-              <View>初出茅庐</View>
+              <View>
+                {personalInfo.score > 2000
+                  ? '名冠天下'
+                  : personalInfo.score > 1000
+                  ? '名扬四海'
+                  : personalInfo.score > 500
+                  ? '远近闻名'
+                  : personalInfo.score > 200
+                  ? '小有名气'
+                  : personalInfo.score > 120
+                  ? '锋芒毕露'
+                  : personalInfo.score > 50
+                  ? '崭露头角'
+                  : '默默无闻'}
+              </View>
             </View>
           </View>
         </View>

@@ -4,6 +4,7 @@ import Taro, {useReachBottom} from '@tarojs/taro'
 import httpUtil from '../../../../utils/request'
 import {View, Input, Image, Navigator} from '@tarojs/components'
 import CategoryItem from '../../../../components/CategoryItem'
+import LoadMore from '../../../../components/LoadMore'
 
 import showArrow from '../../../../img/common/show.svg'
 import './index.scss'
@@ -12,7 +13,7 @@ export default function index(): ReactElement {
   const initPageInfo = {
     currentPage: 0,
     pageSize: 7,
-    totalPages: 0,
+    totalPages: 1,
     totalRows: 0
   }
 
@@ -97,6 +98,7 @@ export default function index(): ReactElement {
       <View className='list_container'>
         {courseList.map((item: any) => (
           <Navigator
+            hoverClass='none'
             url={`../question_list/index?subjectId=${item.subjectId}&subjectName=${item.subjectName}`}>
             <CategoryItem
               categorayMsg={item}
@@ -108,6 +110,7 @@ export default function index(): ReactElement {
           </Navigator>
         ))}
       </View>
+      <LoadMore loading={pageInfo.currentPage < pageInfo.totalPages} />
     </View>
   )
 }

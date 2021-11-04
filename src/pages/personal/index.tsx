@@ -180,13 +180,19 @@ function Personal(props: stateProp): JSX.Element {
               <View className='intro_item'>
                 <Image className='item_icon' src={levelIcon}></Image>
                 <Text>
-                  {accountInfo.score > 200
-                    ? '大显身手'
-                    : accountInfo.score > 100
-                    ? '游刃有余'
-                    : accountInfo.score > 30
-                    ? '小有成就'
-                    : '初出茅庐'}
+                  {accountInfo.score > 2000
+                    ? '名冠天下'
+                    : accountInfo.score > 1000
+                    ? '名扬四海'
+                    : accountInfo.score > 500
+                    ? '远近闻名'
+                    : accountInfo.score > 200
+                    ? '小有名气'
+                    : accountInfo.score > 120
+                    ? '锋芒毕露'
+                    : accountInfo.score > 50
+                    ? '崭露头角'
+                    : '默默无闻'}
                 </Text>
               </View>
             </View>

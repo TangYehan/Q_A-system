@@ -54,7 +54,7 @@ function Rank(props: {accountId: string}): ReactElement {
       })
       .catch(err => {
         Taro.showToast({
-          title: err,
+          title: String(err),
           icon: 'none'
         })
       })
@@ -65,11 +65,11 @@ function Rank(props: {accountId: string}): ReactElement {
       .getImgs({type: 3})
       .then(res => {
         if (res.code !== 1) return Promise.reject()
-        setImg(res.data[0].url)
+        setImg(res.data[0])
       })
       .catch(err => {
         Taro.showToast({
-          title: err,
+          title: String(err),
           icon: 'none'
         })
       })

@@ -1,4 +1,4 @@
-import {ReactElement, useState} from 'react'
+import React, {ReactElement, useState} from 'react'
 import {View, Text, Image} from '@tarojs/components'
 import {baseImgUrl} from '../../utils/request/http'
 import {format} from '../../utils/api'
@@ -16,11 +16,13 @@ export default function index(props: Props): ReactElement {
   const [isShowDetail, setIsShowDetail] = useState(false)
   const categoryMsg = props.categorayMsg
 
-  const showDetail = () => {
+  const showDetail = e => {
+    e.stopPropagation()
     setIsShowDetail(true)
   }
 
-  const unShowDetail = () => {
+  const unShowDetail = e => {
+    e.stopPropagation()
     setIsShowDetail(false)
   }
   return (

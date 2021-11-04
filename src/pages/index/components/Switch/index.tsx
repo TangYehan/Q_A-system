@@ -1,4 +1,4 @@
-import {ReactElement, useState} from 'react'
+import React, {ReactElement, useState} from 'react'
 import {View} from '@tarojs/components'
 import './index.scss'
 

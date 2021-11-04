@@ -1,4 +1,4 @@
-import {ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import {baseImgUrl} from '../../../../utils/request/http'
 import {format} from '../../../../utils/api'
 import {View, Image, Text, Navigator} from '@tarojs/components'

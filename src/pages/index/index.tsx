@@ -1,4 +1,4 @@
-import React, {useEffect, ReactElement, useState, useRef} from 'react'
+import React, {ReactElement, useState, useRef} from 'react'
 import {connect} from 'react-redux'
 import Taro, {usePullDownRefresh, useDidShow} from '@tarojs/taro'
 
@@ -35,63 +35,6 @@ function Index(props): ReactElement {
   const [otherDetail, setOtherDetail] = useState<any>({})
   const [currentCollege, setCurrentCollege] = useState('')
   const currentLoginStatus = useRef(false)
-
-  // useEffect(() => {
-  //   const uniqueId = Taro.getStorageSync('uniqueId')
-  //   if (uniqueId) {
-  //     httpUtils
-  //       .getUserInfo({uniqueId})
-  //       .then(res => {
-  //         if (res.code !== 1 || res.data === null) {
-  //           Taro.clearStorage()
-  //           return Promise.reject('请登录')
-  //         }
-
-  //         props.changeLoginStatus()
-  //         currentLoginStatus.current = true
-
-  //         props.setUserInfo(JSON.parse(JSON.stringify(res.data)))
-  //         Taro.setStorageSync('accountId', res.data.accountId)
-  //         Taro.setStorageSync('college', res.data.college)
-  //         setCurrentCollege(res.data.college)
-
-  //         if (res.data.loginScore !== 0) {
-  //           Taro.showToast({
-  //             title: `签到成功，积分+${res.data.loginScore}`,
-  //             icon: 'none'
-  //           })
-  //         }
-  //         return Promise.all(
-  //           [
-  //             getSwiper(),
-  //             getBasicSubject(),
-  //             listSubjectByCollege(res.data.college)
-  //           ].map(item =>
-  //             item.catch(err => {
-  //               Taro.showToast({title: String(err), icon: 'none'})
-  //             })
-  //           )
-  //         )
-  //       })
-  //       .then(res => {
-  //         setIsLoading(false)
-  //       })
-  //       .catch(err => {
-  //         Taro.showToast({
-  //           title: String(err),
-  //           icon: 'none',
-  //           duration: 2000,
-  //           mask: true
-  //         })
-  //       })
-  //   } else {
-  //     getSwiper()
-  //     Taro.showToast({
-  //       title: '未登录',
-  //       icon: 'none'
-  //     })
-  //   }
-  // }, [])
 
   useDidShow(() => {
     if (currentLoginStatus.current) return
@@ -369,7 +312,7 @@ function Index(props): ReactElement {
                 <Navigator
                   hoverClass='none'
                   className='course_item'
-                  url={`./pages/show_more_course/index?college=基础学科`}
+                  url={`./pages/show_more_course/index?college=基础课程`}
                   data-type='basic'>
                   <Image
                     src={showMoreIcon}

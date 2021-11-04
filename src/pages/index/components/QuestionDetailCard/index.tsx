@@ -1,4 +1,4 @@
-import {ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import Taro from '@tarojs/taro'
 
 import {baseImgUrl} from '../../../../utils/request/http'

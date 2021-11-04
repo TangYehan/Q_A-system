@@ -1,4 +1,4 @@
-import {useEffect, ReactElement, useState, useRef} from 'react'
+import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {
   useReachBottom,
   usePullDownRefresh,
@@ -32,6 +32,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
   const [pageInfo, setPageInfo] = useState(initPageInfo)
   const hotAnswerList = useRef<any>([])
   const newAnswerList = useRef<any>([])
+  const canClickCollect = useRef(true)
   const _questionId = useRef<any>(undefined)
 
   useEffect(() => {
@@ -151,6 +152,8 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
   }
 
   const addIntoCollection = async () => {
+    if (!canClickCollect.current) return
+    canClickCollect.current = false
     try {
       const current = !isCollection
       setIsCollection(current)
@@ -173,6 +176,7 @@ function QuestionDetail(props: {accountId: string | number}): ReactElement {
         icon: 'none'
       })
     }
+    canClickCollect.current = true
   }
 
   const getAnswerList = data => {

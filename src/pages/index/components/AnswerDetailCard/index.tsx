@@ -1,4 +1,4 @@
-import {ReactElement, useEffect, useState} from 'react'
+import React, {ReactElement, useEffect, useState, useRef} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text, Navigator} from '@tarojs/components'
 
@@ -24,6 +24,8 @@ interface Props {
 
 export default function index(props: Props): ReactElement {
   const [answer, setAnswer] = useState<any>({})
+  const canClickAgree = useRef(true)
+  const canClickAdopt = useRef(true)
 
   useEffect(() => {
     setAnswer(props.answerDetail)
@@ -37,7 +39,9 @@ export default function index(props: Props): ReactElement {
   }
 
   const handleAdopt = async () => {
+    if (!canClickAdopt.current) return
     if (answer.isAdopt) return
+    canClickAdopt.current = false
     const newState = !answer.isAdopt
     try {
       const data = {
@@ -58,9 +62,12 @@ export default function index(props: Props): ReactElement {
         icon: 'none'
       })
     }
+    canClickAdopt.current = true
   }
 
   const handleAgree = async () => {
+    if (!canClickAgree.current) return
+    canClickAdopt.current = false
     try {
       let newAnswerDetail = answer
       newAnswerDetail.isAgree = newAnswerDetail.isAgree ? 0 : 1
@@ -84,6 +91,7 @@ export default function index(props: Props): ReactElement {
         icon: 'none'
       })
     }
+    canClickAdopt.current = true
   }
 
   const handleComment = () => {
@@ -147,6 +155,7 @@ export default function index(props: Props): ReactElement {
         </Text>
         {answer.contentImg && answer.contentImg !== '-1' ? (
           <Image
+            mode='widthFix'
             onClick={preView}
             className='content_img'
             src={baseImgUrl + answer.contentImg}></Image>
