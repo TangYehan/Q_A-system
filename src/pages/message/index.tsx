@@ -1,11 +1,11 @@
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import Taro, {useReachBottom, usePullDownRefresh} from '@tarojs/taro'
 
-import httpUtils from '../../utils/request'
+import httpUtils from '@/utils/request'
 import {View, Image, Input} from '@tarojs/components'
 import MessageItem from './components/MessageItem'
-import LoadMore from '../../components/LoadMore'
-import Empty from '../../components/Empty'
+import LoadMore from '@/components/LoadMore'
+import Empty from '@/components/Empty'
 
 import './index.scss'
 

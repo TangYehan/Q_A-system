@@ -1,11 +1,11 @@
 import React, {ReactElement, useEffect, useState} from 'react'
 import {View, Image, Text} from '@tarojs/components'
-import Title from '../../../../components/Title'
+import Title from '@/components/Title'
 
-import {baseImgUrl} from '../../../../utils/request/http'
-import httpUtils from '../../../../utils/request'
+import {baseImgUrl} from '@/utils/request/http'
+import httpUtils from '@/utils/request'
 
-import aboutIcon from '../../../../img/userInfo/introduce_icon.svg'
+import aboutIcon from '@/img/userInfo/introduce_icon.svg'
 import './index.scss'
 
 export default function index(): ReactElement {

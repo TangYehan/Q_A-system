@@ -2,9 +2,9 @@ import React, {ReactElement, useState, useEffect} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 
-import {format} from '../../../../utils/api'
-import httpUtils from '../../../../utils/request'
-import {baseImgUrl} from '../../../../utils/request/http'
+import {format} from '@/utils/api'
+import httpUtils from '@/utils/request'
+import {baseImgUrl} from '@/utils/request/http'
 import './index.scss'
 export default function index(): ReactElement {
   const [newsDetail, setNewsDetail] = useState<any>({})

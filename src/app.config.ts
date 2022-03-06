@@ -6,21 +6,21 @@ export default {
     'pages/question/index',
     'pages/email/index',
     'pages/personal/index',
-    'pages/personal/pages/about/index',
-    'pages/personal/pages/feedback/index',
-    'pages/personal/pages/rank/index',
-    'pages/personal/pages/edit/index',
+    // 'pages/personal/pages/about/index',
+    // 'pages/personal/pages/feedback/index',
+    // 'pages/personal/pages/rank/index',
+    // 'pages/personal/pages/edit/index',
     'pages/question/pages/choose_category/index',
-    'pages/message/pages/message_detail/index',
-    'pages/index/pages/show_more_course/index',
-    'pages/index/pages/question_list/index',
-    'pages/index/pages/question_detail/index',
-    'pages/index/pages/answer_detail/index',
-    'pages/index/pages/write_comment/index',
-    'pages/index/pages/comments_list/index',
-    'pages/index/pages/report/index',
-    'pages/index/pages/write_answer/index',
-    'pages/index/pages/other_index/index'
+    'pages/message/pages/message_detail/index'
+    // 'pages/index/pages/show_more_course/index',
+    // 'pages/index/pages/question_list/index',
+    // 'pages/index/pages/question_detail/index',
+    // 'pages/index/pages/answer_detail/index',
+    // 'pages/index/pages/write_comment/index',
+    // 'pages/index/pages/comments_list/index',
+    // 'pages/index/pages/report/index',
+    // 'pages/index/pages/write_answer/index',
+    // 'pages/index/pages/other_index/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -61,5 +61,28 @@ export default {
         selectedIconPath: 'img/tabBar/active_personal.png'
       }
     ]
-  }
+  },
+  //分包配置
+  subPackages: [
+    {
+      root: 'pages/index/pages',
+      name: 'otherPages',
+      pages: [
+        'answer_detail/index',
+        'comments_list/index',
+        'show_more_course/index',
+        'question_list/index',
+        'question_detail/index',
+        'write_comment/index',
+        'report/index',
+        'write_answer/index',
+        'other_index/index'
+      ]
+    },
+    {
+      root: 'pages/personal/pages',
+      name: 'personalPages',
+      pages: ['about/index', 'feedback/index', 'rank/index', 'edit/index']
+    }
+  ]
 }

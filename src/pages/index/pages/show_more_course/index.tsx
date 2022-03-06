@@ -1,12 +1,12 @@
 import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
 
-import httpUtil from '../../../../utils/request'
+import httpUtil from '@/utils/request'
 import {View, Input, Image, Navigator} from '@tarojs/components'
-import CategoryItem from '../../../../components/CategoryItem'
-import LoadMore from '../../../../components/LoadMore'
+import CategoryItem from '@/components/CategoryItem'
+import LoadMore from '@/components/LoadMore'
 
-import showArrow from '../../../../img/common/show.svg'
+import showArrow from '@/img/common/show.svg'
 import './index.scss'
 
 export default function index(): ReactElement {

@@ -1,5 +1,5 @@
 import {CHANGE_LOGIN_STATUS} from '../constant'
-const initState = false
+const initState = true
 
 export default (preState = initState, action) => {
   let {type} = action

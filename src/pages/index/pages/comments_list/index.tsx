@@ -1,10 +1,10 @@
 import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
-import httpUtil from '../../../../utils/request'
+import httpUtil from '@/utils/request'
 
 import {View} from '@tarojs/components'
 import CommentItem from '../../components/CommentItem'
-import LoadMore from '../../../../components/LoadMore'
+import LoadMore from '@/components/LoadMore'
 
 import './index.scss'
 

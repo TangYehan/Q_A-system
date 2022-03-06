@@ -7,17 +7,17 @@ import Taro, {
 } from '@tarojs/taro'
 import httpUtils from '../../utils/request'
 import {View, Text, Image} from '@tarojs/components'
-import DynamicItem from '../../components/dynamicItem'
-import CollectionMyquestionItem from '../../components/QuestionCard'
+import DynamicItem from '@/components/dynamicItem'
+import CollectionMyquestionItem from '@/components/QuestionCard'
+import LoadMore from '@/components/LoadMore'
+import Empty from '@/components/Empty'
 import InvitationItem from './components/invitationItem'
-import LoadMore from '../../components/LoadMore'
-import Empty from '../../components/Empty'
 
 import './index.scss'
-import dynamicIcon from '../../img/email/dynamic.svg'
-import invitationIcon from '../../img/email/write.svg'
-import collectionIcon from '../../img/email/collection.svg'
-import myquestionIcon from '../../img/email/myquestion.svg'
+import dynamicIcon from '@/img/email/dynamic.svg'
+import invitationIcon from '@/img/email/write.svg'
+import collectionIcon from '@/img/email/collection.svg'
+import myquestionIcon from '@/img/email/myquestion.svg'
 
 function Email(props: {
   accountId: number | string

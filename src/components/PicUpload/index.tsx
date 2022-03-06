@@ -59,9 +59,13 @@ export default React.forwardRef((props: Props, ref) => {
           </View>
         </View>
       ))}
-      <View className='upload_pic' onClick={uploadPic}>
-        <Text>+</Text>
-      </View>
+      {img.length >= allowMaxPic ? (
+        ''
+      ) : (
+        <View className='upload_pic' onClick={uploadPic}>
+          <Text>+</Text>
+        </View>
+      )}
     </View>
   )
 })

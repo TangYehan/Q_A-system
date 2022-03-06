@@ -3,13 +3,13 @@ import Taro, {useReachBottom} from '@tarojs/taro'
 import {connect} from 'react-redux'
 
 import {View, Image, Input} from '@tarojs/components'
-import CategoryItem from '../../../../components/CategoryItem'
-import LoadMore from '../../../../components/LoadMore'
-import httpUtils from '../../../../utils/request'
+import CategoryItem from '@/components/CategoryItem'
+import LoadMore from '@/components/LoadMore'
+import httpUtils from '@/utils/request'
 import setChooseCategory from '../../../../redux/actions/choosedCategory'
 
 import './index.scss'
-import searchIcon from '../../../../img/common/search.svg'
+import searchIcon from '@/img/common/search.svg'
 
 const initPageInfo = {
   currentPage: 1,

@@ -2,12 +2,12 @@ import React, {ReactElement, useRef} from 'react'
 import Taro from '@tarojs/taro'
 import {connect} from 'react-redux'
 
-import httpUtils from '../../utils/request'
+import httpUtils from '@/utils/request'
 import setChooseCategory from '../../redux/actions/choosedCategory'
 
 import {View, Text} from '@tarojs/components'
-import TextPicUpload from '../../components/TextPicUpload'
-import ThemeButton from '../../components/ThemeButton'
+import TextPicUpload from '@/components/TextPicUpload'
+import ThemeButton from '@/components/ThemeButton'
 
 import './index.scss'
 

@@ -2,12 +2,12 @@ import React, {ReactElement, useState, useEffect, useRef} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 
-import httpUtil from '../../../../utils/request'
-import {format} from '../../../../utils/api'
+import httpUtil from '@/utils/request'
+import {format} from '@/utils/api'
 
-import ThemeButton from '../../../../components/ThemeButton'
-import MyTextarea from '../../../../components/MyTextarea'
-import PicUpload from '../../../../components/PicUpload'
+import ThemeButton from '@/components/ThemeButton'
+import MyTextarea from '@/components/MyTextarea'
+import PicUpload from '@/components/PicUpload'
 import './index.scss'
 import {connect} from 'react-redux'
 

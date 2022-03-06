@@ -18,7 +18,12 @@
     "jsx": "react",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": ["node_modules/@types", "global.d.ts"]
+    "typeRoots": ["node_modules/@types", "global.d.ts"],
+    "paths": {
+      "@/components/*": ["./src/components/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/img/*": ["./src/img/*"]
+    }
   },
   "exclude": ["node_modules", "dist"],
   "compileOnSave": false

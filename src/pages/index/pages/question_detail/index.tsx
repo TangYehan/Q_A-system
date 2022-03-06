@@ -6,16 +6,16 @@ import Taro, {
 } from '@tarojs/taro'
 import {connect} from 'react-redux'
 
-import httpUtil from '../../../../utils/request'
+import httpUtil from '@/utils/request'
 import {View, Navigator} from '@tarojs/components'
-import LoadMore from '../../../../components/LoadMore'
+import LoadMore from '@/components/LoadMore'
 import QuestionDetailCard from '../../components/QuestionDetailCard'
-import ThemeButton from '../../../../components/ThemeButton'
+import ThemeButton from '@/components/ThemeButton'
 import AnswerCard from '../../components/AnswerCard'
-import Empty from '../../../../components/Empty'
+import Empty from '@/components/Empty'
 
 import './index.scss'
-import '../../../../img/operate/iconfont.css'
+import '@/img/operate/iconfont.css'
 
 function QuestionDetail(props: {accountId: string | number}): ReactElement {
   const initPageInfo = {

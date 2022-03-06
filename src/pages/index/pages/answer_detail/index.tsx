@@ -1,7 +1,7 @@
 import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
-import httpUtil from '../../../../utils/request'
+import httpUtil from '@/utils/request'
 
 import {View, Image} from '@tarojs/components'
 import QustionDetailCard from '../../components/QuestionDetailCard'
@@ -9,8 +9,8 @@ import AnswerDetailCard from '../../components/AnswerDetailCard'
 import CommentItem from '../../components/CommentItem'
 
 import './index.scss'
-import '../../../../img/operate/iconfont.css'
-import showArrow from '../../../../img/common/show.svg'
+import '@/img/operate/iconfont.css'
+import showArrow from '@/img/common/show.svg'
 
 function AnswerDetail(props: {accountId: string | number}): ReactElement {
   const [questionDetail, setQuestionDetail] = useState<any>({})

@@ -1,3 +1,4 @@
+const path = require('path')
 const config = {
   projectName: 'Q_ASystem',
   date: '2021-7-19',
@@ -9,7 +10,13 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  alias: {
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/img': path.resolve(__dirname, '..', 'src/img')
+  },
+  plugins: [path.resolve(__dirname, '..', 'plugins/thread.js')],
+  // plugins: [],
   defineConstants: {},
   copy: {
     patterns: [],
@@ -37,6 +44,9 @@ const config = {
           namingPattern: 'module', // 转换模式，取值为 global/module
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
+      },
+      optimizeMainPackage: {
+        enable: true
       }
     }
   },

@@ -11,18 +11,18 @@ import {
   Text,
   ScrollView
 } from '@tarojs/components'
-import Title from '../../components/Title'
-import QuestionCard from '../../components/QuestionCard'
+import Title from '@/components/Title'
+import QuestionCard from '@/components/QuestionCard'
 
 import changeLoginStatus from '../../redux/actions/login'
 import {setUserInfo} from '../../redux/actions/userInfo'
-import httpUtils from '../../utils/request/index'
-import {baseImgUrl} from '../..//utils/request/http'
+import httpUtils from '@/utils/request/index'
+import {baseImgUrl} from '@/utils/request/http'
 
-import tempSwiperImg from '../../img/cqupt.jpg'
-import showArrow from '../../img/common/show.svg'
-import showMoreIcon from '../../img/more.svg'
-import titleIcon from '../../img/identity/volunteer.svg'
+import tempSwiperImg from '@/img/cqupt.jpg'
+import showArrow from '@/img/common/show.svg'
+import showMoreIcon from '@/img/more.svg'
+import titleIcon from '@/img/identity/volunteer.svg'
 import './index.scss'
 
 function Index(props): ReactElement {

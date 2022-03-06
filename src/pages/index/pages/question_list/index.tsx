@@ -1,12 +1,12 @@
 import React, {useEffect, ReactElement, useState, useRef} from 'react'
 import Taro, {useReachBottom} from '@tarojs/taro'
 
-import httpUtil from '../../../../utils/request'
+import httpUtil from '@/utils/request'
 import {View, Input, Image} from '@tarojs/components'
-import LoadMore from '../../../../components/LoadMore'
-import QuestionCard from '../../../../components/QuestionCard'
+import LoadMore from '@/components/LoadMore'
+import QuestionCard from '@/components/QuestionCard'
 import Switch from '../../components/Switch'
-import Empty from '../../../../components/Empty'
+import Empty from '@/components/Empty'
 
 import './index.scss'
 

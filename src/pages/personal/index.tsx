@@ -1,44 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import {useDidShow} from '@tarojs/taro'
 import {connect} from 'react-redux'
 import Taro from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
+import {stateProp, accountInfoProp} from './data.d'
 
-import ThemeBotton from '../../components/ThemeButton/index'
+import ThemeBotton from '@/components/ThemeButton/index'
 import NavigateItem from './components/navigateItem/index'
+import Skeleton from '@/components/Skeleton'
 
-import {format} from '../../utils/api'
-import httpUtils from '../../utils/request/index'
-import {baseImgUrl} from '../../utils/request/http'
+import {format} from '@/utils/api'
+import httpUtils from '@/utils/request/index'
+import {baseImgUrl} from '@/utils/request/http'
 
 import './index.scss'
-import volunteerIcon from '../../img/identity/volunteer.svg'
-import studentIcon from '../../img/identity/student.svg'
-import teacherIcon from '../../img/identity/teacher.svg'
-import collegeIcon from '../../img/userInfo/degree.svg'
-import levelIcon from '../../img/userInfo/level.svg'
-import rankIcon from '../../img/userInfo/rank.svg'
-import feedbackIcon from '../../img/userInfo/feedback.svg'
-import aboutIcon from '../../img/userInfo/about.svg'
-
-interface stateProp {
-  userInfo: {accountId: number | string; college: string}
-  isLogin: boolean
-}
-
-interface accountInfoProp {
-  userName: string
-  college: string
-  imgPath: string
-  introduce: string
-  questionCount: number
-  role: number
-  score: number
-  solveCount: number
-  agreeCount: number
-  answerCount: number
-  collectionCount: number
-}
+import volunteerIcon from '@/img/identity/volunteer.svg'
+import studentIcon from '@/img/identity/student.svg'
+import teacherIcon from '@/img/identity/teacher.svg'
+import collegeIcon from '@/img/userInfo/degree.svg'
+import levelIcon from '@/img/userInfo/level.svg'
+import rankIcon from '@/img/userInfo/rank.svg'
+import feedbackIcon from '@/img/userInfo/feedback.svg'
+import aboutIcon from '@/img/userInfo/about.svg'
 
 const initAccountInfo = {
   userName: '',
@@ -57,6 +40,7 @@ const initAccountInfo = {
 function Personal(props: stateProp): JSX.Element {
   const [accountInfo, setAccountInfo] =
     useState<accountInfoProp>(initAccountInfo)
+  const [loading, setLoading] = useState(true)
 
   useDidShow(() => {
     if (props.isLogin) {
@@ -67,12 +51,14 @@ function Personal(props: stateProp): JSX.Element {
           if (res.code !== 1 || res.data === null)
             return Promise.reject('网络繁忙')
           setAccountInfo(JSON.parse(JSON.stringify(res.data)))
+          setLoading(false)
         })
         .catch(err => {
           Taro.showToast({
             title: String(err),
             icon: 'none'
           })
+          setLoading(false)
         })
     }
   })
@@ -140,115 +126,128 @@ function Personal(props: stateProp): JSX.Element {
   }
 
   return (
-    <View className='personal_page'>
-      <View className='personal_card'>
-        <View className='base_info'>
-          <Image
-            className='head_img'
-            src={
-              accountInfo.imgPath ? baseImgUrl + accountInfo.imgPath : ''
-            }></Image>
-          <View className='intro'>
-            <View className='name'>{accountInfo.userName}</View>
-            <View className='intro_msg'>
-              <View className='intro_item'>
-                <Image
-                  className='item_icon'
-                  src={
-                    accountInfo.role === 3
-                      ? studentIcon
+    <Fragment>
+      <Skeleton selector='skeleton' loading={loading} />
+      <View className='personal_page'>
+        <View className='personal_card skeleton'>
+          <View className='base_info'>
+            <Image
+              className='head_img skeleton-radius'
+              src={
+                accountInfo.imgPath ? baseImgUrl + accountInfo.imgPath : ''
+              }></Image>
+            <View className='intro'>
+              <View className='name skeleton-rect'>{accountInfo.userName}</View>
+              <View className='intro_msg skeleton-rect'>
+                <View className='intro_item'>
+                  <Image
+                    className='item_icon'
+                    src={
+                      accountInfo.role === 3
+                        ? studentIcon
+                        : accountInfo.role === 2
+                        ? volunteerIcon
+                        : teacherIcon
+                    }></Image>
+                  <Text>
+                    {accountInfo.role === 3
+                      ? '学生'
                       : accountInfo.role === 2
-                      ? volunteerIcon
-                      : teacherIcon
-                  }></Image>
-                <Text>
-                  {accountInfo.role === 3
-                    ? '学生'
-                    : accountInfo.role === 2
-                    ? '志愿者'
-                    : accountInfo.role === 1
-                    ? '教师'
-                    : '管理员'}
-                </Text>
+                      ? '志愿者'
+                      : accountInfo.role === 1
+                      ? '教师'
+                      : '管理员'}
+                  </Text>
+                </View>
+                <View className='intro_item'>
+                  <Image className='item_icon' src={collegeIcon}></Image>
+                  <Text className='college'>
+                    {props.userInfo.college ? props.userInfo.college : '重邮'}
+                  </Text>
+                </View>
+                <View className='intro_item'>
+                  <Image className='item_icon' src={levelIcon}></Image>
+                  <Text>
+                    {accountInfo.score > 2000
+                      ? '名冠天下'
+                      : accountInfo.score > 1000
+                      ? '名扬四海'
+                      : accountInfo.score > 500
+                      ? '远近闻名'
+                      : accountInfo.score > 200
+                      ? '小有名气'
+                      : accountInfo.score > 120
+                      ? '锋芒毕露'
+                      : accountInfo.score > 50
+                      ? '崭露头角'
+                      : '默默无闻'}
+                  </Text>
+                </View>
               </View>
-              <View className='intro_item'>
-                <Image className='item_icon' src={collegeIcon}></Image>
-                <Text className='college'>
-                  {props.userInfo.college ? props.userInfo.college : '重邮'}
-                </Text>
-              </View>
-              <View className='intro_item'>
-                <Image className='item_icon' src={levelIcon}></Image>
-                <Text>
-                  {accountInfo.score > 2000
-                    ? '名冠天下'
-                    : accountInfo.score > 1000
-                    ? '名扬四海'
-                    : accountInfo.score > 500
-                    ? '远近闻名'
-                    : accountInfo.score > 200
-                    ? '小有名气'
-                    : accountInfo.score > 120
-                    ? '锋芒毕露'
-                    : accountInfo.score > 50
-                    ? '崭露头角'
-                    : '默默无闻'}
-                </Text>
+              <View className='self_intro skeleton-rect'>
+                <Text decode={true}>{format(accountInfo.introduce)}</Text>
               </View>
             </View>
-            <View className='self_intro'>
-              <Text decode={true}>{format(accountInfo.introduce)}</Text>
+          </View>
+          <View className='relevant_info'>
+            <View className='relevant_left'>
+              <View className='edit_btn skeleton-rect' onClick={gotoEdit}>
+                编辑资料
+              </View>
+              <View className='skeleton-rect'>积分：{accountInfo.score}</View>
+            </View>
+            <View className='relevant_right'>
+              <View className='relevant_item'>
+                <Text className='skeleton-rect'>提问</Text>
+                <Text className='skeleton-rect item_number'>
+                  {accountInfo.questionCount}
+                </Text>
+              </View>
+              <View className='relevant_item'>
+                <Text className='skeleton-rect'>回答</Text>
+                <Text className='skeleton-rect item_number'>
+                  {accountInfo.answerCount}
+                </Text>
+              </View>
+              <View className='relevant_item'>
+                <Text className='skeleton-rect'>收藏</Text>
+                <Text className='skeleton-rect item_number'>
+                  {accountInfo.collectionCount}
+                </Text>
+              </View>
+              <View className='relevant_item'>
+                <Text className='skeleton-rect'>赞同</Text>
+                <Text className='skeleton-rect item_number'>
+                  {accountInfo.agreeCount}
+                </Text>
+              </View>
+              <View className='relevant_item'>
+                <Text className='skeleton-rect'>采纳</Text>
+                <Text className='skeleton-rect item_number'>
+                  {accountInfo.solveCount}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
-        <View className='relevant_info'>
-          <View className='relevant_left'>
-            <View className='edit_btn' onClick={gotoEdit}>
-              编辑资料
-            </View>
-            <View>积分：{accountInfo.score}</View>
-          </View>
-          <View className='relevant_right'>
-            <View className='relevant_item'>
-              <Text>提问</Text>
-              <Text className='item_number'>{accountInfo.questionCount}</Text>
-            </View>
-            <View className='relevant_item'>
-              <Text>回答</Text>
-              <Text className='item_number'>{accountInfo.answerCount}</Text>
-            </View>
-            <View className='relevant_item'>
-              <Text>收藏</Text>
-              <Text className='item_number'>{accountInfo.collectionCount}</Text>
-            </View>
-            <View className='relevant_item'>
-              <Text>赞同</Text>
-              <Text className='item_number'>{accountInfo.agreeCount}</Text>
-            </View>
-            <View className='relevant_item'>
-              <Text>采纳</Text>
-              <Text className='item_number'>{accountInfo.solveCount}</Text>
-            </View>
-          </View>
+        <View className='navigate'>
+          <NavigateItem icon={rankIcon} url='./pages/rank/index'>
+            排行榜
+          </NavigateItem>
+          <NavigateItem icon={feedbackIcon} url='./pages/feedback/index'>
+            反馈
+          </NavigateItem>
+          <NavigateItem icon={aboutIcon} url='./pages/about/index'>
+            关于
+          </NavigateItem>
+        </View>
+        <View className='btn_area'>
+          <ThemeBotton onClick={props.isLogin ? gotoLogout : gotoLogin}>
+            {props.isLogin ? '退出登录' : '去登陆'}
+          </ThemeBotton>
         </View>
       </View>
-      <View className='navigate'>
-        <NavigateItem icon={rankIcon} url='./pages/rank/index'>
-          排行榜
-        </NavigateItem>
-        <NavigateItem icon={feedbackIcon} url='./pages/feedback/index'>
-          反馈
-        </NavigateItem>
-        <NavigateItem icon={aboutIcon} url='./pages/about/index'>
-          关于
-        </NavigateItem>
-      </View>
-      <View className='btn_area'>
-        <ThemeBotton onClick={props.isLogin ? gotoLogout : gotoLogin}>
-          {props.isLogin ? '退出登录' : '去登陆'}
-        </ThemeBotton>
-      </View>
-    </View>
+    </Fragment>
   )
 }
 

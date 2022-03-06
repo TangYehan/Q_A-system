@@ -3,8 +3,8 @@ import Taro from '@tarojs/taro'
 import httpUtil from '../../../../utils/request'
 
 import {View} from '@tarojs/components'
-import MyTextarea from '../../../../components/MyTextarea'
-import ThemeButton from '../../../../components/ThemeButton'
+import MyTextarea from '@/components/MyTextarea'
+import ThemeButton from '@/components/ThemeButton'
 import './index.scss'
 import {connect} from 'react-redux'
 
@@ -43,7 +43,7 @@ function WriteComment(props: any): ReactElement {
         content: contentWord
       }
       const res = await httpUtil.submitComment(data)
-      if (res.code !== 1) throw  res.msg||'发布评论失败'
+      if (res.code !== 1) throw res.msg || '发布评论失败'
       else {
         Taro.showToast({
           title: '发布成功',

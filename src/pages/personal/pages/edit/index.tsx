@@ -3,15 +3,15 @@ import Taro from '@tarojs/taro'
 import {connect} from 'react-redux'
 
 import {View, Image} from '@tarojs/components'
-import Title from '../../../../components/Title/index'
-import ThemeBotton from '../../../../components/ThemeButton/index'
-import MyTextarea from '../../../../components/MyTextarea/index'
+import Title from '@/components/Title/index'
+import ThemeBotton from '@/components/ThemeButton/index'
+import MyTextarea from '@/components/MyTextarea/index'
 
-import {baseImgUrl} from '../../../../utils/request/http'
-import {chooseImg} from '../../../../utils/api'
-import httpUtils from '../../../../utils/request/index'
+import {baseImgUrl} from '@/utils/request/http'
+import {chooseImg} from '@/utils/api'
+import httpUtils from '@/utils/request/index'
 
-import introIcon from '../../../../img/userInfo/introduce_icon.svg'
+import introIcon from '@/img/userInfo/introduce_icon.svg'
 import './index.scss'
 
 interface stateProp {

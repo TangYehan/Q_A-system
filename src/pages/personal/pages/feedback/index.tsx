@@ -3,16 +3,16 @@ import Taro, {useReachBottom} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {connect} from 'react-redux'
 
-import ThemeBotton from '../../../../components/ThemeButton/index'
-import TextPicUpload from '../../../../components/TextPicUpload'
-import Title from '../../../../components/Title'
+import ThemeBotton from '@/components/ThemeButton/index'
+import TextPicUpload from '@/components/TextPicUpload'
+import Title from '@/components/Title'
 import FeedbackItem from '../../components/feedbackItem'
-import LoadMore from '../../../../components/LoadMore'
-import Empty from '../../../../components/Empty'
-import httpUtils from '../../../../utils/request/index'
+import LoadMore from '@/components/LoadMore'
+import Empty from '@/components/Empty'
+import httpUtils from '@/utils/request/index'
 
 import './index.scss'
-import feedbackIcon from '../../../../img/feedback/feedback.svg'
+import feedbackIcon from '@/img/feedback/feedback.svg'
 
 function Feedback(props: {accountId: string | number}): ReactElement {
   const initPageInfo = {
@@ -88,7 +88,7 @@ function Feedback(props: {accountId: string | number}): ReactElement {
         : await httpUtils.submitFeedback({data})
 
       res = typeof res === 'string' ? JSON.parse(res) : res
-      if (res.code !== 1) throw res.msg||'提交失败'
+      if (res.code !== 1) throw res.msg || '提交失败'
       feedbackInputs.current.clear()
       const data2 = {
         currentPage: 1,
